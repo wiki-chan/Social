@@ -1,0 +1,829 @@
+body:not(.action-edit):not(.action-history) .article {
+	padding: 0;
+	background: none;
+	border: none;
+}
+
+.cleared {
+	clear: both;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix { display: inline-block; }
+
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%; }
+/* End hide from IE-mac */
+
+.firstHeading {
+	border-bottom: none;
+	margin: 0px !important;
+	display: none;
+}
+
+.pagetitle {
+	display: inline !important;
+}
+
+#main {
+	padding: 0px 0px 0px 0px !important;
+}
+
+#user-page-left {
+	float: left;
+	width: 300px;
+	padding: 10px;
+}
+
+#user-page-right {
+	float: right;
+	width: 620px;
+	padding: 10px;
+}
+
+#user-page-left h2, #user-page-right h2 {
+	border-bottom: 1px solid #dcdcdc;
+	padding: 0px 0px 3px 0px;
+	margin: 0px 0px 5px 0px;
+	font-size: 17px;
+	letter-spacing: -1px;
+	color: #333;
+}
+
+.no-info-container {
+	margin: 5px 0px 20px 0px;
+	background-color: #F2F4F7;
+	padding: 20px;
+	text-align: center;
+	color: #777;
+}
+
+.item-small {
+	color: #999;
+	font-size: 12px;
+	margin: 0px 0px 0px 6px;
+	white-space: nowrap;
+}
+
+.user-section-heading {	
+	position: relative;
+	padding: 0 0 10px;
+	line-height: 22px;
+}
+.user-section-title {
+	float: left;
+	font-size: 20px;
+}
+.user-section-actions {
+	float: right;
+}
+
+/* 편집 버튼 */
+.action-left {
+	float: left;
+	margin-right: 10px;
+	color: #aaa;
+}
+.action-right {
+	float: right;
+}
+
+.user-section-actions a {
+	font-size: 12px;
+	padding: 2px 4px;
+	color: #fff !important;
+	background: #50a9d2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 3px;
+}
+.user-section-actions a:hover {
+	background: #a5a5a5;
+}
+
+/* Profile Top */
+#profile-top {
+	border-bottom: 1px solid #eee;
+	margin-bottom: 16px;
+	position: relative;
+	padding: 0 20px 5px;
+	background: #fcfcfc;
+}
+#profile-top:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 7px;
+	bottom: -7px;
+	left: 0;
+	/* @embed */
+	background: url(/skins/wikichan/images/shadow.png) no-repeat top center;
+}
+#profile-title-container {
+	float: left;
+	margin: 20px 10px 0;
+}
+
+#profile-title {
+	float: left;
+	width: 200px;
+}
+
+/* 닉네임 */
+span.profile-nickname {
+	font-size: 24px;
+}
+a.profile-level {
+	font-size: 12px;
+	padding: 2px 4px;
+	color: #fff !important;
+	background: #50a9d2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 6px;
+	vertical-align: 4px;
+	white-space: nowrap;
+}
+a.profile-level:hover {
+	background: #a5a5a5;
+}
+
+/* 레벨 */
+
+/* 편집 횟수, 친구 수 */
+.user-statcount {
+	float: left;
+	font-size: 12px;
+	margin: 0 15px;
+	text-align: center;
+}
+.user-statnumber {
+	display: block;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Geneva, sans-serif;
+}
+/*
+#points-level {
+	float: left;
+	font-size: 12px;
+	padding: 1px 5px;
+	margin: 4px 8px 0px 0px;
+	text-align: center;
+}
+#honorific-level {
+	float: left;
+	margin: 4px 0px 0px 0px;
+	font-size: 12px;
+}
+*/
+
+#profile-image {
+	position: relative;
+	float: left;
+	margin-right: 10px;
+}
+
+#profile-image img {
+	background-color: #fff;
+	padding: 3px;
+	-webkit-box-shadow: 2px 1px 2px 1px #ddd;
+	-moz-box-shadow: 2px 1px 2px 1px #ddd;
+	box-shadow: 2px 1px 2px 1px #ddd;
+}
+
+/* 우측 상단 메뉴 */
+.profile-actions {
+	float: right;
+	margin-top: 16px;
+}
+
+.profile-actions li {
+	float: left;
+	margin-left: 5px;
+}
+.profile-actions li a {
+	display: block;
+	width: 80px;
+	height: 80px;
+	position: relative;
+}
+.profile-actions li.type1 {
+	background: #63bdfc;
+}
+.profile-actions li.type2 {
+	background: #529cff;
+}
+.profile-actions li.type3 {
+	background: #008ccf;
+}
+.profile-actions li.type4 {
+	background: #6cbe42;
+}
+.profile-actions li:hover {
+	-webkit-box-shadow: inset 0px 0px 4px rgba(255, 255, 255, 0.9);
+	-moz-box-shadow: inset 0px 0px 4px rgba(255,255,255,.9);
+	box-shadow: inset 0px 0px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* 메뉴의 글자 */
+.profile-actions span.caption {
+	position: absolute;
+	bottom: 3px;
+	left: 6px;
+	color: #fff !important;
+	font-size: 12px;
+}
+
+/* 메뉴의 그림 아이콘 */
+.profile-actions span.icon {
+	content: '';
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 18px;
+	left: 24px;
+	/* @embed */
+	background-image: url(/skins/wikichan/images/navi-icons.png);
+	background-repeat: no-repeat;
+}
+
+.profile-actions span.avatar {
+	background-position: 0 -192px;
+}
+.profile-actions span.relationship {
+	background-position: 0 -224px;
+}
+.profile-actions span.addfriend {
+	background-position: 0 -256px;
+}
+.profile-actions span.removefriend {
+	background-position: 0 -288px;
+}
+.profile-actions span.message {
+	background-position: 0 -320px;
+}
+.profile-actions span.watchlist {
+	background-position: 0 -352px;
+}
+.profile-actions span.sandbox {
+	background-position: 0 -32px;
+}
+.profile-actions span.contributions {
+	background-position: 0 -384px;
+}
+
+/* User-Relationship */
+.user-relationship-container {
+	padding: 0px 0px 25px 0px;
+}
+
+.user-relationship-container a {
+	text-decoration: none;
+	display: block;
+	float: left;
+	margin: 5px 10px 0px 0px;
+}
+
+.user-relationship-container img {
+	padding: 3px;
+	border: 1px solid #dcdcdc;
+	background-color: #fff;
+}
+
+/* User Gift / User Awards */
+.user-gift-container {
+	padding: 0px 0px 25px 0px;
+}
+
+.user-gift-container a {
+	text-decoration: none;
+	display: block;
+	float: left;
+	margin: 5px 10px 0px 0px;
+}
+
+.user-gift-container img {
+	padding: 3px;
+	border: 1px solid #dcdcdc;
+	background-color: #fff;
+}
+
+/* Fanboxes */
+.user-fanbox-container {
+	padding: 0px 0px 25px 0px;
+}
+
+/* User Activity */
+.activity-item {
+	border-bottom: 1px solid #e4e4e4;
+	padding: 7px 0px;
+	overflow: hidden;
+}
+
+.activity-item-bottom {
+	padding: 7px 0px 0px 0px;
+}
+
+.activity-item img, .activity-item-bottom img {
+	vertical-align: middle;
+	margin: 0px 5px 0px 0px;
+}
+
+.activity-item a, .activity-item-bottom a {
+	text-decoration: none;
+}
+
+.item {
+	color: #666;
+	margin: 5px 25px;
+}
+
+.item a {
+	font-weight: bold;
+}
+
+#recent-all {
+	padding: 10px 0px;
+}
+
+/* Message Board */
+#user-page-board {
+}
+
+.user-page-message-form {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+.user-page-message-box {
+	margin-top: 5px;
+}
+.user-page-message-box textarea {
+	float: left;
+	width: 560px;
+	height: 80px;
+	resize: none;
+	border: 1px solid #ccc;
+}
+.user-page-message-box textarea:focus {
+	outline: 0;
+	border-color: #aaa;
+	-webkit-box-shadow: 0 1px 1px #bbb inset;
+	-moz-box-shadow: 0 1px 1px #bbb inset;
+	box-shadow: 0 1px 1px #bbb inset;
+}
+.user-page-message-box input {
+	float: left;
+	width: 57px;
+	height: 80px;
+	margin: 0 0 0 3px !important;
+}
+
+.user-board-message {
+	background: #ebf4f8;
+	border: 1px solid #d0ecf8;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin: 0px 0px 8px 0px;
+	clear: both;
+	overflow: hidden;
+}
+
+.user-board-message-from {
+	float: left;
+	margin: 3px 0 3px 10px;
+}
+.user-board-message-from a {
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.user-board-message-time {
+	font-size: 12px;
+	color: #797979;
+	float: right;
+	margin: 4px 10px 4px 0;
+}
+
+.user-board-message-content {
+	clear: both;
+	background: #fff;
+	border: 1px solid #d0ecf8;
+	margin: 0 10px;	
+	padding: 5px;
+}
+
+.user-board-message-image {
+	float: left;
+	padding: 0px 10px 0px 0px;
+}
+.user-board-message-image a {
+	display: block; /* 툴팁 (.tooltip) 포지셔닝을 위한 라인 */
+}
+.user-board-message-image img {
+	border: 1px solid #dcdcdc;
+}
+
+.user-board-message-body {
+	margin: 0;
+	width: 85%;
+	float: left;
+}
+
+.user-board-message-body p {
+	margin: 0px 0px 0px 0px !important;
+	overflow: hidden;
+	text-align: left;
+	text-indent: 0;
+}
+
+.user-board-message-links {
+	text-align: right;
+	margin: 4px 0px;
+}
+
+.user-board-message-links a {
+	font-size: 12px;
+	text-decoration: none;
+	margin: 0px 10px 0px 0px;
+}
+
+.user-board-red a {
+	color: #ff0000;
+}
+
+/* Profile Data */
+.profile-info-container {
+	list-style: none !important;
+	margin: 5px 10px 25px !important;
+}
+.profile-info-container li {
+	line-height: 24px;
+	border-bottom: 1px dotted #ccc;
+}
+
+.profile-info-container b {
+	color: #555;
+	margin: 0px 10px 0px 0px;
+}
+
+.profile-info-container div {
+	margin: 0px;
+	color: #666;
+}
+.profile-info-container p {
+	text-indent: 0 !important;
+}
+
+.bold-fix b {
+	margin: 0px 5px 0px 0px !important;
+}
+
+/* Casual Games */
+.casual-game-container {
+	padding: 0px 0px 18px 0px;
+}
+
+.casual-game-container p {
+	margin: 0px 0px 0px 0px !important;
+	padding: 7px 0px !important;
+	border-top: 1px solid #dcdcdc;
+}
+
+.casual-game-container .item-top {
+	border: none;
+}
+
+.casual-game-container a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.casual-game-container .item-type {
+	font-size: 9px;
+	margin: 0px 0px 0px 6px;
+}
+
+.casual-game-container img {
+	border: 1px solid #dcdcdc;
+	padding: 3px;
+	background-color: #fff;
+	vertical-align: middle;
+	margin: 0px 3px 0px 0px;
+}
+
+/* User Articles */
+.user-articles-container {
+	padding: 0px 0px 23px 0px;
+}
+
+.article-item {
+	margin: 0px 0px 0px 0px;
+	padding: 7px 0px 2px 0px;
+	border-top: 1px solid #dcdcdc;
+}
+
+.user-articles-container a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.article-item-top {
+	margin: 0px 0px 0px 0px;
+	padding: 7px 0px 2px 0px;
+	border: none;
+}
+
+.number-of-votes {
+	margin: 0px 10px 3px 0px;
+	text-align: center;
+	float: left;
+	width: 25px;
+}
+
+.vote-number {
+	background-color: #89C46F;
+	color: #FFFFFF;
+	font-size: 12px !important;
+	margin: 0px 0px 2px 0px;
+	font-weight: bold;
+	height: 25px;
+	line-height: 25px;
+}
+
+.vote-text {
+	margin: -1px 0px 0px 0px;
+	font-size: 9px;
+	color: #777;
+	line-height: 9px;
+}
+
+/*.article-title {
+
+}*/
+
+/* Pictures */
+.picture-container-spacer {
+	height: 25px;
+	width: 100%;
+}
+
+.picture-container .mini-image {
+	float: left;
+	margin: 5px 10px 0px 0px;
+}
+
+.picture-container img {
+	background-color: #fff;
+	padding: 3px;
+	border: 1px solid #dcdcdc;
+}
+
+.picture-container a {
+	text-decoration: none;
+}
+
+.upload-container {
+	clear: left;
+	height: 90px;
+	margin-left: -5px;
+}
+
+.upload-frame-errors {
+	margin: 10px 0px 5px 0px;
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.no-pictures-container {
+	color: #777777;
+	margin: 10px 0px 0px;
+	padding: 20px;
+	text-align: center;
+	background-color: #EFF3F0;
+}
+
+.upload-frame-errors {
+	display: none;
+}
+
+.imageUpload-frame {
+	height: 90px;
+	width: 425px;
+}
+
+/* Sports Networks */
+.network-container {
+	padding: 0px 0px 22px 0px;
+}
+
+.network {
+	margin: 0px 0px 3px 0px;
+}
+
+.network img {
+	margin: 0px 5px 0px 0px;
+	vertical-align: middle;
+}
+
+.network a {
+	text-decoration: none;
+}
+
+.status-message-add a {
+	color: #999;
+	font-size: 10px;
+}
+
+.status-update-box {
+	margin: 10px 0px 10px 0px;
+}
+
+#status-text input {
+	font-size: 10px;
+	width: 200px;
+}
+
+/* Status */
+.status-container {
+	padding: 0px 0px 20px 0px;
+}
+
+.status-message img {
+	vertical-align: middle;
+	margin: 0px 5px 0px 0px;
+}
+
+.user-status-date {
+	margin: 0px 6px 0px 0px;
+	color: #999;
+	font-size: 9px;
+}
+
+.user-status-profile-vote {
+	color: #666;
+}
+
+.user-status-profile-vote a {
+	text-decoration: none;
+	font-size: 9px;
+}
+
+/* Update Profile */
+.profile-info {
+	background-color: #fff;
+	padding: 25px 0px;
+	width: 100%;
+}
+
+.profile-update {
+	padding: 0px;
+}
+.profile-update-column {
+	width: 30%;
+	float: left;
+	margin-right: 2%;
+}
+
+.profile-tab-bar {
+	margin-top: 20px;
+}
+
+.profile-tab, .profile-tab-on {
+	float: left;
+	margin-right: 3px;
+}
+
+.profile-tab-on a, .profile-tab a {
+	display: inline-block;
+	min-width: 72px;
+	text-align: center;
+	background: #e8e8e8;
+	color: #888 !important;
+	padding: 5px 10px;
+	font-weight: normal;
+	text-decoration: none;
+}
+.profile-tab:first-child a {
+	-webkit-border-bottom-left-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	border-bottom-left-radius: 8px;
+}
+.profile-tab-bar div:nth-child(3) a {
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-right-radius: 8px;
+}
+
+.profile-tab a:hover {
+	background: #464e54;
+	color: #fff !important;
+}
+
+.profile-update-button {
+	background-color: #78BA5D;
+	border: 1px solid #6B6B6B;
+	color: #ffffff;
+	font-size: 13px;
+	padding: 3px;
+}
+
+.profile-update-title {
+	font-size: 16px;
+	color: #333;
+	margin: 0px 0px 5px 0px;
+	font-weight: bold;
+}
+
+.profile-update:not(:first-child) .profile-update-title {
+	margin: 15px 0px 5px 0px !important;
+}
+
+.profile-update-title img {
+	vertical-align: middle;
+	margin: -3px 0px 0px 5px;
+}
+
+.profile-update-unit-left {
+	color: #797979;
+	font-weight: bold;
+	font-size: 12px;
+	float: left;
+	width: 150px;
+	margin: 0;
+}
+
+.profile-update-unit {
+	margin: 0;
+}
+.profile-update textarea#whoami {
+	width: 100%;
+	height: 200px;
+}
+
+.profile-update-unit-small {
+	display: none;
+	float: left;
+	width: 450px;
+	font-size: 10px;
+	color: #797979;
+}
+
+.profile-update-row {
+	color: #797979;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.profile-update-links {
+	margin: 0px 0px 10px 0px;
+	font-weight: bold;
+}
+
+.profile-update-links a {
+	text-decoration: none;
+}
+
+.profile-status {
+	background-color: #FFFB9B;
+	font-weight: bold;
+	padding: 0px 5px 0px 5px;
+}
+
+.profile-on {
+	background-color: #FFFB9B;
+	border: 1px solid #FDC745;
+	font-weight: bold;
+	padding: 1px 5px 1px 5px;
+}
+
+#profile-toggle-button {
+	position: absolute;
+	top: 5px;
+	right: 0px;
+	background-color: orange;
+	padding: 2px 10px;
+}
+
+#profile-toggle-button a {
+	color: #fff;
+	font-weight: bold;
+}
+
+/* The text "Message type" on the left side of the message type selector on profile page */
+.profile-board-message-type {
+	color: #797979;
+}
