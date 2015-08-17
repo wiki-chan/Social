@@ -22,12 +22,14 @@ class TopAwards extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser, $wgSystemGiftsScripts, $wgUserStatsPointValues;
+		global $wgUserStatsPointValues;
+
+		$out = $this->getOutput();
 
 		// Variables
 		$gift_name_check = '';
 		$x = 0;
-		$category_number = $wgRequest->getInt( 'category' );
+		$category_number = $this->getRequest()->getInt( 'category' );
 
 		// System gift class array
 		// The 'category_name' key is used to build the appropriate i18n
@@ -112,19 +114,22 @@ class TopAwards extends UnlistedSpecialPage {
 			array( 'system_gift' => array( 'INNER JOIN', 'gift_id=sg_gift_id' ) )
 		);
 
-		// Page title
+		// Set the page title, robot policies, etc.
+		$this->setHeaders();
+
+		// Set the correct page title ;)
 		// for grep: topawards-edit-title, topawards-vote-title,
 		// topawards-comment-title, topawards-recruit-title,
 		// topawards-friend-title
-		$wgOut->setPageTitle(
-			wfMsg( 'topawards-' . strtolower( $page_category ) . '-title' )
+		$out->setPageTitle(
+			$this->msg( 'topawards-' . strtolower( $page_category ) . '-title' )->plain()
 		);
 
 		// Add CSS
-		$wgOut->addExtensionStyle( $wgSystemGiftsScripts . '/SystemGift.css' );
+		$out->addModuleStyles( 'ext.socialprofile.systemgifts.css' );
 
 		$output = '<div class="top-awards-navigation">
-			<h1>' . wfMsg( 'topawards-award-categories' ) . '</h1>';
+			<h1>' . $this->msg( 'topawards-award-categories' )->plain() . '</h1>';
 
 		$nav_x = 0;
 
@@ -132,15 +137,15 @@ class TopAwards extends UnlistedSpecialPage {
 		foreach ( $categories as $awardType ) {
 			// for grep: topawards-edits, topawards-votes,
 			// topawards-comments, topawards-recruits, topawards-friends
-			$msg = wfMsg(
+			$msg = $this->msg(
 				'topawards-' .
 				strtolower( $awardType['category_name'] ) . 's'
-			);
+			)->plain();
 			if ( $nav_x == $category_number ) {
 				$output .= "<p><b>{$msg}</b></p>";
 			} else {
-				$output .= '<p><a href="' . $this->getTitle()->escapeFullURL(
-					"category={$nav_x}" ) . "\">{$msg}</a></p>";
+				$output .= '<p><a href="' . htmlspecialchars( $this->getPageTitle()->getFullURL(
+					"category={$nav_x}" ) ) . "\">{$msg}</a></p>";
 			}
 			$nav_x++;
 		}
@@ -151,7 +156,7 @@ class TopAwards extends UnlistedSpecialPage {
 		// Display a "no results" message if we got no results -- because it's
 		// a lot nicer to display something rather than a half-empty page
 		if ( $dbr->numRows( $res ) <= 0 ) {
-			$output .= wfMsg( 'topawards-empty' );
+			$output .= $this->msg( 'topawards-empty' )->plain();
 		} else {
 			foreach ( $res as $row ) {
 				$user_name = $row->sg_user_name;
@@ -162,11 +167,10 @@ class TopAwards extends UnlistedSpecialPage {
 				// for grep: topawards-edit-milestone, topawards-vote-milestone,
 				// topawards-comment-milestone, topawards-recruit-milestone,
 				// topawards-friend-milestone
-				$gift_name = wfMsgExt(
+				$gift_name = $this->msg(
 					'topawards-' . $lower . '-milestone',
-					'parsemag',
 					$top_gift
-				);
+				)->parse();
 
 				if ( $gift_name !== $gift_name_check ) {
 					$x = 1;
@@ -177,7 +181,7 @@ class TopAwards extends UnlistedSpecialPage {
 					$x++;
 				}
 
-				$userLink = $wgUser->getSkin()->link(
+				$userLink = Linker::link(
 					Title::makeTitle( NS_USER, $row->sg_user_name ),
 					$user_name
 				);
@@ -194,6 +198,6 @@ class TopAwards extends UnlistedSpecialPage {
 		$output .= '</div>
 		<div class="cleared"></div>';
 
-		$wgOut->addHTML( $output );
+		$out->addHTML( $output );
 	}
 }

@@ -9,6 +9,7 @@ class UserBoard {
 	 */
 	public function __construct() {}
 
+	// TODO: Alarm check
 	public static function AlarmMessage($type, $sender, $data, $date, &$message, &$link) {
 		if ($type != "usermesg") return true;
 
@@ -21,9 +22,9 @@ class UserBoard {
 		);
 		if ($res === false) return false;
 //var_dump($res);
-		$message = $res->ub_user_name_from . "(으)로부터 새 ";
-		if ($res->ub_type == 1) $message .= "비밀 ";
-		$message .= "메시지를 받았습니다";
+		$message = $res->ub_user_name_from . "(로�";
+		if ($res->ub_type == 1) $message .= "비� ";
+		$message .= "메시지�받았�니;
 
 		$link = User::newFromId($res->ub_user_id)->getUserPage()->getLinkUrl();
 
@@ -106,16 +107,22 @@ class UserBoard {
 		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifymessage', 1 ) ) {
 			$board_link = SpecialPage::getTitleFor( 'UserBoard' );
 			$update_profile_link = SpecialPage::getTitleFor( 'UpdateProfile' );
-			$subject = wfMsgExt( 'message_received_subject', 'parsemag',
-				$user_from
-			);
-			$body = wfMsgExt( 'message_received_body', 'parsemag',
+			$subject = wfMessage( 'message_received_subject', $user_from )->parse();
+			$body = wfMessage( 'message_received_body',
 				$user->getName(),
 				$user_from,
-				$board_link->escapeFullURL(),
-				$update_profile_link->escapeFullURL()
-			);
-			$user->sendMail( $subject, $body );
+				htmlspecialchars( $board_link->getFullURL() ),
+				htmlspecialchars( $update_profile_link->getFullURL() )
+			)->text();
+
+			// The email contains HTML, so actually send it out as such, too.
+			// That's why this no longer uses User::sendMail().
+			// @see https://bugzilla.wikimedia.org/show_bug.cgi?id=68045
+			global $wgPasswordSender;
+			$sender = new MailAddress( $wgPasswordSender,
+				wfMessage( 'emailsender' )->inContentLanguage()->text() );
+			$to = new MailAddress( $user );
+			UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
 		}
 	}
 
@@ -156,7 +163,7 @@ class UserBoard {
 		global $wgMemc;
 		$key = wfMemcKey( 'user', 'newboardmessage', $user_id );
 		$data = $wgMemc->get( $key );
-		if ( $data !== false ) {
+		if ( $data != '' ) {
 			wfDebug( "Got new message count of $data for id $user_id from cache\n" );
 			return $data;
 		}
@@ -175,7 +182,7 @@ class UserBoard {
 		global $wgMemc;
 
 		//if ( !$ub_old_id ) return '';
-		// 직전 touched된 시간 기준으로 새 메시지를 가져옴(주: UTC 0 시간임. 한국 시간으론 +9h 해주어야 함)
+		// 직전 touched�간 기�로 메시지�가�옴(� UTC 0 �간 �국 �간�론 +9h �주�야 
 		$user = new User($user_id);
 		$date = sscanf($user->getTouched(), "%4d%2d%2d%2d%2d%2d");
 		$touched = sprintf("'%04d-%02d-%02d %02d:%02d:%02d'", $date[0], $date[1], $date[2], $date[3], $date[4], $date[5]);
@@ -190,8 +197,9 @@ class UserBoard {
 		$s = $dbr->selectRow(
 			'user_board',
 			array( 'COUNT(*) AS count' ),
-			//array( 'ub_user_id = ' . $user_id, 'ub_id > ' . $ub_old_id ),
-			array( 'ub_user_id = ' . $user_id, 'ub_date > ' . $touched ),
+			// TODO: ub_user_id -> ug_user_id_to ? ub_ to ug_ ?
+			//array( 'ug_user_id_to' => $user_id, 'ug_status' => 1 ),
+			array( 'ug_user_id_to' => $user_id, 'ug_status' => 1, 'ug_date > ' . $touched ),
 			__METHOD__
 		);
 		if ( $s !== false ) {
@@ -212,16 +220,17 @@ class UserBoard {
 	 * @param $user_id Integer: user ID for the user whose messages we're going
 	 *							to fetch.
 	 * @return Integer: amount of new messages
-	 * @author 페네트-
+	 * @author �네
 	 */
 	static function getNewMessageCount( $user_id, $ub_old_id ) {
 		$data = self::getNewMessageCountCache( $user_id );
-		
+
 		if ( $data !== false ) {
 			$count = '' . $data;
 		} else {
 			$count = self::getNewMessageCountDB( $user_id, $ub_old_id );
 		}
+
 		return $count;
 	}
 
@@ -330,7 +339,9 @@ class UserBoard {
 			ORDER BY ub_id DESC
 			{$limit_sql}";
 		$res = $dbr->query( $sql, __METHOD__ );
+
 		$messages = array();
+
 		foreach ( $res as $row ) {
 			$parser = new Parser();
 			$message_text = $parser->parse( $row->ub_message, $wgTitle, $wgOut->parserOptions(), true );
@@ -378,15 +389,17 @@ class UserBoard {
 
 		$res = $dbr->query( $sql, __METHOD__ );
 		$row = $dbr->fetchObject( $res );
+
 		if ( $row ) {
 			$count = $row->the_count;
 		}
+
 		return $count;
 	}
 
 	public function displayMessages( $user_id, $user_id_2 = 0, $count = 10, $page = 0 ) {
 		global $wgUser, $wgTitle;
-//$count = 1000;
+
 		$output = ''; // Prevent E_NOTICE
 		$messages = $this->getUserBoardMessages( $user_id, $user_id_2, $count, $page );
 		if ( $messages ) {
@@ -403,35 +416,36 @@ class UserBoard {
 
 				if ( $wgUser->getName() != $message['user_name_from'] ) {
 					$board_to_board = '<a href="' . UserBoard::getUserBoardToBoardURL( $message['user_name'], $message['user_name_from'] ) . '">' .
-						wfMsgHtml( 'userboard_board-to-board' ) . '</a>';
+						wfMessage( 'userboard_board-to-board' )->plain() . '</a>';
 					$board_link = '<a href="' . UserBoard::getUserBoardURL( $message['user_name_from'] ) . '">' .
-						wfMsgHtml( 'userboard_sendmessage', $message['user_name_from'] ) . '</a>';
+						wfMessage( 'userboard_sendmessage', $message['user_name_from'] )->parse() . '</a>';
 				}
 				if ( $wgUser->getName() == $message['user_name'] || $wgUser->isAllowed( 'userboard-delete' ) ) {
 					$delete_link = "<span class=\"user-board-red\">
-							<a href=\"javascript:void(0);\" onclick=\"javascript:delete_message({$message['id']})\">" .
-								wfMsgHtml( 'userboard_delete' ) . '</a>
+							<a href=\"javascript:void(0);\" data-message-id=\"{$message['id']}\">" .
+								wfMessage( 'userboard_delete' )->plain() . '</a>
 						</span>';
 				}
 				if ( $message['type'] == 1 ) {
-					$message_type_label = '(' . wfMsgHtml( 'userboard_private' ) . ')';
+					$message_type_label = '(' . wfMessage( 'userboard_private' )->plain() . ')';
 				}
 
 				$message_text = $message['message_text'];
 				# $message_text = preg_replace_callback( "/(<a[^>]*>)(.*?)(<\/a>)/i", 'cut_link_text', $message['message_text'] );
 				$message_id = $message['id'];
 
+				$sender = htmlspecialchars( $user->getFullURL() );
 				$output .= "<div class=\"user-board-message\">
 					<div class=\"user-board-message-id\" style=\"display:none;\">{$message_id}</div>
 					<div class=\"user-board-message-from\">
-					<a href=\"{$user->escapeFullURL()}\" title=\"{$message['user_name_from']}\">{$message['user_name_from']}</a> {$message_type_label}
+					<a href=\"{$sender}\" title=\"{$message['user_name_from']}\">{$message['user_name_from']}</a> {$message_type_label}
 					</div>
 					<div class=\"user-board-message-time\">" .
-						$this->getTimeAgo( $message['timestamp'] ) .
+						wfMessage( 'userboard_posted_ago', $this->getTimeAgo( $message['timestamp'] ) )->parse() .
 					"</div>
 					<div class=\"user-board-message-content\">
 						<div class=\"user-board-message-image\">
-							<a href=\"{$user->escapeFullURL()}\" class=\"tooltip\" title=\"{$message['user_name_from']}의 페이지로 가기\">{$avatar->getAvatarURL()}</a>
+							<a href=\"{$sender}\" title=\"{$message['user_name_from']}\">{$avatar->getAvatarURL()}</a>
 						</div>
 						<div class=\"user-board-message-body\">
 							{$message_text}
@@ -448,10 +462,11 @@ class UserBoard {
 			$output .= "<div id=\"user-board-message-max-id\" style=\"display:none;\">{$max_id}</div>";
 		} elseif ( $wgUser->getName() == $wgTitle->getText() ) {
 			$output .= '<div class="no-info-container">' .
-				wfMsgHtml( 'userboard_nomessages' ) .
+				wfMessage( 'userboard_nomessages' )->parse() .
 			'</div>';
 
 		}
+
 		return $output;
 	}
 
@@ -463,7 +478,7 @@ class UserBoard {
 	 */
 	static function getBoardBlastURL() {
 		$title = SpecialPage::getTitleFor( 'SendBoardBlast' );
-		return $title->escapeFullURL();
+		return htmlspecialchars( $title->getFullURL() );
 	}
 
 	/**
@@ -476,7 +491,7 @@ class UserBoard {
 	static function getUserBoardURL( $user_name ) {
 		$title = SpecialPage::getTitleFor( 'UserBoard' );
 		$user_name = str_replace( '&', '%26', $user_name );
-		return $title->escapeFullURL( 'user=' . $user_name );
+		return htmlspecialchars( $title->getFullURL( 'user=' . $user_name ) );
 	}
 
 	/**
@@ -490,7 +505,7 @@ class UserBoard {
 		$title = SpecialPage::getTitleFor( 'UserBoard' );
 		$user_name_1 = str_replace( '&', '%26', $user_name_1 );
 		$user_name_2 = str_replace( '&', '%26', $user_name_2 );
-		return $title->escapeFullURL( 'user=' . $user_name_1 . '&conv=' . $user_name_2 );
+		return htmlspecialchars( $title->getFullURL( 'user=' . $user_name_1 . '&conv=' . $user_name_2 ) );
 	}
 
 	/**
@@ -501,13 +516,15 @@ class UserBoard {
 	 * @return Difference between dates
 	 */
 	public function dateDiff( $date1, $date2 ) {
-		$totalSecs = $date1 - $date2;
+		$dtDiff = $date1 - $date2;
 
-		$dif['s'] = $s = $totalSecs;
-		$dif['m'] = $m = intval( $s / 60 );
-		$dif['h'] = $h = intval( $m / 60 );
-		$dif['d'] = $d = intval( $h / 24 );
-		$dif['w'] = intval( $d / 7 );
+		$totalDays = intval( $dtDiff / ( 24 * 60 * 60 ) );
+		$totalSecs = $dtDiff - ( $totalDays * 24 * 60 * 60 );
+		$dif['w'] = intval( $totalDays / 7 );
+		$dif['d'] = $totalDays;
+		$dif['h'] = $h = intval( $totalSecs / ( 60 * 60 ) );
+		$dif['m'] = $m = intval( ( $totalSecs - ( $h * 60 * 60 ) ) / 60 );
+		$dif['s'] = $totalSecs - ( $h * 60 * 60 ) - ( $m * 60 );
 
 		return $dif;
 	}
@@ -515,7 +532,7 @@ class UserBoard {
 	public function getTimeOffset( $time, $timeabrv, $timename ) {
 		$timeStr = '';
 		if ( $time[$timeabrv] > 0 ) {
-			$timeStr = wfMsgExt( "userboard-time-{$timename}", 'parsemag', $time[$timeabrv] );
+			$timeStr = wfMessage( "userboard-time-{$timename}", $time[$timeabrv] )->parse();
 		}
 		if ( $timeStr ) {
 			$timeStr .= ' ';
@@ -532,33 +549,21 @@ class UserBoard {
 	public function getTimeAgo( $time ) {
 		$timeArray = $this->dateDiff( time(), $time );
 		$timeStr = '';
-		
-		$timeKey = array(
-			array('w', 'weeks'),
-			array('d', 'days'),
-			array('h', 'hours'),
-			array('m', 'minutes'),
-			array('s', 'seconds'));
-		foreach ($timeKey as $key) {
-			if ($timeArray[$key[0]] > 0) {
-				$timeStr = $this->getTimeOffset( $timeArray, $key[0], $key[1]);
-				break;
+		$timeStrD = $this->getTimeOffset( $timeArray, 'd', 'days' );
+		$timeStrH = $this->getTimeOffset( $timeArray, 'h', 'hours' );
+		$timeStrM = $this->getTimeOffset( $timeArray, 'm', 'minutes' );
+		$timeStrS = $this->getTimeOffset( $timeArray, 's', 'seconds' );
+		$timeStr = $timeStrD;
+		if ( $timeStr < 2 ) {
+			$timeStr .= $timeStrH;
+			$timeStr .= $timeStrM;
+			if ( !$timeStr ) {
+				$timeStr .= $timeStrS;
 			}
 		}
 		if ( !$timeStr ) {
-			$timeStr = wfMsgExt( 'userboard-time-seconds', 'parsemag', 1 );
+			$timeStr = wfMessage( 'userboard-time-seconds', 1 )->parse();
 		}
-
-		if ($timeArray['w'] >= 4) {
-			$timeformat = wfMsgExt( 'userboard-time-format', '' );
-			if ($timeArray['d'] > 120)
-				$timeformat = wfMsgExt( 'userboard-time-yearformat', '' );
-
-			$timeStr = date($timeformat, $time);
-		} else {
-			$timeStr = wfMsgHtml( 'userboard_posted_ago', $timeStr );
-		}
-
 		return $timeStr;
 	}
 }

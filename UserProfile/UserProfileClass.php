@@ -102,10 +102,10 @@ class UserProfile {
 	 */
 	public function getProfile() {
 		global $wgMemc;
-wfProfileIn(__METHOD__);
+
 		$user = User::newFromId( $this->user_id );
-		$user->loadFromId();//throw new MWException();
-wfProfileOut(__METHOD__);
+		$user->loadFromId();
+
 		// Try cache first
 		$key = wfMemcKey( 'user', 'profile', 'info', $this->user_id );
 		$data = $wgMemc->get( $key );
@@ -159,7 +159,8 @@ wfProfileOut(__METHOD__);
 			$profile['custom_3'] = isset( $row->up_custom_3 ) ? $row->up_custom_3 : '';
 			$profile['custom_4'] = isset( $row->up_custom_4 ) ? $row->up_custom_4 : '';
 			$profile['custom_5'] = isset( $row->up_custom_5 ) ? $row->up_custom_5 : '';
-			$profile['user_page_type'] = isset( $row->up_type ) ? $row->up_type : '';*/
+			$profile['user_page_type'] = isset( $row->up_type ) ? $row->up_type : '';
+			*/
 
 			$profile['series_1'] = isset( $row->up_series1 ) ? $row->up_series1 : '';
 			$profile['series_2'] = isset( $row->up_series2 ) ? $row->up_series2 : '';
@@ -199,10 +200,18 @@ wfProfileOut(__METHOD__);
 			$month = $dob[1];
 			$day = $dob[2];
 			if ( !$showYear ) {
-				return date( 'F jS', mktime( 0, 0, 0, $month, $day ) );
-			}	
+				if ( $dob[1] == '00' && $dob[2] == '00' ) {
+					return '';
+				} else {
+					return date( 'F jS', mktime( 0, 0, 0, $month, $day ) );
+				}
+			}
 			$year = $dob[0];
-			return date( 'F jS, Y', mktime( 0, 0, 0, $month, $day, $year ) );
+			if ( $dob[0] == '00' && $dob[1] == '00' && $dob[2] == '00' ) {
+				return '';
+			} else {
+				return date( 'F jS, Y', mktime( 0, 0, 0, $month, $day, $year ) );
+			}
 			//return $day . ' ' . $wgLang->getMonthNameGen( $month );
 		}
 		return $birthday;
@@ -255,7 +264,7 @@ wfProfileOut(__METHOD__);
 	}
 
 	static function getEditProfileNav( $current_nav ) {
-		$lines = explode( "\n", wfMsgForContent( 'update_profile_nav' ) );
+		$lines = explode( "\n", wfMessage( 'update_profile_nav' )->inContentLanguage()->text() );
 		$output = '<div class="profile-tab-bar">';
 
 		foreach ( $lines as $line ) {
@@ -266,9 +275,15 @@ wfProfileOut(__METHOD__);
 				$page = Title::newFromText( $line[0] );
 				$link_text = $line[1];
 
-				$output .= '<div class="profile-tab' . ( ( $current_nav == $link_text ) ? ' selected' : '' ) . '">
-					<a href="' . $page->escapeFullURL() . "\">{$link_text}</a>
-				</div>";
+				// Maybe it's the name of a system message? (bug #30030)
+				$msgObj = wfMessage( $line[1] );
+				if ( !$msgObj->isDisabled() ) {
+					$link_text = $msgObj->parse();
+				}
+
+				$output .= '<div class="profile-tab' . ( ( $current_nav == $link_text ) ? '-on' : '' ) . '">';
+				$output .= Linker::link( $page, $link_text );
+				$output .= '</div>';
 			}
 		}
 

@@ -72,15 +72,17 @@ body:not(.action-edit):not(.action-history) .article {
 	white-space: nowrap;
 }
 
-.user-section-heading {	
+.user-section-heading {
 	position: relative;
 	padding: 0 0 10px;
 	line-height: 22px;
 }
+
 .user-section-title {
 	float: left;
 	font-size: 20px;
 }
+
 .user-section-actions {
 	float: right;
 }
@@ -127,6 +129,7 @@ body:not(.action-edit):not(.action-history) .article {
 	/* @embed */
 	background: url(/skins/wikichan/images/shadow.png) no-repeat top center;
 }
+
 #profile-title-container {
 	float: left;
 	margin: 20px 10px 0;
@@ -175,18 +178,29 @@ a.profile-level:hover {
 /*
 #points-level {
 	float: left;
-	font-size: 12px;
+	font-size: 11px;
+	background-color: #CC0000;
 	padding: 1px 5px;
 	margin: 4px 8px 0px 0px;
 	text-align: center;
 }
+
 #honorific-level {
 	float: left;
 	margin: 4px 0px 0px 0px;
 	font-size: 12px;
 }
-*/
 
+#honorific-level a {
+	text-decoration: none;
+}
+
+#points-level a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #fff;
+}
+*/
 #profile-image {
 	position: relative;
 	float: left;
@@ -404,6 +418,7 @@ a.profile-level:hover {
 	float: left;
 	margin: 3px 0 3px 10px;
 }
+
 .user-board-message-from a {
 	font-size: 14px;
 	text-decoration: none;
@@ -425,6 +440,12 @@ a.profile-level:hover {
 	padding: 5px;
 }
 
+.user-board-message-time {
+	font-size: 11px;
+	color: #797979;
+	margin: 2px 0px 0px 5px;
+}
+
 .user-board-message-image {
 	float: left;
 	padding: 0px 10px 0px 0px;
@@ -432,6 +453,7 @@ a.profile-level:hover {
 .user-board-message-image a {
 	display: block; /* 툴팁 (.tooltip) 포지셔닝을 위한 라인 */
 }
+
 .user-board-message-image img {
 	border: 1px solid #dcdcdc;
 }
@@ -826,4 +848,29 @@ a.profile-level:hover {
 /* The text "Message type" on the left side of the message type selector on profile page */
 .profile-board-message-type {
 	color: #797979;
+}
+
+/* Responsive stuff for mobile devices */
+@media screen and (max-width: 750px) {
+	/* Special:UpdateProfile & Special:EditProfile */
+	.mw-special-EditProfile textarea,
+	.mw-special-UpdateProfile textarea {
+		min-width: 60%;
+		max-width: 100%;
+	}
+	div.profile-tab {
+		/**
+		 * I don't like how the tabs' texts are off-center, but this
+		 * is still better than nothing
+		 */
+		margin-bottom: 10px;
+	}
+}
+
+@media screen and (max-width: 750px) and (orientation: portrait) {
+	.mw-special-EditProfile textarea,
+	.mw-special-UpdateProfile textarea {
+		min-width: 30%;
+		max-width: 50%;
+	}
 }

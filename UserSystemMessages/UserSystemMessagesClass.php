@@ -110,18 +110,26 @@ class UserSystemMessage {
 		$user->loadFromDatabase();
 		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifyhonorifics', 1 ) ) {
 			$updateProfileLink = SpecialPage::getTitleFor( 'UpdateProfile' );
-			$subject = wfMsgExt( 'level-advance-subject', 'parsemag', $level );
+			$subject = wfMessage( 'level-advance-subject', $level )->text();
 			if ( trim( $user->getRealName() ) ) {
 				$name = $user->getRealName();
 			} else {
 				$name = $user->getName();
 			}
-			$body = wfMsgExt( 'level-advance-body', 'parsemag',
+			$body = wfMessage( 'level-advance-body',
 				$name,
 				$level,
 				$updateProfileLink->getFullURL()
-			);
-			$user->sendMail( $subject, $body );
+			)->text();
+
+			// The email contains HTML, so actually send it out as such, too.
+			// That's why this no longer uses User::sendMail().
+			// @see https://bugzilla.wikimedia.org/show_bug.cgi?id=68045
+			global $wgPasswordSender;
+			$sender = new MailAddress( $wgPasswordSender,
+				wfMessage( 'emailsender' )->inContentLanguage()->text() );
+			$to = new MailAddress( $user );
+			UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
 		}
 	}
 

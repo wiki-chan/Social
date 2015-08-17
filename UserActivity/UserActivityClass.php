@@ -13,6 +13,7 @@ class UserActivity {
 	private $user_name;		# Text form (spaces not underscores) of the main part
 	private $items;         # Text form (spaces not underscores) of the main part
 	private $rel_type;
+	private $show_current_user = false;
 	private $show_edits = 1;
 	private $show_votes = 0;
 	private $show_comments = 1;
@@ -88,7 +89,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -183,7 +184,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -254,7 +255,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -348,7 +349,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -414,7 +415,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -453,12 +454,12 @@ class UserActivity {
 				'" border="0" alt="" />';
 			$view_gift_link = SpecialPage::getTitleFor( 'ViewGift' );
 
-			$html = wfMsg( 'useractivity-gift',
-				"<b><a href=\"{$user_title->escapeFullURL()}\">{$row->ug_user_name_to}</a></b>",
-				"<a href=\"{$user_title_from->escapeFullURL()}\">{$user_title_from->getText()}</a>"
-			) .
+			$html = wfMessage( 'useractivity-gift',
+				'<b><a href="' . htmlspecialchars( $user_title->getFullURL() ) . "\">{$row->ug_user_name_to}</a></b>",
+				'<a href="' . htmlspecialchars( $user_title_from->getFullURL() ) . "\">{$user_title_from->getText()}</a>"
+			)->text() .
 			"<div class=\"item\">
-				<a href=\"" . $view_gift_link->escapeFullURL( 'gift_id=' . $row->ug_id ) . "\" rel=\"nofollow\">
+				<a href=\"" . htmlspecialchars( $view_gift_link->getFullURL( 'gift_id=' . $row->ug_id ) ) . "\" rel=\"nofollow\">
 					{$gift_image}
 					{$row->gift_name}
 				</a>
@@ -509,7 +510,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -544,9 +545,13 @@ class UserActivity {
 				'" border="0" alt="" />';
 			$system_gift_link = SpecialPage::getTitleFor( 'ViewSystemGift' );
 
-			$html = wfMsg( 'useractivity-award', "<b><a href=\"{$user_title->escapeFullURL()}\">{$row->sg_user_name}</a></b>" ) .
+			$html = wfMessage(
+				'useractivity-award',
+				'<b><a href="' . htmlspecialchars( $user_title->getFullURL() ) . "\">{$row->sg_user_name}</a></b>",
+				$row->sg_user_name
+			)->text() .
 			'<div class="item">
-				<a href="' . $system_gift_link->escapeFullURL( 'gift_id=' . $row->sg_id ) . "\" rel=\"nofollow\">
+				<a href="' . htmlspecialchars( $system_gift_link->getFullURL( 'gift_id=' . $row->sg_id ) ) . "\" rel=\"nofollow\">
 					{$system_gift_image}
 					{$row->gift_name}
 				</a>
@@ -596,7 +601,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -687,7 +692,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -779,7 +784,7 @@ class UserActivity {
 			);
 			$userArray = array();
 			foreach ( $users as $user ) {
-				$userArray[] = $user->r_user_id_relation;
+				$userArray[] = $user;
 			}
 			$userIDs = implode( ',', $userArray );
 			if ( !empty( $userIDs ) ) {
@@ -813,7 +818,7 @@ class UserActivity {
 			$this->activityLines[] = array(
 				'type' => 'system_message',
 				'timestamp' => $row->item_date,
-				'data' => ' ' . "<b><a href=\"{$user_title->escapeFullURL()}\">{$user_name_short}</a></b> {$row->um_message}"
+				'data' => ' ' . '<b><a href="' . htmlspecialchars( $user_title->getFullURL() ) . "\">{$user_name_short}</a></b> {$row->um_message}"
 			);
 
 			$this->items[] = array(
@@ -827,6 +832,112 @@ class UserActivity {
 				'comment' => $row->um_message,
 				'new' => '0',
 				'minor' => 0
+			);
+		}
+	}
+
+	/**
+	 * Get recent network updates (but only if the SportsTeams extension is
+	 * installed) and set them in the appropriate class member variables.
+	 */
+	private function setNetworkUpdates() {
+		global $wgLang;
+
+		if ( !class_exists( 'SportsTeams' ) ) {
+			return;
+		}
+
+		$dbr = wfGetDB( DB_SLAVE );
+
+		$where = array();
+
+		if ( !empty( $this->rel_type ) ) {
+			$users = $dbr->select(
+				'user_relationship',
+				'r_user_id_relation',
+				array(
+					'r_user_id' => $this->user_id,
+					'r_type' => $this->rel_type
+				),
+				__METHOD__
+			);
+			$userArray = array();
+			foreach ( $users as $user ) {
+				$userArray[] = $user;
+			}
+			$userIDs = implode( ',', $userArray );
+			if ( !empty( $userIDs ) ) {
+				$where[] = "us_user_id IN ($userIDs)";
+			}
+		}
+
+		if ( $this->show_current_user ) {
+			$where['us_user_id'] = $this->user_id;
+		}
+
+		$res = $dbr->select(
+			'user_status',
+			array(
+				'us_id', 'us_user_id', 'us_user_name', 'us_text',
+				'UNIX_TIMESTAMP(us_date) AS item_date', 'us_sport_id',
+				'us_team_id'
+			),
+			$where,
+			__METHOD__,
+			array(
+				'ORDER BY' => 'us_id DESC',
+				'LIMIT' => $this->item_max,
+				'OFFSET' => 0
+			)
+		);
+
+		foreach ( $res as $row ) {
+			if ( $row->us_team_id ) {
+				$team = SportsTeams::getTeam( $row->us_team_id );
+				$network_name = $team['name'];
+			} else {
+				$sport = SportsTeams::getSport( $row->us_sport_id );
+				$network_name = $sport['name'];
+			}
+
+			$this->items[] = array(
+				'id' => $row->us_id,
+				'type' => 'network_update',
+				'timestamp' => $row->item_date,
+				'pagetitle' => '',
+				'namespace' => '',
+				'username' => $row->us_user_name,
+				'userid' => $row->us_user_id,
+				'comment' => $row->us_text,
+				'sport_id' => $row->us_sport_id,
+				'team_id' => $row->us_team_id,
+				'network' => $network_name
+			);
+
+			$user_title = Title::makeTitle( NS_USER, $row->us_user_name );
+			$user_name_short = $wgLang->truncate( $row->us_user_name, 15 );
+			$page_link = '<a href="' . SportsTeams::getNetworkURL( $row->us_sport_id, $row->us_team_id ) .
+				"\" rel=\"nofollow\">{$network_name}</a>";
+			$network_image = SportsTeams::getLogo( $row->us_sport_id, $row->us_team_id, 's' );
+
+			$html = wfMessage(
+				'useractivity-network-thought',
+				$row->us_user_name,
+				$user_name_short,
+				$page_link,
+				htmlspecialchars( $user_title->getFullURL() )
+			)->text() .
+					'<div class="item">
+						<a href="' . SportsTeams::getNetworkURL( $row->us_sport_id, $row->us_team_id ) . "\" rel=\"nofollow\">
+							{$network_image}
+							\"{$row->us_text}\"
+						</a>
+					</div>";
+
+			$this->activityLines[] = array(
+				'type' => 'network_update',
+				'timestamp' => $row->item_date,
+				'data' => $html,
 			);
 		}
 	}
@@ -876,6 +987,11 @@ class UserActivity {
 		return $this->items;
 	}
 
+	public function getNetworkUpdates() {
+		$this->setNetworkUpdates();
+		return $this->items;
+	}
+
 	public function getActivityList() {
 		if ( $this->show_edits ) {
 			$this->setEdits();
@@ -903,6 +1019,9 @@ class UserActivity {
 		}
 		if ( $this->show_messages_sent ) {
 			$this->getMessagesSent();
+		}
+		if ( $this->show_network_updates ) {
+			$this->getNetworkUpdates();//안쓸듯
 		}
 
 		if ( $this->items ) {
@@ -933,9 +1052,11 @@ class UserActivity {
 		if ( !isset( $this->activityLines ) ) {
 			$this->activityLines = array();
 		}
+
 		if ( isset( $this->activityLines ) && is_array( $this->activityLines ) ) {
 			usort( $this->activityLines, array( 'UserActivity', 'sortItems' ) );
 		}
+
 		return $this->activityLines;
 	}
 
@@ -978,15 +1099,14 @@ class UserActivity {
 				if ( $has_page && !isset( $this->displayed[$type][$page_name] ) ) {
 					$this->displayed[$type][$page_name] = 1;
 
-					$pages .= " <a href=\"{$page_title->escapeFullURL()}\">{$page_name}</a>";
+					$pages .= ' <a href="' . htmlspecialchars( $page_title->getFullURL() ) . "\">{$page_name}</a>";
 					if ( $count_users == 1 && $count_actions > 1 ) {
-						$pages .= wfMsg( 'word-separator' );
-						$pages .= wfMsg( 'parentheses', wfMsgExt(
+						$pages .= wfMessage( 'word-separator' )->text();
+						$pages .= wfMessage( 'parentheses', wfMessage(
 							"useractivity-group-{$type}",
-							'parsemag',
 							$count_actions,
 							$user_name
-						) );
+						)->text() )->text();
 					}
 					$pages_count++;
 				}
@@ -1017,12 +1137,12 @@ class UserActivity {
 										$pages .= ', ';
 									}
 									if ( $page_title2 instanceof Title ) {
-										$pages .= " <a href=\"{$page_title2->escapeFullURL()}\">{$page_name2}</a>";
+										$pages .= ' <a href="' . htmlspecialchars( $page_title2->getFullURL() ) . "\">{$page_name2}</a>";
 									}
 									if ( $count_actions2 > 1 ) {
-										$pages .= ' (' . wfMsg(
+										$pages .= ' (' . wfMessage(
 											"useractivity-group-{$type}", $count_actions2
-										) . ')';
+										)->text() . ')';
 									}
 									$pages_count++;
 
@@ -1036,28 +1156,27 @@ class UserActivity {
 				$user_index++;
 
 				if ( $users && $count_users > 2 ) {
-					$users .= wfMsg( 'comma-separator' );
+					$users .= wfMessage( 'comma-separator' )->text();
 				}
 				if ( $user_index ==  $count_users && $count_users > 1 ) {
-					$users .= wfMsg( 'and' );
+					$users .= wfMessage( 'and' )->text();
 				}
 
 				$user_title = Title::makeTitle( NS_USER, $user_name );
 				$user_name_short = $wgLang->truncate( $user_name, 15 );
 
 				$safeTitle = htmlspecialchars( $user_title->getText() );
-				$users .= " <b><a href=\"{$user_title->escapeFullURL()}\" title=\"{$safeTitle}\">{$user_name_short}</a></b>";
+				$users .= ' <b><a href="' . htmlspecialchars( $user_title->getFullURL() ) . "\" title=\"{$safeTitle}\">{$user_name_short}</a></b>";
 			}
 			if ( $pages || $has_page == false ) {
 				$this->activityLines[] = array(
 					'type' => $type,
 					'timestamp' => $page_data['timestamp'],
-					'data' => wfMsgExt(
+					'data' => wfMessage(
 						"useractivity-{$type}",
-						'parsemag',
 						$users, $count_users, $pages, $pages_count,
 						$userNameForGender
-					)
+					)->text()
 				);
 			}
 		}
@@ -1092,6 +1211,8 @@ class UserActivity {
 				return 'awardIcon.png';
 			case 'user_message':
 				return 'emailIcon.gif';
+			case 'network_update':
+				return 'note.gif';
 		}
 	}
 

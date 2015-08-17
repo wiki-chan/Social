@@ -116,3 +116,11 @@
 .red-text {
 	color: red !important;
 }
+
+/* Responsive stuff for mobile devices */
+@media screen and (max-width: 750px) and (orientation: portrait) {
+	/* "Add/Remove friend/foe" pages */
+	div.relationship-action p {
+		max-width: 60%;
+	}
+}

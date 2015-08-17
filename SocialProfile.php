@@ -27,50 +27,51 @@ $wgNamespaceProtection[NS_USER_TALK] = array( 'disabled' );
  * you will need to include in LocalSettings.php. The online manual has more
  * details about this.
  *
- * For more info about SocialProfile, please see http://www.mediawiki.org/wiki/Extension:SocialProfile.
+ * For more info about SocialProfile, please see https://www.mediawiki.org/wiki/Extension:SocialProfile.
  */
-$dir = dirname( __FILE__ ) . '/';
 
 // Internationalization files
-$wgExtensionMessagesFiles['SocialProfileUserBoard'] = $dir . 'UserBoard/UserBoard.i18n.php';
-$wgExtensionMessagesFiles['SocialProfileUserProfile'] = $dir . 'UserProfile/UserProfile.i18n.php';
-$wgExtensionMessagesFiles['SocialProfileUserRelationship'] = $dir . 'UserRelationship/UserRelationship.i18n.php';
-$wgExtensionMessagesFiles['SocialProfileUserStats'] = $dir . 'UserStats/UserStats.i18n.php';
-$wgExtensionMessagesFiles['SocialProfileUserStatus'] = $dir . 'UserStatus/UserStatus.i18n.php';
+$wgMessagesDirs['SocialProfile'] = __DIR__ . '/i18n';
+$wgExtensionMessagesFiles['SocialProfileAlias'] = __DIR__ . '/SocialProfile.alias.php';
 
-$wgExtensionMessagesFiles['SocialProfileNamespaces'] = $dir . 'SocialProfile.namespaces.php';
-$wgExtensionMessagesFiles['SocialProfileAlias'] = $dir . 'SocialProfile.alias.php';
+$wgMessagesDirs['SocialProfileUserBoard'] = __DIR__ . '/UserBoard/i18n';
+$wgMessagesDirs['SocialProfileUserProfile'] = __DIR__ . '/UserProfile/i18n';
+$wgMessagesDirs['SocialProfileUserRelationship'] = __DIR__ . '/UserRelationship/i18n';
+$wgMessagesDirs['SocialProfileUserStats'] = __DIR__ . '/UserStats/i18n';
+$wgExtensionMessagesFiles['SocialProfileNamespaces'] = __DIR__ . '/SocialProfile.namespaces.php';
+$wgExtensionMessagesFiles['AvatarMagic'] = __DIR__ . '/UserProfile/Avatar.magic.i18n.php';
 
 // Classes to be autoloaded
-$wgAutoloadClasses['GenerateTopUsersReport'] = $dir . 'UserStats/GenerateTopUsersReport.php';
+$wgAutoloadClasses['GenerateTopUsersReport'] = __DIR__ . '/UserStats/GenerateTopUsersReport.php';
 
-$wgAutoloadClasses['SpecialAddRelationship'] = $dir . 'UserRelationship/SpecialAddRelationship.php';
-$wgAutoloadClasses['SpecialBoardBlast'] = $dir . 'UserBoard/SpecialSendBoardBlast.php';
-$wgAutoloadClasses['SpecialEditProfile'] = $dir . 'UserProfile/SpecialEditProfile.php';
-$wgAutoloadClasses['SpecialPopulateUserProfiles'] = $dir . 'UserProfile/SpecialPopulateExistingUsersProfiles.php';
-$wgAutoloadClasses['SpecialRemoveRelationship'] = $dir . 'UserRelationship/SpecialRemoveRelationship.php';
-$wgAutoloadClasses['SpecialToggleUserPage'] = $dir . 'UserProfile/SpecialToggleUserPageType.php';
-$wgAutoloadClasses['SpecialUpdateProfile'] = $dir . 'UserProfile/SpecialUpdateProfile.php';
-$wgAutoloadClasses['SpecialUploadAvatar'] = $dir . 'UserProfile/SpecialUploadAvatar.php';
-$wgAutoloadClasses['SpecialViewRelationshipRequests'] = $dir . 'UserRelationship/SpecialViewRelationshipRequests.php';
-$wgAutoloadClasses['SpecialViewRelationships'] = $dir . 'UserRelationship/SpecialViewRelationships.php';
-$wgAutoloadClasses['SpecialViewUserBoard'] = $dir . 'UserBoard/SpecialUserBoard.php';
-$wgAutoloadClasses['SpecialUserStatus'] = $dir . 'UserStatus/SpecialUserStatus.php';
-$wgAutoloadClasses['RemoveAvatar'] = $dir . 'UserProfile/SpecialRemoveAvatar.php';
-$wgAutoloadClasses['UpdateEditCounts'] = $dir . 'UserStats/SpecialUpdateEditCounts.php';
-$wgAutoloadClasses['UserBoard'] = $dir . 'UserBoard/UserBoardClass.php';
-$wgAutoloadClasses['UserProfile'] = $dir . 'UserProfile/UserProfileClass.php';
-$wgAutoloadClasses['UserProfilePage'] = $dir . 'UserProfile/UserProfilePage.php';
-$wgAutoloadClasses['UserRelationship'] = $dir . 'UserRelationship/UserRelationshipClass.php';
-$wgAutoloadClasses['UserLevel'] = $dir . 'UserStats/UserStatsClass.php';
-$wgAutoloadClasses['UserStats'] = $dir . 'UserStats/UserStatsClass.php';
-$wgAutoloadClasses['UserStatsTrack'] = $dir . 'UserStats/UserStatsClass.php';
-$wgAutoloadClasses['UserSystemMessage'] = $dir . 'UserSystemMessages/UserSystemMessagesClass.php';
-$wgAutoloadClasses['TopFansByStat'] = $dir . 'UserStats/TopFansByStat.php';
-$wgAutoloadClasses['TopFansRecent'] = $dir . 'UserStats/TopFansRecent.php';
-$wgAutoloadClasses['TopUsersPoints'] = $dir . 'UserStats/TopUsers.php';
-$wgAutoloadClasses['wAvatar'] = $dir . 'UserProfile/AvatarClass.php';
-$wgAutoloadClasses['UserStatusClass'] = $dir . 'UserStatus/UserStatusClass.php';
+$wgAutoloadClasses['SpecialAddRelationship'] = __DIR__ . '/UserRelationship/SpecialAddRelationship.php';
+$wgAutoloadClasses['SpecialBoardBlast'] = __DIR__ . '/UserBoard/SpecialSendBoardBlast.php';
+$wgAutoloadClasses['SpecialEditProfile'] = __DIR__ . '/UserProfile/SpecialEditProfile.php';
+$wgAutoloadClasses['SpecialPopulateUserProfiles'] = __DIR__ . '/UserProfile/SpecialPopulateExistingUsersProfiles.php';
+$wgAutoloadClasses['SpecialRemoveRelationship'] = __DIR__ . '/UserRelationship/SpecialRemoveRelationship.php';
+$wgAutoloadClasses['SpecialToggleUserPage'] = __DIR__ . '/UserProfile/SpecialToggleUserPageType.php';
+$wgAutoloadClasses['SpecialUpdateProfile'] = __DIR__ . '/UserProfile/SpecialUpdateProfile.php';
+$wgAutoloadClasses['SpecialUploadAvatar'] = __DIR__ . '/UserProfile/SpecialUploadAvatar.php';
+$wgAutoloadClasses['UploadAvatar'] = __DIR__ . '/UserProfile/SpecialUploadAvatar.php';
+$wgAutoloadClasses['SpecialViewRelationshipRequests'] = __DIR__ . '/UserRelationship/SpecialViewRelationshipRequests.php';
+$wgAutoloadClasses['SpecialViewRelationships'] = __DIR__ . '/UserRelationship/SpecialViewRelationships.php';
+$wgAutoloadClasses['SpecialViewUserBoard'] = __DIR__ . '/UserBoard/SpecialUserBoard.php';
+$wgAutoloadClasses['RemoveAvatar'] = __DIR__ . '/UserProfile/SpecialRemoveAvatar.php';
+$wgAutoloadClasses['UpdateEditCounts'] = __DIR__ . '/UserStats/SpecialUpdateEditCounts.php';
+$wgAutoloadClasses['UserBoard'] = __DIR__ . '/UserBoard/UserBoardClass.php';
+$wgAutoloadClasses['UserProfile'] = __DIR__ . '/UserProfile/UserProfileClass.php';
+$wgAutoloadClasses['UserProfilePage'] = __DIR__ . '/UserProfile/UserProfilePage.php';
+$wgAutoloadClasses['UserRelationship'] = __DIR__ . '/UserRelationship/UserRelationshipClass.php';
+$wgAutoloadClasses['UserLevel'] = __DIR__ . '/UserStats/UserStatsClass.php';
+$wgAutoloadClasses['UserStats'] = __DIR__ . '/UserStats/UserStatsClass.php';
+$wgAutoloadClasses['UserStatsTrack'] = __DIR__ . '/UserStats/UserStatsClass.php';
+$wgAutoloadClasses['UserEmailTrack'] = __DIR__ . '/UserStats/UserStatsClass.php';
+$wgAutoloadClasses['UserSystemMessage'] = __DIR__ . '/UserSystemMessages/UserSystemMessagesClass.php';
+$wgAutoloadClasses['TopFansByStat'] = __DIR__ . '/UserStats/TopFansByStat.php';
+$wgAutoloadClasses['TopFansRecent'] = __DIR__ . '/UserStats/TopFansRecent.php';
+$wgAutoloadClasses['TopUsersPoints'] = __DIR__ . '/UserStats/TopUsers.php';
+$wgAutoloadClasses['wAvatar'] = __DIR__ . '/UserProfile/AvatarClass.php';
+$wgAutoloadClasses['AvatarParserFunction'] = __DIR__ . '/UserProfile/AvatarParserFunction.php';
 
 // New special pages
 $wgSpecialPages['AddRelationship'] = 'SpecialAddRelationship';
@@ -90,15 +91,6 @@ $wgSpecialPages['UploadAvatar'] = 'SpecialUploadAvatar';
 $wgSpecialPages['UserBoard'] = 'SpecialViewUserBoard';
 $wgSpecialPages['ViewRelationshipRequests'] = 'SpecialViewRelationshipRequests';
 $wgSpecialPages['ViewRelationships'] = 'SpecialViewRelationships';
-$wgSpecialPages['UserStatus'] = 'SpecialUserStatus';
-
-// Special page groups for MW 1.13+
-$wgSpecialPageGroups['AddRelationship'] = 'users';
-$wgSpecialPageGroups['RemoveAvatar'] = 'users';
-$wgSpecialPageGroups['RemoveRelationship'] = 'users';
-$wgSpecialPageGroups['UserBoard'] = 'users';
-$wgSpecialPageGroups['ViewRelationshipRequests'] = 'users';
-$wgSpecialPageGroups['ViewRelationships'] = 'users';
 
 // Necessary AJAX functions
 require_once( "$IP/extensions/SocialProfile/UserBoard/UserBoard_AjaxFunctions.php" );
@@ -109,6 +101,7 @@ require_once( "$IP/extensions/SocialProfile/UserStatus/UserStatus_AjaxFunctions.
 $wgUserProfileDisplay['board'] = true;
 $wgUserProfileDisplay['foes'] = false;
 $wgUserProfileDisplay['friends'] = true;
+$wgUserProfileDisplay['avatar'] = true; // If set to false, disables both avatar display and upload
 
 // Should we display UserBoard-related things on social profile pages?
 $wgUserBoard = true;
@@ -116,31 +109,119 @@ $wgUserBoard = true;
 // Whether to enable friending or not -- this doesn't do very much actually, so don't rely on it
 $wgFriendingEnabled = true;
 
-// Should we enable UserStatus feature (currently is under development)
-$wgEnableUserStatus = false;
-// Permission to delete other Users' Status Messages
-$wgGroupPermissions['sysop']['delete-status-update'] = true;
+// Prefix SocialProfile will use to store avatars
+// for global avatars on a wikifarm or groups of wikis,
+// set this to something static.
+$wgAvatarKey = $wgDBname;
+
 // Extension credits that show up on Special:Version
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'SocialProfile',
-	'author' => array( 'Aaron Wright', 'David Pean', 'Jack Phoenix', 'Fenet-' ),
-	'version' => '2.0',
+	'author' => array( 'Aaron Wright', 'David Pean', 'Jack Phoenix' ),
+	'version' => '1.7.2',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
-	'description' => 'A customized SocialProfile',
+	'descriptionmsg' => 'socialprofile-desc',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'TopUsers',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'Adds a special page for viewing the list of users with the most points.',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'UploadAvatar',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for uploading Avatars',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'RemoveAvatar',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for removing users\' avatars',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'PopulateExistingUsersProfiles',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for initializing social profiles for existing wikis',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'ToggleUserPage',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for updating a user\'s userpage preference',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'UpdateProfile',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page to allow users to update their social profile',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'SendBoardBlast',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page to allow users to send a mass board message by selecting from a list of their friends and foes',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'UserBoard',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'Display User Board messages for a user',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'AddRelationship',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for adding friends/foe requests for existing users in the wiki',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'RemoveRelationship',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for removing existing friends/foes for the current logged in user',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'ViewRelationshipRequests',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for viewing open relationship requests for the current logged in user',
+);
+$wgExtensionCredits['specialpage'][] = array(
+	'path' => __FILE__,
+	'name' => 'ViewRelationships',
+	'author' => 'David Pean',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A special page for viewing all relationships by type',
+);
+$wgExtensionCredits['parserhook'][] = array(
+	'path' => __FILE__,
+	'name' => 'Avatar',
+	'author' => 'Adam Carter',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'description' => 'A parser function to get the avatar of a given user',
 );
 
-// Some paths used by the extensions
-$wgUserProfileDirectory = "$IP/extensions/SocialProfile/UserProfile";
-
-$wgUserBoardScripts = "$wgScriptPath/extensions/SocialProfile/UserBoard";
-$wgUserProfileScripts = "$wgScriptPath/extensions/SocialProfile/UserProfile";
-$wgUserRelationshipScripts = "$wgScriptPath/extensions/SocialProfile/UserRelationship";
+// Hooked functions
+$wgAutoloadClasses['SocialProfileHooks'] = __DIR__ . '/SocialProfileHooks.php';
 
 // Loader files
-require_once( "{$wgUserProfileDirectory}/UserProfile.php" ); // Profile page configuration loader file
-# require_once( "$IP/extensions/SocialProfile/UserGifts/Gifts.php" ); // UserGifts (user-to-user gifting functionality) loader file
-# require_once( "$IP/extensions/SocialProfile/SystemGifts/SystemGifts.php" ); // SystemGifts (awards functionality) loader file
+require_once( "$IP/extensions/SocialProfile/UserProfile/UserProfile.php" ); // Profile page configuration loader file
+require_once( "$IP/extensions/SocialProfile/UserGifts/Gifts.php" ); // UserGifts (user-to-user gifting functionality) loader file
+require_once( "$IP/extensions/SocialProfile/SystemGifts/SystemGifts.php" ); // SystemGifts (awards functionality) loader file
 require_once( "$IP/extensions/SocialProfile/UserActivity/UserActivity.php" ); // UserActivity - recent social changes
 //UserBoard의 새로운 알림 체크 by 페네트
 require_once( "$IP/extensions/SocialProfile/UserBoard/UserBoard.php" );
@@ -148,130 +229,95 @@ require_once( "$IP/extensions/SocialProfile/UserBoard/UserBoard.php" );
 require_once( "$IP/extensions/SocialProfile/UserRelationship/UserRelationship.php" );
 
 
-// Hooked functions
-$wgHooks['CanonicalNamespaces'][] = 'wfSocialProfileRegisterCanonicalNamespaces';
-$wgHooks['LoadExtensionSchemaUpdates'][] = 'efSocialProfileSchemaUpdates';
-$wgHooks['LinkEnd'][] = 'wfSocialProfileSetLinkExist';
-// imsi
-$wgHooks['LinkBegin'][] = 'wfSocialProfileSetLinkImsi';
+$wgHooks['BeforePageDisplay'][] = 'SocialProfileHooks::onBeforePageDisplay';
+$wgHooks['CanonicalNamespaces'][] = 'SocialProfileHooks::onCanonicalNamespaces';
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'SocialProfileHooks::onLoadExtensionSchemaUpdates';
+$wgHooks['ParserFirstCallInit'][] = 'AvatarParserFunction::setupAvatarParserFunction';
 
-/**
- * Register the canonical names for our custom namespaces and their talkspaces.
- *
- * @param $list Array: array of namespace numbers with corresponding
- *                     canonical names
- * @return Boolean: true
- */
-function wfSocialProfileRegisterCanonicalNamespaces( &$list ) {
-	$list[NS_USER_WIKI] = 'UserWiki';
-	$list[NS_USER_WIKI_TALK] = 'UserWiki_talk';
-	$list[NS_USER_PROFILE] = 'User_profile';
-	$list[NS_USER_PROFILE_TALK] = 'User_profile_talk';
-	return true;
-}
+// For the Renameuser extension
+$wgHooks['RenameUserComplete'][] = 'SocialProfileHooks::onRenameUserComplete';
 
-// Schema changes
-function efSocialProfileDBUpdate( $updater, $label, $file ) {
-	if ( $updater === null ) {
-		global $wgExtNewTables;
+// ResourceLoader module definitions for certain components which do not have
+// their own loader file
 
-		$wgExtNewTables[] = array( $label, $file );
-	} else {
-		$updater->addExtensionUpdate( array( 'addTable', $label, $file, true ) );
-	}
-}
+// General
+$wgResourceModules['ext.socialprofile.clearfix'] = array(
+	'styles' => 'clearfix.css',
+	'position' => 'top',
+	'localBasePath' => __DIR__ . '/shared',
+	'remoteExtPath' => 'SocialProfile/shared',
+);
 
-function efSocialProfileSchemaUpdates( $updater = null ) {
-	global $wgDBtype;
+$wgResourceModules['ext.socialprofile.responsive'] = array(
+	'styles' => 'responsive.less',
+	'position' => 'top',
+	'localBasePath' => __DIR__ . '/shared',
+	'remoteExtPath' => 'SocialProfile/shared',
+);
 
-	$dir = dirname( __FILE__ );
-	$dbExt = '';
+// UserBoard
+$wgResourceModules['ext.socialprofile.userboard.js'] = array(
+	'scripts' => 'UserBoard.js',
+	'messages' => array( 'userboard_confirmdelete' ),
+	'localBasePath' => __DIR__ . '/UserBoard',
+	'remoteExtPath' => 'SocialProfile/UserBoard',
+);
 
-	if ( $wgDBtype == 'postgres' ) {
-		$dbExt = '.postgres';
-	}
+$wgResourceModules['ext.socialprofile.userboard.css'] = array(
+	'styles' => 'UserBoard.css',
+	'localBasePath' => __DIR__ . '/UserBoard',
+	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'position' => 'top' // just in case
+);
 
-	efSocialProfileDBUpdate( $updater, 'user_board', "$dir/UserBoard/user_board$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_profile', "$dir/UserProfile/user_profile$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_stats', "$dir/UserStats/user_stats$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_relationship',	"$dir/UserRelationship/user_relationship$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_relationship_request', "$dir/UserRelationship/user_relationship$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_system_gift', "$dir/SystemGifts/systemgifts$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'system_gift', "$dir/SystemGifts/systemgifts$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_gift', "$dir/UserGifts/usergifts$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'gift', "$dir/UserGifts/usergifts$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_system_messages', "$dir/UserSystemMessages/user_system_messages$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_status', "$dir/UserStatus/userstatus$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_status_history', "$dir/UserStatus/userstatus$dbExt.sql" );
-	efSocialProfileDBUpdate( $updater, 'user_status_likes', "$dir/UserStatus/userstatus$dbExt.sql" );
-
-	return true;
-}
-
-function wfSocialProfileSetLinkExist ( $dummy, $target, $options, &$html, &$attribs, &$ret ) {
-	if ( $target->getNamespace() == NS_USER ) {
-		//$attribs[] = 'known';
-		//var_dump($attribs);
-		$attribs['class'] = ''; //class 지정 가능
-		$ret = Html::rawElement( 'a', $attribs, $html );
-		return false;
-	}
-
-	return true;
-}
-
-function wfSocialProfileSetLinkImsi ( $dummy, $target, &$html, &$customAttribs, &$query, &$options, &$ret ) {
-	// 임시로 작성된 함수
-	$options[] = 'known';
-	return true;
-}
-
-
-// For Renameuser extension
-$wgHooks['RenameUserSQL'][] = 'efSystemGiftsOnUserRename';
-$wgHooks['RenameUserSQL'][] = 'efUserBoardOnUserRename';
-$wgHooks['RenameUserSQL'][] = 'efUserGiftsOnUserRename';
-$wgHooks['RenameUserSQL'][] = 'efUserRelationshipOnUserRename';
-$wgHooks['RenameUserSQL'][] = 'efUserStatsOnUserRename';
-$wgHooks['RenameUserSQL'][] = 'efUserSystemMessagesOnUserRename';
-
-function efSystemGiftsOnUserRename( $renameUserSQL ) {
-	$renameUserSQL->tables['user_system_gift'] = array( 'sg_user_name', 'sg_user_id' );
-	return true;
-}
-
+$wgResourceModules['ext.socialprofile.userboard.boardblast.css'] = array(
+	'styles' => 'BoardBlast.css',
+	'localBasePath' => __DIR__ . '/UserBoard',
+	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'position' => 'top' // just in case
+);
+/*
 function efUserBoardOnUserRename( $renameUserSQL ) {
 	$renameUserSQL->tables['{multi}'][] = array( 'user_board', 'ub_user_name', 'ub_user_id' );
 	$renameUserSQL->tables['{multi}'][] = array( 'user_board', 'ub_user_name_from', 'ub_user_id_from' );
 	// <fixme> 여기도 column 바꿀 곳이 한 곳 더 있음. 확인 요망. </fixme>
 	return true;
 }
+*/
 
-function efUserGiftsOnUserRename( $renameUserSQL ) {
-	$renameUserSQL->tables['user_gift'] = array( 'ug_user_name_to', 'ug_user_id_to' );
-	$renameUserSQL->tables['gift'] = array( 'gift_creator_user_name', 'gift_creator_user_id' );
-	return true;
-}
+$wgResourceModules['ext.socialprofile.userboard.boardblast.js'] = array(
+	'scripts' => 'BoardBlast.js',
+	'messages' => array(
+		'boardblast-js-sending', 'boardblast-js-error-missing-message',
+		'boardblast-js-error-missing-user'
+	),
+	'localBasePath' => __DIR__ . '/UserBoard',
+	'remoteExtPath' => 'SocialProfile/UserBoard',
+);
 
-function efUserRelationshipOnUserRename( $renameUserSQL ) {
-	// <fixme> This sucks and only updates half of the rows...wtf?
-	$renameUserSQL->tables['{multi}'][] = array( 'user_relationship', 'r_user_name_relation', 'r_user_id_relation' );
-	$renameUserSQL->tables['{multi}'][] = array( 'user_relationship', 'r_user_name', 'r_user_id' );
-	// </fixme>
-	$renameUserSQL->tables['user_relationship_request'] = array( 'ur_user_name_from', 'ur_user_id_from' );
-	return true;
-}
+// UserRelationship
+$wgResourceModules['ext.socialprofile.userrelationship.css'] = array(
+	'styles' => 'UserRelationship.css',
+	'localBasePath' => __DIR__ . '/UserRelationship',
+	'remoteExtPath' => 'SocialProfile/UserRelationship',
+	'position' => 'top' // just in case
+);
 
-function efUserStatsOnUserRename( $renameUserSQL ) {
-	$renameUserSQL->tables['user_stats'] = array( 'stats_user_name', 'stats_user_id' );
-	return true;
-}
+$wgResourceModules['ext.socialprofile.userrelationship.js'] = array(
+	'scripts' => 'UserRelationship.js',
+	'localBasePath' => __DIR__ . '/UserRelationship',
+	'remoteExtPath' => 'SocialProfile/UserRelationship',
+);
 
-function efUserSystemMessagesOnUserRename( $renameUserSQL ) {
-	$renameUserSQL->tables['user_system_messages'] = array( 'um_user_name', 'um_user_id' );
-	return true;
-}
+// UserStats
+$wgResourceModules['ext.socialprofile.userstats.css'] = array(
+	'styles' => 'TopList.css',
+	'localBasePath' => __DIR__ . '/UserStats',
+	'remoteExtPath' => 'SocialProfile/UserStats',
+	'position' => 'top' // just in case
+);
 
+// End ResourceLoader stuff
 
 if( !defined( 'NS_USER_WIKI' ) ) {
 	define( 'NS_USER_WIKI', 200 );

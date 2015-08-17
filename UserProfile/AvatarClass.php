@@ -34,7 +34,7 @@ class wAvatar {
 	 *			image size (s, m, ml or l)
 	 */
 	function getAvatarImage() {
-		global $wgDBname, $wgUploadDirectory, $wgMemc;
+		global $wgAvatarKey, $wgUploadDirectory, $wgMemc;
 
 		$key = wfMemcKey( 'user', 'profile', 'avatar', $this->user_id, $this->avatar_size );
 		$data = $wgMemc->get( $key );
@@ -43,20 +43,37 @@ class wAvatar {
 		if ( $data ) {
 			$avatar_filename = $data;
 		} else {
-			$files = glob( $wgUploadDirectory . '/avatars/' . $wgDBname . '_' . $this->user_id .  '_' . $this->avatar_size . "*" );
+			$files = glob( $wgUploadDirectory . '/avatars/' . $wgAvatarKey . '_' . $this->user_id .  '_' . $this->avatar_size . "*" );
 			if ( !isset( $files[0] ) || !$files[0] ) {
-				$avatar_filename = 'default_' . $this->avatar_size . '.png';
+				$avatar_filename = 'default_' . $this->avatar_size . '.gif';
 			} else {
 				$avatar_filename = basename( $files[0] ) . '?r=' . filemtime( $files[0] );
 			}
-			$wgMemc->set( $key, $avatar_filename );
+			$wgMemc->set( $key, $avatar_filename, 60 * 60 * 24 ); // cache for 24 hours
 		}
 		return $avatar_filename;
 	}
 
-	/** @return String: <img> HTML tag with full path to the avatar image */
-	function getAvatarURL() {
-		global $wgUploadPath;
-		return "<img src=\"{$wgUploadPath}/avatars/{$this->getAvatarImage()}\" alt=\"avatar\" border=\"0\" />";
+	/**
+	 * @param Array $extraParams: array of extra parameters to give to the image
+	 * @return String: <img> HTML tag with full path to the avatar image
+	 * */
+	function getAvatarURL( $extraParams = array() ) {
+		global $wgUploadPath, $wgUserProfileDisplay;
+
+		$defaultParams = array(
+			'src' => "{$wgUploadPath}/avatars/{$this->getAvatarImage()}",
+			'alt' => 'avatar',
+			'border' => '0',
+		);
+
+		if ( $wgUserProfileDisplay['avatar'] === false ) {
+			$defaultParams['src'] = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Replace by a white pixel
+			$defaultParams['style'] = 'border-width:0;display:none;';
+		}
+
+		$params = array_merge( $extraParams, $defaultParams );
+
+		return Html::element( 'img', $params, '' );
 	}
 }

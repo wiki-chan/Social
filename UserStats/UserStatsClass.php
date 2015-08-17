@@ -40,7 +40,7 @@ class UserStatsTrack {
 
 	// for referencing purposes
 	// key: statistic name in wgUserStatsPointValues -> database column name
-	var $stats_fields = array(
+	public $stats_fields = array(
 		'edit' => 'stats_edit_count',
 		'vote' => 'stats_vote_count',
 		'comment' => 'stats_comment_count',
@@ -217,6 +217,7 @@ class UserStatsTrack {
 	 */
 	function decStatField( $field, $val = 1 ) {
 		global $wgUser, $wgUserStatsTrackWeekly, $wgUserStatsTrackMonthly;
+
 		if ( !$wgUser->isAllowed( 'bot' ) && !$wgUser->isAnon() && $this->stats_fields[$field] ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$dbw->update(
@@ -247,6 +248,7 @@ class UserStatsTrack {
 	 */
 	function updateCommentCount() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$comments = $dbw->select(
@@ -275,6 +277,7 @@ class UserStatsTrack {
 	 */
 	function updateCommentIgnored() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$blockedComments = $dbw->select(
@@ -302,6 +305,7 @@ class UserStatsTrack {
 	 */
 	function updateEditCount() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$edits = $dbw->select(
@@ -330,6 +334,7 @@ class UserStatsTrack {
 	 */
 	function updateVoteCount() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$votes = $dbw->select(
@@ -409,6 +414,7 @@ class UserStatsTrack {
 	 */
 	function updateRelationshipCount( $relType ) {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			if ( $relType == 1 ) {
@@ -437,6 +443,7 @@ class UserStatsTrack {
 	 */
 	function updateGiftCountRec() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$gifts = $dbw->select(
@@ -460,6 +467,7 @@ class UserStatsTrack {
 	 */
 	function updateGiftCountSent() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$gifts = $dbw->select(
@@ -483,6 +491,7 @@ class UserStatsTrack {
 	 */
 	public function updateReferralComplete() {
 		global $wgUser;
+
 		if ( !$wgUser->isAnon() ) {
 			$dbw = wfGetDB( DB_MASTER );
 			$referrals = $dbw->select(
@@ -514,12 +523,14 @@ class UserStatsTrack {
 		if ( !$row ) {
 			$this->addWeekly();
 		}
-		$dbw->update(
-			'user_points_weekly',
-			array( 'up_points=up_points+' . $points ),
-			array( 'up_user_id' => $this->user_id ),
-			__METHOD__
-		);
+		if ( is_int( $points ) ) {
+			$dbw->update(
+				'user_points_weekly',
+				array( 'up_points=up_points+' . $points ),
+				array( 'up_user_id' => $this->user_id ),
+				__METHOD__
+			);
+		}
 	}
 
 	/**
@@ -550,13 +561,14 @@ class UserStatsTrack {
 		if ( !$row ) {
 			$this->addMonthly();
 		}
-
-		$dbw->update(
-			'user_points_monthly',
-			array( 'up_points=up_points+' . $points ),
-			array( 'up_user_id' => $this->user_id ),
-			__METHOD__
-		);
+		if ( is_int( $points ) ) {
+			$dbw->update(
+				'user_points_monthly',
+				array( 'up_points=up_points+' . $points ),
+				array( 'up_user_id' => $this->user_id ),
+				__METHOD__
+			);
+		}
 	}
 
 	/**
@@ -611,10 +623,13 @@ class UserStatsTrack {
 			// recaculate point total
 			$new_total_points = 1000;
 			// FIXME: Invalid argument supplied for foreach()
-			foreach ( $this->point_values as $point_field => $point_value ) {
-				if ( $this->stats_fields[$point_field] ) {
-					$field = $this->stats_fields[$point_field];
-					$new_total_points += $point_value * $row->$field;
+
+			if ( $this->point_values ) {
+				foreach ( $this->point_values as $point_field => $point_value ) {
+					if ( $this->stats_fields[$point_field] ) {
+						$field = $this->stats_fields[$point_field];
+						$new_total_points += $point_value * $row->$field;
+					}
 				}
 			}
 			if ( $wgEnableFacebook ) {
@@ -642,11 +657,18 @@ class UserStatsTrack {
 				$user_level = new UserLevel( $new_total_points );
 				$level_number_after = $user_level->getLevelNumber();
 
-				// Check if user advanced on this update
+				// Check if the user advanced to a new level on this update
 				if ( $level_number_after > $level_number_before ) {
 					$m = new UserSystemMessage();
-					$m->addMessage( $this->user_name, 2, wfMsgForContent( 'level-advanced-to', $user_level->getLevelName() ) );
-					$m->sendAdvancementNotificationEmail( $this->user_id, $user_level->getLevelName() );
+					$m->addMessage(
+						$this->user_name,
+						2,
+						wfMessage( 'level-advanced-to', $user_level->getLevelName() )->inContentLanguage()->parse()
+					);
+					$m->sendAdvancementNotificationEmail(
+						$this->user_id,
+						$user_level->getLevelName()
+					);
 				}
 			}
 			$this->clearCache();
@@ -734,35 +756,35 @@ class UserStats {
 			)
 		);
 		$row = $dbr->fetchObject( $res );
-		$stats['edits'] = number_format( isset( $row->stats_edit_count ) ? $row->stats_edit_count : 0 );
-		$stats['votes'] = number_format( isset( $row->stats_vote_count ) ? $row->stats_vote_count : 0 );
-		$stats['comments'] = number_format( isset( $row->stats_comment_count ) ? $row->stats_comment_count : 0 );
-		$stats['comment_score_plus'] = number_format( isset( $row->stats_comment_score_positive_rec ) ? $row->stats_comment_score_positive_rec : 0 );
-		$stats['comment_score_minus'] = number_format( isset( $row->stats_comment_score_negative_rec ) ? $row->stats_comment_score_negative_rec : 0 );
-		$stats['comment_score'] = number_format( $stats['comment_score_plus'] - $stats['comment_score_minus'] );
+		$stats['edits'] = isset( $row->stats_edit_count ) ? $row->stats_edit_count : 0;
+		$stats['votes'] = isset( $row->stats_vote_count ) ? $row->stats_vote_count : 0;
+		$stats['comments'] = isset( $row->stats_comment_count ) ? $row->stats_comment_count : 0;
+		$stats['comment_score_plus'] = isset( $row->stats_comment_score_positive_rec ) ? $row->stats_comment_score_positive_rec : 0;
+		$stats['comment_score_minus'] = isset( $row->stats_comment_score_negative_rec ) ? $row->stats_comment_score_negative_rec : 0;
+		$stats['comment_score'] = ( $stats['comment_score_plus'] - $stats['comment_score_minus'] );
 		$stats['opinions_created'] = isset( $row->stats_opinions_created ) ? $row->stats_opinions_created : 0;
 		$stats['opinions_published'] = isset( $row->stats_opinions_published ) ? $row->stats_opinions_published : 0;
-		$stats['points'] = number_format( isset( $row->stats_total_points ) ? $row->stats_total_points : 0 );
-		$stats['recruits'] = number_format( isset( $row->stats_referrals_completed ) ? $row->stats_referrals_completed : 0 );
-		$stats['challenges_won'] = number_format( isset( $row->stats_challenges_won ) ? $row->stats_challenges_won : 0 );
-		$stats['friend_count'] = number_format( isset( $row->stats_friends_count ) ? $row->stats_friends_count : 0 );
-		$stats['foe_count'] = number_format( isset( $row->stats_foe_count ) ? $row->stats_foe_count : 0 );
-		$stats['user_board'] = number_format( isset( $row->user_board_count ) ? $row->user_board_count : 0 );
-		$stats['user_board_priv'] = number_format( isset( $row->user_board_count_priv ) ? $row->user_board_count_priv : 0 );
-		$stats['user_board_sent'] = number_format( isset( $row->user_board_sent ) ? $row->user_board_sent : 0 );
-		$stats['weekly_wins'] = number_format( isset( $row->stats_weekly_winner_count ) ? $row->stats_weekly_winner_count : 0 );
-		$stats['monthly_wins'] = number_format( isset( $row->stats_monthly_winner_count ) ? $row->stats_monthly_winner_count : 0 );
-		$stats['poll_votes'] = number_format( isset( $row->stats_poll_votes ) ? $row->stats_poll_votes : 0 );
-		$stats['currency'] = number_format( isset( $row->stats_currency ) ? $row->stats_currency : 0 );
-		$stats['picture_game_votes'] = number_format( isset( $row->stats_picturegame_votes ) ? $row->stats_picturegame_votes : 0 );
-		$stats['quiz_created'] = number_format( isset( $row->stats_quiz_questions_created ) ? $row->stats_quiz_questions_created : 0 );
-		$stats['quiz_answered'] = number_format( isset( $row->stats_quiz_questions_answered ) ? $row->stats_quiz_questions_answered : 0 );
-		$stats['quiz_correct'] = number_format( isset( $row->stats_quiz_questions_correct ) ? $row->stats_quiz_questions_correct : 0 );
-		$stats['quiz_points'] = number_format( isset( $row->stats_quiz_points ) ? $row->stats_quiz_points : 0 );
+		$stats['points'] = isset( $row->stats_total_points ) ? $row->stats_total_points : 0;
+		$stats['recruits'] = isset( $row->stats_referrals_completed ) ? $row->stats_referrals_completed : 0;
+		$stats['challenges_won'] = isset( $row->stats_challenges_won ) ? $row->stats_challenges_won : 0;
+		$stats['friend_count'] = isset( $row->stats_friends_count ) ? $row->stats_friends_count : 0;
+		$stats['foe_count'] = isset( $row->stats_foe_count ) ? $row->stats_foe_count : 0;
+		$stats['user_board'] = isset( $row->user_board_count ) ? $row->user_board_count : 0;
+		$stats['user_board_priv'] = isset( $row->user_board_count_priv ) ? $row->user_board_count_priv : 0;
+		$stats['user_board_sent'] = isset( $row->user_board_sent ) ? $row->user_board_sent : 0;
+		$stats['weekly_wins'] = isset( $row->stats_weekly_winner_count ) ? $row->stats_weekly_winner_count : 0;
+		$stats['monthly_wins'] = isset( $row->stats_monthly_winner_count ) ? $row->stats_monthly_winner_count : 0;
+		$stats['poll_votes'] = isset( $row->stats_poll_votes ) ? $row->stats_poll_votes : 0;
+		$stats['currency'] = isset( $row->stats_currency ) ? $row->stats_currency : 0;
+		$stats['picture_game_votes'] = isset( $row->stats_picturegame_votes ) ? $row->stats_picturegame_votes : 0;
+		$stats['quiz_created'] = isset( $row->stats_quiz_questions_created ) ? $row->stats_quiz_questions_created : 0;
+		$stats['quiz_answered'] = isset( $row->stats_quiz_questions_answered ) ? $row->stats_quiz_questions_answered : 0;
+		$stats['quiz_correct'] = isset( $row->stats_quiz_questions_correct ) ? $row->stats_quiz_questions_correct : 0;
+		$stats['quiz_points'] = isset( $row->stats_quiz_points ) ? $row->stats_quiz_points : 0;
 		$stats['quiz_correct_percent'] = number_format( ( isset( $row->stats_quiz_questions_correct_percent ) ? $row->stats_quiz_questions_correct_percent : 0 ) * 100, 2 );
-		$stats['user_status_count'] = number_format( isset( $row->user_status_count ) ? $row->user_status_count : 0 );
+		$stats['user_status_count'] = isset( $row->user_status_count ) ? $row->user_status_count : 0;
 		if ( !$row ) {
-			$stats['points'] = '1,000';
+			$stats['points'] = '1000';
 		}
 
 		$key = wfMemcKey( 'user', 'stats', $this->user_id );
@@ -799,6 +821,7 @@ class UserStats {
 				'points' => $row->stats_total_points
 			);
 		}
+
 		return $list;
 	}
 
@@ -816,6 +839,7 @@ class UserStats {
 		} else {
 			$pointsTable = 'user_points_weekly';
 		}
+
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			$pointsTable,
@@ -828,14 +852,33 @@ class UserStats {
 			)
 		);
 
+		$loop = 0;
+
 		$list = array();
 		foreach ( $res as $row ) {
-			$list[] = array(
-				'user_id' => $row->up_user_id,
-				'user_name' => $row->up_user_name,
-				'points' => $row->up_points
-			);
+			$user = User::newFromId( $row->up_user_id );
+			// Ensure that the user exists for real.
+			// Otherwise we'll be happily displaying entries for users that
+			// once existed by no longer do (account merging is a thing,
+			// sadly), since user_stats entries for users are *not* purged
+			// and/or merged during the account merge process (which is a
+			// different bug with a different extension).
+			$exists = $user->loadFromId();
+
+			if ( !$user->isBlocked() && $exists ) {
+				$list[] = array(
+					'user_id' => $row->up_user_id,
+					'user_name' => $row->up_user_name,
+					'points' => $row->up_points
+				);
+				$loop++;
+			}
+
+			if ( $loop >= $limit ) {
+				break;
+			}
 		}
+
 		return $list;
 	}
 
@@ -860,6 +903,7 @@ class UserStats {
 			$op = '<';
 			$sort = 'DESC';
 		}
+
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			array( 'user_stats', 'user_relationship' ),
@@ -879,6 +923,7 @@ class UserStats {
 				)
 			)
 		);
+
 		$list = array();
 		foreach ( $res as $row ) {
 			$list[] = array(
@@ -887,26 +932,28 @@ class UserStats {
 				'points' => $row->stats_total_points
 			);
 		}
+
 		if ( $condition == 1 ) {
 			$list = array_reverse( $list );
 		}
+
 		return $list;
 	}
 }
 
 class UserLevel {
-	var $level_number = 0;
-	var $level_name;
+	public $level_number = 0;
+	public $level_name;
 
 	/**
 	 * @var String: name of the next level
 	 */
-	var $next_level_name;
+	public $next_level_name;
 
 	/**
 	 * @var Integer: amount of points needed to reach the next level
 	 */
-	var $next_level_points_needed;
+	public $next_level_points_needed;
 
 	/* private */ function __construct( $points ) {
 		global $wgUserLevels;
@@ -940,7 +987,7 @@ class UserLevel {
 	public function getNextLevelName() { return $this->next_level_name; }
 
 	public function getPointsNeededToAdvance() {
-		return number_format( $this->next_level_points_needed );
+		return $this->next_level_points_needed;
 	}
 
 	public function getLevelMinimum() {

@@ -72,27 +72,37 @@ class UserGifts {
 		$gift = Gifts::getGift( $gift_id );
 		$user = User::newFromId( $user_id_to );
 		$user->loadFromDatabase();
+
 		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifygift', 1 ) ) {
 			$giftsLink = SpecialPage::getTitleFor( 'ViewGifts' );
 			$updateProfileLink = SpecialPage::getTitleFor( 'UpdateProfile' );
+
 			if ( trim( $user->getRealName() ) ) {
 				$name = $user->getRealName();
 			} else {
 				$name = $user->getName();
 			}
-			$subject = wfMsgExt( 'gift_received_subject', 'parsemag',
+
+			$subject = wfMessage( 'gift_received_subject',
 				$user_from,
 				$gift['gift_name']
-			);
-			$body = wfMsgExt( 'gift_received_body', 'parsemag',
+			)->parse();
+			$body = wfMessage( 'gift_received_body',
 				$name,
 				$user_from,
 				$gift['gift_name'],
 				$giftsLink->getFullURL(),
 				$updateProfileLink->getFullURL()
-			);
+			)->parse();
 
-			$user->sendMail( $subject, $body );
+			// The email contains HTML, so actually send it out as such, too.
+			// That's why this no longer uses User::sendMail().
+			// @see https://bugzilla.wikimedia.org/show_bug.cgi?id=68045
+			global $wgPasswordSender;
+			$sender = new MailAddress( $wgPasswordSender,
+				wfMessage( 'emailsender' )->inContentLanguage()->text() );
+			$to = new MailAddress( $user );
+			UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
 		}
 	}
 
@@ -337,6 +347,7 @@ class UserGifts {
 				'unix_timestamp' => $row->unix_time
 			);
 		}
+
 		return $requests;
 	}
 
@@ -382,6 +393,7 @@ class UserGifts {
 				'unix_timestamp' => $row->unix_time
 			);
 		}
+
 		return $requests;
 	}
 
@@ -409,6 +421,7 @@ class UserGifts {
 	static function getGiftCountByUsername( $userName ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$userId = User::idFromName( $userName );
+
 		$res = $dbr->select(
 			'user_gift',
 			'COUNT(*) AS count',
@@ -416,11 +429,14 @@ class UserGifts {
 			__METHOD__,
 			array( 'LIMIT' => 1, 'OFFSET' => 0 )
 		);
+
 		$row = $dbr->fetchObject( $res );
 		$giftCount = 0;
+
 		if ( $row ) {
 			$giftCount = $row->count;
 		}
+
 		return $giftCount;
 	}
 }

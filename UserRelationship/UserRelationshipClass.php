@@ -16,6 +16,29 @@ class UserRelationship {
 	}
 
 	/**
+	 * Quickie wrapper function for sending out an email as properly rendered
+	 * HTML instead of plaintext.
+	 *
+	 * The functions in this class that call this function used to use
+	 * User::sendMail(), but it was causing the mentioned bug, hence why this
+	 * function had to be introduced.
+	 *
+	 * @see https://bugzilla.wikimedia.org/show_bug.cgi?id=68045
+	 *
+	 * @param User $string User (object) whom to send an email
+	 * @param string $subject Email subject
+	 * @param $string $body Email contents (HTML)
+	 * @return Status object
+	 */
+	public function sendMail( $user, $subject, $body ) {
+		global $wgPasswordSender;
+		$sender = new MailAddress( $wgPasswordSender,
+			wfMessage( 'emailsender' )->inContentLanguage()->text() );
+		$to = new MailAddress( $user );
+		return UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
+	}
+
+	/**
 	 * Add a relationship request to the database.
 	 *
 	 * @param $user_to String: user name of the recipient of the relationship
@@ -75,27 +98,28 @@ class UserRelationship {
 				$name = $user->getName();
 			}
 			if ( $type == 1 ) {
-				$subject = wfMsgExt( 'friend_request_subject', 'parsemag',
+				$subject = wfMessage( 'friend_request_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'friend_request_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'friend_request_body',
 					$name,
 					$userFrom,
 					$requestLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			} else {
-				$subject = wfMsgExt( 'foe_request_subject', 'parsemag',
+				$subject = wfMessage( 'foe_request_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'foe_request_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'foe_request_body',
 					$name,
 					$userFrom,
 					$requestLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			}
-			$user->sendMail( $subject, $body );
+
+			$this->sendMail( $user, $subject, $body );
 		}
 	}
 
@@ -119,27 +143,27 @@ class UserRelationship {
 				$name = $user->getName();
 			}
 			if ( $type == 1 ) {
-				$subject = wfMsgExt( 'friend_accept_subject', 'parsemag',
+				$subject = wfMessage( 'friend_accept_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'friend_accept_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'friend_accept_body',
 					$name,
 					$userFrom,
 					$userLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			} else {
-				$subject = wfMsgExt( 'foe_accept_subject', 'parsemag',
+				$subject = wfMessage( 'foe_accept_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'foe_accept_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'foe_accept_body',
 					$name,
 					$userFrom,
 					$userLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			}
-			$user->sendMail( $subject, $body );
+			$this->sendMail( $user, $subject, $body );
 		}
 	}
 
@@ -163,27 +187,27 @@ class UserRelationship {
 				$name = $user->getName();
 			}
 			if ( $type == 1 ) {
-				$subject = wfMsgExt( 'friend_removed_subject', 'parsemag',
+				$subject = wfMessage( 'friend_removed_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'friend_removed_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'friend_removed_body',
 					$name,
 					$userFrom,
 					$userLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			} else {
-				$subject = wfMsgExt( 'foe_removed_subject', 'parsemag',
+				$subject = wfMessage( 'foe_removed_subject',
 					$userFrom
-				);
-				$body = wfMsgExt( 'foe_removed_body', 'parsemag',
+				)->text();
+				$body = wfMessage( 'foe_removed_body',
 					$name,
 					$userFrom,
 					$userLink->getFullURL(),
 					$updateProfileLink->getFullURL()
-				);
+				)->text();
 			}
-			$user->sendMail( $subject, $body );
+			$this->sendMail( $user, $subject, $body );
 		}
 	}
 
@@ -264,9 +288,9 @@ class UserRelationship {
 
 			// Hooks (for Semantic SocialProfile mostly)
 			if ( $ur_type == 1 ) {
-				wfRunHooks( 'NewFriendAccepted', array( $ur_user_name_from, $this->user_name ) );
+				Hooks::run( 'NewFriendAccepted', array( $ur_user_name_from, $this->user_name ) );
 			} else {
-				wfRunHooks( 'NewFoeAccepted', array( $ur_user_name_from, $this->user_name ) );
+				Hooks::run( 'NewFoeAccepted', array( $ur_user_name_from, $this->user_name ) );
 			}
 
 			return true;
@@ -308,7 +332,7 @@ class UserRelationship {
 		$wgMemc->delete( wfMemcKey( 'relationship', 'profile', "{$user2}-2" ) );
 
 		// RelationshipRemovedByUserID hook
-		wfRunHooks( 'RelationshipRemovedByUserID', array( $user1, $user2 ) );
+		Hooks::run( 'RelationshipRemovedByUserID', array( $user1, $user2 ) );
 
 		// Update social statistics for both users
 		$stats = new UserStatsTrack( $user1, '' );

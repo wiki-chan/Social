@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Okras"
+		]
+	},
+	"socialprofile-desc": "Набор социальных инструментов для MediaWiki",
+	"socialprofile-uploads-disabled": "Функция загрузки аватара отключена"
+}

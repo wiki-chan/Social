@@ -1,36 +1,70 @@
-var selected_gift = 0;
+var UserGifts = {
+	selected_gift: 0,
 
-function selectGift( id ) {
-	// Un-select previously selected gift
-	if( selected_gift ) {
-		jQuery( '#give_gift_' + selected_gift ).removeClass( 'g-give-all-selected' );
+	selectGift: function( id ) {
+		// Un-select previously selected gift
+		if ( UserGifts.selected_gift ) {
+			jQuery( '#give_gift_' + UserGifts.selected_gift ).removeClass( 'g-give-all-selected' );
+		}
+
+		// Select new gift
+		jQuery( '#give_gift_' + id ).addClass( 'g-give-all-selected' );
+
+		UserGifts.selected_gift = id;
+	},
+
+	highlightGift: function( id ) {
+		jQuery( '#give_gift_' + id ).addClass( 'g-give-all-highlight' );
+	},
+
+	unHighlightGift: function( id ) {
+		jQuery( '#give_gift_' + id ).removeClass( 'g-give-all-highlight' );
+	},
+
+	sendGift: function() {
+		if ( !UserGifts.selected_gift ) {
+			alert( 'Please select a gift' );
+			return false;
+		}
+		document.gift.gift_id.value = UserGifts.selected_gift;
+		document.gift.submit();
+	},
+
+	chooseFriend: function( friend ) {
+		// Now, this is a rather nasty hack since the original (commented out below) wouldn't work when $wgScriptPath was set
+		//window.location = window.location + "&user=" + friend;
+		window.location = mw.config.get( 'wgServer' ) + mw.config.get( 'wgScript' ) +
+			'?title=Special:GiveGift' + '&user=' + friend;
 	}
+};
 
-	// Select new gift
-	jQuery( '#give_gift_' + id ).addClass( 'g-give-all-selected' );
+jQuery( document ).ready( function() {
+	// "Select a friend" dropdown menu
+	jQuery( 'div.g-gift-select select' ).on( 'change', function() {
+		UserGifts.chooseFriend( jQuery( this ).val() );
+	} );
 
-	selected_gift = id;
-}
+	// Handlers for individual gift images
+	jQuery( 'div[id^=give_gift_]' ).on({
+		'click': function() {
+			UserGifts.selectGift(
+				jQuery( this ).attr( 'id' ).replace( 'give_gift_', '' )
+			);
+		},
+		'mouseout': function() {
+			UserGifts.unHighlightGift(
+				jQuery( this ).attr( 'id' ).replace( 'give_gift_', '' )
+			);
+		},
+		'mouseover': function() {
+			UserGifts.highlightGift(
+				jQuery( this ).attr( 'id' ).replace( 'give_gift_', '' )
+			);
+		},
+	});
 
-function highlightGift( id ) {
-	jQuery( '#give_gift_' + id ).addClass( 'g-give-all-highlight' );
-}
-
-function unHighlightGift( id ) {
-	jQuery( '#give_gift_' + id ).removeClass( 'g-give-all-highlight' );
-}
-
-function sendGift() {
-	if( !selected_gift ) {
-		alert( 'Please select a gift' );
-		return false;
-	}
-	document.gift.gift_id.value = selected_gift;
-	document.gift.submit();
-}
-
-function chooseFriend( friend ) {
-	// Now, this is a rather nasty hack since the original (commented out below) wouldn't work when $wgScriptPath was set
-	//window.location = window.location + "&user=" + friend;
-	window.location = wgServer + wgScript + '?title=Special:GiveGift' + '&user=' + friend;
-}
+	// "Send gift" button
+	jQuery( 'input#send-gift-button' ).on( 'click', function() {
+		UserGifts.sendGift();
+	} );
+} );

@@ -72,23 +72,30 @@ class UserSystemGifts {
 		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifygift', 1 ) ) {
 			$gifts_link = SpecialPage::getTitleFor( 'ViewSystemGifts' );
 			$update_profile_link = SpecialPage::getTitleFor( 'UpdateProfile' );
-			$subject = wfMsgExt( 'system_gift_received_subject', 'parsemag',
+			$subject = wfMessage( 'system_gift_received_subject',
 				$gift['gift_name']
-			);
+			)->text();
 			if ( trim( $user->getRealName() ) ) {
 				$name = $user->getRealName();
 			} else {
 				$name = $user->getName();
 			}
-			$body = wfMsgExt( 'system_gift_received_body', 'parsemag',
+			$body = wfMessage( 'system_gift_received_body',
 				$name,
 				$gift['gift_name'],
 				$gift['gift_description'],
 				$gifts_link->getFullURL(),
 				$update_profile_link->getFullURL()
-			);
+			)->text();
 
-			$user->sendMail( $subject, $body );
+			// The email contains HTML, so actually send it out as such, too.
+			// That's why this no longer uses User::sendMail().
+			// @see https://bugzilla.wikimedia.org/show_bug.cgi?id=68045
+			global $wgPasswordSender;
+			$sender = new MailAddress( $wgPasswordSender,
+				wfMessage( 'emailsender' )->inContentLanguage()->text() );
+			$to = new MailAddress( $user );
+			UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
 		}
 	}
 

@@ -116,3 +116,14 @@ select#message_type {
 .user-board-message-type {
 	color: #797979;
 }
+
+/* Responsive stuff for mobile devices */
+@media screen and (max-width: 750px) {
+	div.user-board-message {
+		max-width: 100%;
+	}
+	/* Makes long messages wrap sanely */
+	div.user-board-message-body {
+		float: none;
+	}
+}

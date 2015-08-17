@@ -17,21 +17,43 @@ class UserHome extends SpecialPage {
 	}
 
 	/**
+	 * Group this special page under the correct header in Special:SpecialPages.
+	 *
+	 * @return string
+	 */
+	function getGroupName() {
+		return 'users';
+	}
+
+	/**
 	 * Show the special page
 	 *
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgUser, $wgOut, $wgRequest, $wgScriptPath;
+		global $wgExtensionAssetsPath;
 
-		$wgOut->addExtensionStyle( $wgScriptPath . '/extensions/SocialProfile/UserActivity/UserActivity.css' );
+		$out = $this->getOutput();
+		$request = $this->getRequest();
+		$user = $this->getUser();
 
-		$wgOut->setPageTitle( wfMsg( 'useractivity-title' ) );
+		// Add CSS
+		$out->addModuleStyles( 'ext.socialprofile.useractivity.css' );
+
+		// Set the page title, robot policies, etc.
+		$this->setHeaders();
+
+		$out->setPageTitle( $this->msg( 'useractivity-title' )->plain() );
 
 		$output = '';
+		// Initialize all of these or otherwise we get a lot of E_NOTICEs about
+		// undefined variables when the filtering feature (described below) is
+		// active and we're viewing a filtered-down feed
+		$edits = $votes = $comments = $comments = $gifts = $relationships =
+			$messages = $system_gifts = $messages_sent = $network_updates = 0;
 
-		$rel_type = $wgRequest->getVal( 'rel_type' );
-		$item_type = $wgRequest->getVal( 'item_type' );
+		$rel_type = $request->getVal( 'rel_type' );
+		$item_type = $request->getVal( 'item_type' );
 
 		if ( !$rel_type ) {
 			$rel_type = 1;
@@ -65,10 +87,59 @@ class UserHome extends SpecialPage {
 		if ( $item_type == 'messages' || $item_type == 'all' ) {
 			$messages_sent = 1;
 		}
+		if ( $item_type == 'thoughts' || $item_type == 'all' ) {
+			$network_updates = 1;
+		}
 
+		// Filtering feature, if enabled
+		// The filter message's format is:
+		// *filter name (item_type URL parameter)|Displayed text (can be the name of a MediaWiki: message, too)|Type icon name (*not* the image name; see UserActivity::getTypeIcon())
+		// For example:
+		// *messages|Board Messages|user_message
+		// This would add a link that allows filtering non-board messages
+		// related events from the filter, only showing board message activity
+
+		$filterMsg = $this->msg( 'useractivity-friendsactivity-filter' );
+		if ( !$filterMsg->isDisabled() ) {
+			$output .= '<div class="user-home-links-container">
+			<h2>' . $this->msg( 'useractivity-filter' )->plain() . '</h2>
+			<div class="user-home-links">';
+
+			$lines = explode( "\n", $filterMsg->inContentLanguage()->text() );
+
+			foreach ( $lines as $line ) {
+				if ( strpos( $line, '*' ) !== 0 ) {
+					continue;
+				} else {
+					$line = explode( '|' , trim( $line, '* ' ), 3 );
+					$filter = $line[0];
+					$link_text = $line[1];
+
+					// Maybe it's the name of a MediaWiki: message? I18n is
+					// always nice, so at least try it and see what happens...
+					$linkMsgObj = wfMessage( $link_text );
+					if ( !$linkMsgObj->isDisabled() ) {
+						$link_text = $linkMsgObj->parse();
+					}
+
+					$link_image = $line[2];
+					$output .= '<a href="' . htmlspecialchars( $this->getPageTitle()->getFullURL( "item_type={$filter}" ) ) .
+						"\"><img src=\"{$wgExtensionAssetsPath}/SocialProfile/images/" .
+						UserActivity::getTypeIcon( $link_image ) . "\"/>{$link_text}</a>";
+				}
+			}
+
+			$output .= Linker::link(
+				$this->getPageTitle(),
+				$this->msg( 'useractivity-all' )->plain()
+			);
+			$output .= '</div>
+			</div>';
+		}
 		$output .= '<div class="user-home-feed">';
 
-		$rel = new UserActivity( $wgUser->getName(), ( ( $rel_type == 1 ) ? ' friends' : 'foes' ), 50 );
+		$rel = new UserActivity( $user->getName(), ( ( $rel_type == 1 ) ? ' friends' : 'foes' ), 50 );
+
 		$rel->setActivityToggle( 'show_edits', $edits );
 		$rel->setActivityToggle( 'show_votes', $votes );
 		$rel->setActivityToggle( 'show_comments', $comments );
@@ -77,6 +148,7 @@ class UserHome extends SpecialPage {
 		$rel->setActivityToggle( 'show_system_messages', $messages );
 		$rel->setActivityToggle( 'show_system_gifts', $system_gifts );
 		$rel->setActivityToggle( 'show_messages_sent', $messages_sent );
+		$rel->setActivityToggle( 'show_network_updates', $network_updates );
 
 		/**
 		 * Get all relationship activity
@@ -98,7 +170,7 @@ class UserHome extends SpecialPage {
 
 					$typeIcon = UserActivity::getTypeIcon( $item['type'] );
 					$output .= "<div class=\"user-home-activity{$border_fix}\">
-						<img src=\"{$wgScriptPath}/extensions/SocialProfile/images/" . $typeIcon . "\" alt=\"\" border=\"0\" />
+						<img src=\"{$wgExtensionAssetsPath}/SocialProfile/images/" . $typeIcon . "\" alt=\"\" border=\"0\" />
 						{$item['data']}
 					</div>";
 					$x++;
@@ -108,6 +180,6 @@ class UserHome extends SpecialPage {
 
 		$output .= '</div>
 		<div class="cleared"></div>';
-		$wgOut->addHTML( $output );
+		$out->addHTML( $output );
 	}
 }
