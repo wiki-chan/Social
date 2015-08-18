@@ -1,7 +1,54 @@
 <?php
+/**
+ * Protect against register_globals vulnerabilities.
+ * This line must be present before any global variable is referenced.
+ */
+if ( !defined( 'MEDIAWIKI' ) ) {
+	die( "Not a valid entry point.\n" );
+}
+
 // Global profile namespace reference
 define( 'NS_USER_PROFILE', 202 );
 define( 'NS_USER_WIKI', 200 );
+
+$wgExtensionCredits['profile'][] = array(
+	'path' => __FILE__,
+	'name' => 'User profile',
+	'author' => array('David Pean', '페네트-'),
+	'url' => 'https://github.com/wiki-chan/SocialProfile',
+	'description' => 'A special page to allow users to update their social profile',
+);
+
+// i18n
+$wgMessagesDirs['SocialProfileUserProfile'] = __DIR__ . '/i18n';
+$wgExtensionMessagesFiles['AvatarMagic'] = __DIR__ . '/Avatar.magic.i18n.php';
+
+// autoload classes for special pages
+$wgAutoloadClasses['SpecialEditProfile'] = __DIR__ . '/SpecialEditProfile.php';
+$wgAutoloadClasses['SpecialPopulateUserProfiles'] = __DIR__ . '/SpecialPopulateExistingUsersProfiles.php';
+$wgAutoloadClasses['SpecialToggleUserPage'] = __DIR__ . '/SpecialToggleUserPageType.php';
+$wgAutoloadClasses['SpecialUpdateProfile'] = __DIR__ . '/SpecialUpdateProfile.php';
+$wgAutoloadClasses['SpecialUploadAvatar'] = __DIR__ . '/SpecialUploadAvatar.php';
+$wgAutoloadClasses['RemoveAvatar'] = __DIR__ . '/SpecialRemoveAvatar.php';
+
+$wgAutoloadClasses['UserProfile'] = __DIR__ . '/UserProfileClass.php';
+$wgAutoloadClasses['UserProfilePage'] = __DIR__ . '/UserProfilePage.php';
+$wgAutoloadClasses['UserProfileFunctions'] = __DIR__ . '/UserProfileFunctions.php';
+
+$wgAutoloadClasses['UploadAvatar'] = __DIR__ . '/SpecialUploadAvatar.php';
+$wgAutoloadClasses['wAvatar'] = __DIR__ . '/AvatarClass.php';
+$wgAutoloadClasses['AvatarParserFunction'] = __DIR__ . '/AvatarParserFunction.php';
+
+// special pages
+$wgSpecialPages['EditProfile'] = 'SpecialEditProfile';
+$wgSpecialPages['PopulateUserProfiles'] = 'SpecialPopulateUserProfiles';
+$wgSpecialPages['ToggleUserPage'] = 'SpecialToggleUserPage';
+$wgSpecialPages['UpdateProfile'] = 'SpecialUpdateProfile';
+$wgSpecialPages['UploadAvatar'] = 'SpecialUploadAvatar';
+$wgSpecialPages['RemoveAvatar'] = 'RemoveAvatar';
+
+// extension init hook
+$wgHooks['ParserFirstCallInit'][] = 'AvatarParserFunction::setupAvatarParserFunction';
 
 /**
  * If you want to require users to have a certain number of certain things, like
@@ -43,9 +90,9 @@ $wgUserProfileThresholds = array(
 );
 
 // Default setup for displaying sections
-$wgUserPageChoice = true;
+$wgUserPageChoice = false;
 
-$wgUserProfileDisplay['friends'] = false;
+$wgUserProfileDisplay['friends'] = true;
 $wgUserProfileDisplay['foes'] = false;
 $wgUserProfileDisplay['gifts'] = true;
 $wgUserProfileDisplay['awards'] = true;
@@ -58,6 +105,7 @@ $wgUserProfileDisplay['personal'] = true;
 $wgUserProfileDisplay['activity'] = false; // Display recent social activity?
 $wgUserProfileDisplay['userboxes'] = false; // If FanBoxes extension is installed, setting this to true will display the user's fanboxes on their profile page
 $wgUserProfileDisplay['games'] = false; // Display casual games created by the user on their profile? This requires three separate social extensions: PictureGame, PollNY and QuizGame
+$wgUserProfileDisplay['avatar'] = true; // If set to false, disables both avatar display and upload
 
 $wgUpdateProfileInRecentChanges = false; // Show a log entry in recent changes whenever a user updates their profile?
 $wgUploadAvatarInRecentChanges = false; // Same as above, but for avatar uploading
@@ -101,76 +149,4 @@ $wgLogNames['avatar']            = 'avatarlogpage';
 $wgLogHeaders['avatar']          = 'avatarlogpagetext';
 $wgLogActions['avatar/avatar'] = 'avatarlogentry';
 
-$wgHooks['ArticleFromTitle'][] = 'wfUserProfileFromTitle';
-
-/**
- * Called by ArticleFromTitle hook
- * Calls UserProfilePage instead of standard article
- *
- * @param &$title Title object
- * @param &$article Article object
- * @return true
- */
-function wfUserProfileFromTitle( &$title, &$article ) {
-	global $wgRequest, $wgOut, $wgHooks, $wgUserPageChoice;
-
-	if ( strpos( $title->getText(), '/' ) === false &&
-		( NS_USER == $title->getNamespace() || NS_USER_PROFILE == $title->getNamespace() )
-	) {
-		$show_user_page = false;
-		if ( $wgUserPageChoice ) {
-			$profile = new UserProfile( $title->getText() );
-			$profile_data = $profile->getProfile();
-
-			// If they want regular page, ignore this hook
-			if ( isset( $profile_data['user_id'] ) && $profile_data['user_id'] && $profile_data['user_page_type'] == 0 ) {
-				$show_user_page = true;
-			}
-		}
-		//항상 유저페이지만 보여주도록 함 (by 페넷)
-		$show_user_page = false;
-
-		if ( !$show_user_page ) {
-			// Prevents editing of userpage
-			if ( $wgRequest->getVal( 'action' ) == 'edit' ) {
-				$wgOut->redirect( $title->getFullURL() );
-			}
-		} else {
-			$wgOut->enableClientCache( false );
-			$wgHooks['ParserLimitReport'][] = 'wfUserProfileMarkUncacheable';
-		}
-
-		$wgOut->addModuleStyles( array(
-			'ext.socialprofile.clearfix',
-			'ext.socialprofile.userprofile.css'
-		) );
-
-		$article = new UserProfilePage( $title );
-	}
-	#NS_USER의 하위페이지 접근 시에도 유저페이지만 보여줌 (by 페네트)
-	#별로 좋지 못한 해결책임...mw 다음 버전에서 특수 함수를 사용해서 해결할 수 있을듯.
-	elseif ( strpos( $title->getText(), '/' ) > 0 &&
-		( NS_USER == $title->getNamespace() || NS_USER_PROFILE == $title->getNamespace() )
-	) {
-		$parts = explode( '/', $title->getText() );
-		if ( count( $parts ) > 1 )
-			unset( $parts[count( $parts ) - 1] );
-
-		$article = new UserProfilePage( $title );
-		$title = Title::newFromText(implode($parts), $title->getNamespace());
-		$article->getContext()->getOutput()->redirect($title->getFullURL());
-	}
-	return true;
-}
-
-/**
- * Mark page as uncacheable
- *
- * @param $parser Parser object
- * @param &$limitReport String: unused
- * @return true
- */
-function wfUserProfileMarkUncacheable( $parser, &$limitReport ) {
-	$parser->disableCache();
-	return true;
-}
+$wgHooks['ArticleFromTitle'][] = 'UserProfileFunctions::wfUserProfileFromTitle';

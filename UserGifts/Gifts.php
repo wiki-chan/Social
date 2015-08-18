@@ -7,7 +7,7 @@ $wgAvailableRights[] = 'giftadmin';
 $wgGroupPermissions['staff']['giftadmin'] = true;
 $wgGroupPermissions['sysop']['giftadmin'] = true;
 
-$wgUserGiftsDirectory = "$IP/extensions/SocialProfile/UserGifts";
+$wgUserGiftsDirectory = __DIR__;
 
 // Special Pages etc.
 $wgAutoloadClasses['Gifts'] = "{$wgUserGiftsDirectory}/GiftsClass.php";

@@ -1,0 +1,94 @@
+{
+	"name": "SocialProfile",
+	"version": "1.7.4",
+	"author": [
+		"Aaron Wright",
+		"David Pean",
+		"Jack Phoenix",
+		"페네트-"
+	],
+	"url": "https://github.com/wiki-chan/SocialProfile",
+	"descriptionmsg": "socialprofile-desc",
+	"type": "profile",
+	"SpecialPages": {
+		"GenerateTopUsersReport": "GenerateTopUsersReport",
+		"TopFansByStatistic": "TopFansByStat",
+		"TopUsers": "TopUsersPoints",
+		"TopUsersRecent": "TopFansRecent",
+		"UpdateEditCounts": "UpdateEditCounts"
+	},
+	"MessagesDirs": {
+		"SocialProfile": [
+			"i18n"
+		],
+		"SocialProfileUserStats": [
+			"UserStats/i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"SocialProfileAlias": "SocialProfile.alias.php",
+		"SocialProfileNamespaces": "SocialProfile.namespaces.php"
+	},
+	"AutoloadClasses": {
+		"SocialProfileInitClass": "SocialProfileInitClass.php",
+		"GenerateTopUsersReport": "UserStats/GenerateTopUsersReport.php",
+		"UpdateEditCounts": "UserStats/SpecialUpdateEditCounts.php",
+		"UserLevel": "UserStats/UserStatsClass.php",
+		"UserStats": "UserStats/UserStatsClass.php",
+		"UserStatsTrack": "UserStats/UserStatsClass.php",
+		"UserEmailTrack": "UserStats/UserStatsClass.php",
+		"UserSystemMessage": "UserSystemMessages/UserSystemMessagesClass.php",
+		"TopFansByStat": "UserStats/TopFansByStat.php",
+		"TopFansRecent": "UserStats/TopFansRecent.php",
+		"TopUsersPoints": "UserStats/TopUsers.php",
+		"SocialProfileHooks": "SocialProfileHooks.php"
+	},
+	"ResourceModules": {
+		"ext.socialprofile.clearfix": {
+			"styles": "clearfix.css",
+			"position": "top"
+		},
+		"ext.socialprofile.responsive": {
+			"styles": "responsive.less",
+			"position": "top"
+		},
+		"ext.socialprofile.userstats.css": {
+			"styles": "TopList.css",
+			"localBasePath": "UserStats",
+			"remoteExtPath": "SocialProfile/UserStats",
+			"position": "top"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "shared",
+		"remoteExtPath": "SocialProfile/shared"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"SocialProfileInitClass::setAvatarKey"
+		],
+		"BeforePageDisplay": [
+			"SocialProfileHooks::onBeforePageDisplay"
+		],
+		"CanonicalNamespaces": [
+			"SocialProfileHooks::onCanonicalNamespaces"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"SocialProfileHooks::onLoadExtensionSchemaUpdates"
+		],
+		"RenameUserComplete": [
+			"SocialProfileHooks::onRenameUserComplete"
+		]
+	},
+	"config": {
+		"NamespacesWithSubpages": {
+			"2": false
+		},
+		"NamespaceProtection": {
+			"3": [
+				"disabled"
+			]
+		},
+		"FriendingEnabled": true
+	}
+}

@@ -1,0 +1,48 @@
+{
+	"name": "Relationship",
+	"author": [
+		"David Pean",
+		"페네트-"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:SocialProfile",
+	"description": "A special page for adding friends/foe requests for existing users in the wiki",
+	"type": "profile",
+	"SpecialPages": {
+		"AddRelationship": "SpecialAddRelationship",
+		"RemoveRelationship": "SpecialRemoveRelationship",
+		"ViewRelationshipRequests": "SpecialViewRelationshipRequests",
+		"ViewRelationships": "SpecialViewRelationships"
+	},
+	"MessagesDirs": {
+		"SocialProfileUserRelationship": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"UserRelationship": "UserRelationshipClass.php",
+		"SpecialAddRelationship": "SpecialAddRelationship.php",
+		"SpecialRemoveRelationship": "SpecialRemoveRelationship.php",
+		"SpecialViewRelationshipRequests": "SpecialViewRelationshipRequests.php",
+		"SpecialViewRelationships": "SpecialViewRelationships.php",
+		"UserRelationshipAjaxFunctions": "UserRelationshipAjaxFunctions.php"
+	},
+	"ResourceModules": {
+		"ext.socialprofile.userrelationship.css": {
+			"styles": "UserRelationship.css",
+			"position": "top"
+		},
+		"ext.socialprofile.userrelationship.js": {
+			"scripts": "UserRelationship.js"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "UserRelationship",
+		"remoteExtPath": "SocialProfile/UserRelationship"
+	},
+	"config": {
+		"AjaxExportList": [
+			"UserRelationshipAjaxFunctions::wfRelationshipRequestResponse",
+			"UserRelationshipAjaxFunctions::wfGetNewRequestRelationship"
+		]
+	}
+}

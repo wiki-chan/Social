@@ -1,4 +1,7 @@
 <?php
+
+include( __DIR__ . '/SocialProfileNamespaces.php' );
+
 /**
  * Hooked functions used by SocialProfile.
  *

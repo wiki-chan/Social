@@ -867,7 +867,6 @@ class UserProfilePage extends Article {
 		}
 		$avatar = new wAvatar( $this->user_id, 'l' );
 
-		wfDebug( 'profile type: ' . $profile_data['user_page_type'] . "\n" );
 		$output = '';
 
 		/* disabled by fenet
@@ -915,8 +914,8 @@ class UserProfilePage extends Article {
 					</div>';
 		}
 		$output .= '</div>
-				<div class="user-statcount"><a href="' . $top_users->escapeFullURL() . '" class="user-statnumber">' . $stats_data['points'] . '</a>누적 경험치</div>
-				<div class="user-statcount"><a href="' . $view_relationships->escapeFullURL() . '" class="user-statnumber">' . $stats_data['friend_count'] . '</a>친구 수</div>'; // 편집 횟수 출력 by 페네트-
+				<div class="user-statcount"><a href="' . htmlspecialchars( $top_users->getFullURL() ) . '" class="user-statnumber">' . $stats_data['points'] . '</a>누적 경험치</div>
+				<div class="user-statcount"><a href="' . htmlspecialchars( $view_relationships->getFullURL() ) . '" class="user-statnumber">' . $stats_data['friend_count'] . '</a>친구 수</div>'; // 편집 횟수 출력 by 페네트-
 		$output .= '<div class="cleared"></div>
 			</div>
 			<ul class="profile-actions nolist">';
@@ -933,7 +932,6 @@ class UserProfilePage extends Article {
 				'<a href="' . htmlspecialchars( $watchlist->getFullURL() ) . '">' . wfMessage( 'user-watchlist' )->escaped() . '</a>',
 				''
 			) );
-			*/
 		} elseif ( $wgUser->isLoggedIn() ) {
 			if ( $relationship == false ) {
 			/* orig
@@ -1872,7 +1870,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -1897,7 +1895,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -1942,7 +1940,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -1967,7 +1965,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -2012,7 +2010,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -2037,7 +2035,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '/personal">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '/personal">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -2080,7 +2078,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>
@@ -2101,7 +2099,7 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">';
 			if ( $wgUser->getName() == $user_name ) {
-				$output .= '<a href="' . $edit_info_link->escapeFullURL() . '">' .
+				$output .= '<a href="' . htmlspecialchars( $edit_info_link->getFullURL() ) . '">' .
 					wfMsg( 'user-edit-this' ) . '</a>';
 			}
 			$output .= '</div>

@@ -1,0 +1,164 @@
+{
+	"name": "User profile",
+	"author": [
+		"David Pean",
+		"페네트-"
+	],
+	"url": "https://github.com/wiki-chan/SocialProfile",
+	"description": "A special page to allow users to update their social profile",
+	"type": "profile",
+	"GroupPermissions": {
+		"sysop": {
+			"avatarremove": true
+		},
+		"staff": {
+			"editothersprofiles": true
+		}
+	},
+	"AvailableRights": [
+		"avatarremove",
+		"editothersprofiles"
+	],
+	"SpecialPages": {
+		"EditProfile": "SpecialEditProfile",
+		"PopulateUserProfiles": "SpecialPopulateUserProfiles",
+		"ToggleUserPage": "SpecialToggleUserPage",
+		"UpdateProfile": "SpecialUpdateProfile",
+		"UploadAvatar": "SpecialUploadAvatar",
+		"RemoveAvatar": "RemoveAvatar"
+	},
+	"LogTypes": [
+		"renameuser",
+		"usermerge",
+		"spamblacklist",
+		"",
+		"block",
+		"protect",
+		"rights",
+		"delete",
+		"upload",
+		"move",
+		"import",
+		"patrol",
+		"merge",
+		"suppress",
+		"tag",
+		"managetags",
+		"newusers",
+		"profile",
+		"avatar"
+	],
+	"LogNames": {
+		"usermerge": "usermerge-logpage",
+		"": "all-logs-page",
+		"block": "blocklogpage",
+		"protect": "protectlogpage",
+		"rights": "rightslog",
+		"delete": "dellogpage",
+		"upload": "uploadlogpage",
+		"move": "movelogpage",
+		"import": "importlogpage",
+		"patrol": "patrol-log-page",
+		"merge": "mergelog",
+		"suppress": "suppressionlog",
+		"newusers": "newuserlogpage",
+		"profile": "profilelogpage",
+		"avatar": "avatarlogpage"
+	},
+	"LogHeaders": {
+		"usermerge": "usermerge-logpagetext",
+		"": "alllogstext",
+		"block": "blocklogtext",
+		"protect": "protectlogtext",
+		"rights": "rightslogtext",
+		"delete": "dellogpagetext",
+		"upload": "uploadlogpagetext",
+		"move": "movelogpagetext",
+		"import": "importlogpagetext",
+		"patrol": "patrol-log-header",
+		"merge": "mergelogpagetext",
+		"suppress": "suppressionlogtext",
+		"newusers": "newuserlogpagetext",
+		"profile": "profilelogpagetext",
+		"avatar": "avatarlogpagetext"
+	},
+	"LogActions": {
+		"usermerge/mergeuser": "usermerge-success-log",
+		"usermerge/deleteuser": "usermerge-userdeleted-log",
+		"protect/protect": "protectedarticle",
+		"protect/modify": "modifiedarticleprotection",
+		"protect/unprotect": "unprotectedarticle",
+		"protect/move_prot": "movedarticleprotection",
+		"profile/profile": "profilelogentry",
+		"avatar/avatar": "avatarlogentry"
+	},
+	"MessagesDirs": {
+		"SocialProfileUserProfile": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"AvatarMagic": "Avatar.magic.i18n.php"
+	},
+	"AutoloadClasses": {
+		"SpecialEditProfile": "SpecialEditProfile.php",
+		"SpecialPopulateUserProfiles": "SpecialPopulateExistingUsersProfiles.php",
+		"SpecialToggleUserPage": "SpecialToggleUserPageType.php",
+		"SpecialUpdateProfile": "SpecialUpdateProfile.php",
+		"SpecialUploadAvatar": "SpecialUploadAvatar.php",
+		"RemoveAvatar": "SpecialRemoveAvatar.php",
+		"UserProfile": "UserProfileClass.php",
+		"UserProfilePage": "UserProfilePage.php",
+		"UserProfileFunctions": "UserProfileFunctions.php",
+		"UploadAvatar": "SpecialUploadAvatar.php",
+		"wAvatar": "AvatarClass.php",
+		"AvatarParserFunction": "AvatarParserFunction.php"
+	},
+	"ResourceModules": {
+		"ext.socialprofile.userprofile.css": {
+			"styles": "UserProfile.css",
+			"position": "top"
+		},
+		"ext.socialprofile.userprofile.js": {
+			"scripts": "UserProfilePage.js"
+		},
+		"ext.userProfile.updateProfile": {
+			"scripts": "UpdateProfile.js",
+			"position": "top"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "SocialProfile/UserProfile"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"AvatarParserFunction::setupAvatarParserFunction"
+		],
+		"ArticleFromTitle": [
+			"UserProfileFunctions::wfUserProfileFromTitle"
+		]
+	},
+	"config": {
+		"UserProfileThresholds": [],
+		"UserPageChoice": false,
+		"UserProfileDisplay": {
+			"friends": true,
+			"foes": false,
+			"gifts": true,
+			"awards": true,
+			"profile": true,
+			"board": false,
+			"stats": false,
+			"interests": true,
+			"custom": true,
+			"personal": true,
+			"activity": false,
+			"userboxes": false,
+			"games": false,
+			"avatar": true
+		},
+		"UpdateProfileInRecentChanges": false,
+		"UploadAvatarInRecentChanges": false
+	}
+}

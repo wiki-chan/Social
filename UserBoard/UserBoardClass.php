@@ -22,9 +22,9 @@ class UserBoard {
 		);
 		if ($res === false) return false;
 //var_dump($res);
-		$message = $res->ub_user_name_from . "(로�";
-		if ($res->ub_type == 1) $message .= "비� ";
-		$message .= "메시지�받았�니;
+		$message = $res->ub_user_name_from . "(으)로부터 새 ";
+		if ($res->ub_type == 1) $message .= "비밀 ";
+		$message .= "메시지를 받았습니다";
 
 		$link = User::newFromId($res->ub_user_id)->getUserPage()->getLinkUrl();
 
@@ -182,7 +182,7 @@ class UserBoard {
 		global $wgMemc;
 
 		//if ( !$ub_old_id ) return '';
-		// 직전 touched�간 기�로 메시지�가�옴(� UTC 0 �간 �국 �간�론 +9h �주�야 
+		// 직전 touched된 시간 기준으로 새 메시지를 가져옴(주: UTC 0 시간임. 한국 시간으론 +9h 해주어야 함)
 		$user = new User($user_id);
 		$date = sscanf($user->getTouched(), "%4d%2d%2d%2d%2d%2d");
 		$touched = sprintf("'%04d-%02d-%02d %02d:%02d:%02d'", $date[0], $date[1], $date[2], $date[3], $date[4], $date[5]);
@@ -220,17 +220,16 @@ class UserBoard {
 	 * @param $user_id Integer: user ID for the user whose messages we're going
 	 *							to fetch.
 	 * @return Integer: amount of new messages
-	 * @author �네
+	 * @author 페네트-
 	 */
 	static function getNewMessageCount( $user_id, $ub_old_id ) {
 		$data = self::getNewMessageCountCache( $user_id );
-
+		
 		if ( $data !== false ) {
 			$count = '' . $data;
 		} else {
 			$count = self::getNewMessageCountDB( $user_id, $ub_old_id );
 		}
-
 		return $count;
 	}
 

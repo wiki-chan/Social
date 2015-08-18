@@ -393,8 +393,8 @@ class SpecialEditProfile extends SpecialUpdateProfile {
 		//$form = UserProfile::getEditProfileNav( $this->msg( 'user-profile-section-interests' )->plain() );
 		$form = '<div class="profile-info clearfix">
 			<div class="profile-update">
-			<p class="profile-update-title"> 좋아�는 캐릭</p>
-			<p class="profile-update-unit-left">' . '좋아�는 캐릭첫번� . '</p>
+			<p class="profile-update-title"> 좋아하는 캐릭터 </p>
+			<p class="profile-update-unit-left">' . '좋아하는 캐릭터 첫번째' . '</p>
 			<p class="profile-update-unit">
 				<textarea name="movies" id="movies" rows="3" cols="75">' . ( isset( $movies ) ? $movies : '' ) . '</textarea>
 			</p>

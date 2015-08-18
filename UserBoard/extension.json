@@ -1,0 +1,63 @@
+{
+	"name": "Message Board",
+	"author": [
+		"David Pean",
+		"페네트-"
+	],
+	"url": "https://github.com/wiki-chan/SocialProfile",
+	"description": "Display User Board messages for a user",
+	"type": "profile",
+	"SpecialPages": {
+		"UserBoard": "SpecialViewUserBoard",
+		"SendBoardBlast": "SpecialBoardBlast"
+	},
+	"MessagesDirs": {
+		"SocialProfileUserBoard": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"UserBoard": "UserBoardClass.php",
+		"SpecialViewUserBoard": "SpecialUserBoard.php",
+		"SpecialBoardBlast": "SpecialSendBoardBlast.php",
+		"UserBoardAjaxFunctions": "UserBoardAjaxFunctions.php"
+	},
+	"ResourceModules": {
+		"ext.socialprofile.userboard.js": {
+			"scripts": "UserBoard.js",
+			"messages": [
+				"userboard_confirmdelete"
+			]
+		},
+		"ext.socialprofile.userboard.css": {
+			"styles": "UserBoard.css",
+			"position": "top"
+		},
+		"ext.socialprofile.userboard.boardblast.css": {
+			"styles": "BoardBlast.css",
+			"position": "top"
+		},
+		"ext.socialprofile.userboard.boardblast.js": {
+			"scripts": "BoardBlast.js",
+			"messages": [
+				"boardblast-js-sending",
+				"boardblast-js-error-missing-message",
+				"boardblast-js-error-missing-user"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "SocialProfile/UserBoard"
+	},
+	"config": {
+		"UserProfileDisplay": {
+			"board": true
+		},
+		"UserBoard": true,
+		"AjaxExportList": [
+			"UserBoardAjaxFunctions::wfSendBoardMessage",
+			"UserBoardAjaxFunctions::wfDeleteBoardMessage"
+		]
+	}
+}
