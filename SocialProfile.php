@@ -5,18 +5,16 @@
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die(
-		'This is the setup file for the SocialProfile extension to MediaWiki.' .
-		'Please see http://www.mediawiki.org/wiki/Extension:SocialProfile for' .
+		'This is the setup file for the Social extension to MediaWiki.' .
+		'Please see https://github.com/wiki-chan/Social for' .
 		' more information about this extension.'
 	);
 }
 
-# 유저페이지의 하위페이지를 사용안함으로 설정 (by 페네트)
 $wgNamespacesWithSubpages[NS_USER] = false;
 
 # 가상의 권한인 disabled라는 권한이 있어야만 편집이 가능함 = 편집 불가
 $wgNamespaceProtection[NS_USER_TALK] = array( 'disabled' );
-
 
 /**
  * This is the loader file for the SocialProfile extension. You should include
@@ -78,17 +76,17 @@ $wgHooks['ParserFirstCallInit'][] = 'SocialProfileInitClass::setAvatarKey';
 // Extension credits that show up on Special:Version
 $wgExtensionCredits['profile'][] = array(
 	'path' => __FILE__,
-	'name' => 'SocialProfile',
+	'name' => 'Social',
 	'author' => array( 'Aaron Wright', 'David Pean', 'Jack Phoenix', '페네트-' ),
 	'version' => '1.7.4',
-	'url' => 'https://github.com/wiki-chan/SocialProfile',
+	'url' => 'https://github.com/wiki-chan/Social',
 	'descriptionmsg' => 'socialprofile-desc',
 );
 $wgExtensionCredits['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'TopUsers',
 	'author' => 'David Pean',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:SocialProfile',
+	'url' => 'https://github.com/wiki-chan/Social',
 	'description' => 'Adds a special page for viewing the list of users with the most points.',
 );
 

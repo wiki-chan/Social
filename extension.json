@@ -1,5 +1,5 @@
 {
-	"name": "SocialProfile",
+	"name": "Social",
 	"version": "1.7.4",
 	"author": [
 		"Aaron Wright",
@@ -7,7 +7,7 @@
 		"Jack Phoenix",
 		"페네트-"
 	],
-	"url": "https://github.com/wiki-chan/SocialProfile",
+	"url": "https://github.com/wiki-chan/Social",
 	"descriptionmsg": "socialprofile-desc",
 	"type": "profile",
 	"SpecialPages": {
@@ -83,11 +83,6 @@
 	"config": {
 		"NamespacesWithSubpages": {
 			"2": false
-		},
-		"NamespaceProtection": {
-			"3": [
-				"disabled"
-			]
 		},
 		"FriendingEnabled": true
 	}

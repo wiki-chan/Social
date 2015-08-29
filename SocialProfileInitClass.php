@@ -2,8 +2,8 @@
 
 class SocialProfileInitClass {
 	public static function setAvatarKey() {
-		global $wgAvatarKey, $wgDBname;
-		//TODO: $wgDBname을 getDBname()으로 변경할 것
-		$wgAvatarKey = $wgDBname;
+		global $wgAvatarKey;
+		// 이거 진짜로 필요한거 맞는지?
+		$wgAvatarKey = wfGetDB( DB_SLAVE )->getDBname();
 	}
 }

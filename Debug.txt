@@ -1,0 +1,14 @@
+Start command line script ../../maintenance/convertExtensionToRegistration.php
+[caches] main: SqlBagOStuff, message: SqlBagOStuff, parser: SqlBagOStuff
+[caches] LocalisationCache: using store LCStoreDB
+Connected to database 0 at localhost
+Unstubbing $wgParser on call of $wgParser::setHook from twikiChan::registerTwitterTag
+Parser: using preprocessor: Preprocessor_DOM
+Fully initialised
+Start command line script ../../maintenance/convertExtensionToRegistration.php
+[caches] main: SqlBagOStuff, message: SqlBagOStuff, parser: SqlBagOStuff
+[caches] LocalisationCache: using store LCStoreDB
+Connected to database 0 at localhost
+Unstubbing $wgParser on call of $wgParser::setHook from twikiChan::registerTwitterTag
+Parser: using preprocessor: Preprocessor_DOM
+Fully initialised

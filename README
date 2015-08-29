@@ -1,27 +1,26 @@
 This is the readme file for SocialProfile extension.
 
 ==Intro==
-SocialProfile extension adds social networking features, such as friending
+Social is forked project from SocialProject:
+http://www.mediawiki.org/wiki/Extension:SocialProfile
+This extension adds social networking features, such as friending
 and user-to-user messages into your MediaWiki. These are not the only
-features that SocialProfile has to offer - for a complete feature listing
+features that Social has to offer - for a complete feature listing
 and up-to-date documentation about installing and using the software,
 please see the extension's infopage on MediaWiki.org:
-
-https://www.mediawiki.org/wiki/Extension:SocialProfile
+https://github.com/wiki-chan/Social
 
 ==Authors==
-SocialProfile was written by David Pean and Aaron Wright for Wikia, Inc.
-
-It has been maintained by Jack Phoenix <jack@countervandalism.net> since 2008.
+Original SocialProfile was written by David Pean and Aaron Wright for Wikia, Inc.
+Social was rewritten by Fenet- for wiki-chan.
 
 ==License==
 SocialProfile is licensed under GNU General Public License 2.0 or later.
 See http://www.gnu.org/copyleft/gpl.html for more details.
 
 ==Bugs==
-Bugs and issues should be reported on the MediaWiki Bugzilla:
-
-https://bugzilla.wikimedia.org/enter_bug.cgi?product=MediaWiki%20extensions&component=SocialProfile
+Bugs and issues can be reported on the extension's issue page:
+https://github.com/wiki-chan/Social/issue
 
 It is recommended that you spend a while reading the documentation and
 searching the archived discussions before posting a question - it is
