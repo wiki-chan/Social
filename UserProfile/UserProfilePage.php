@@ -910,7 +910,7 @@ class UserProfilePage extends Article {
 					'</a>
 					</div>
 					<div id="honorific-level">
-						<a href="' . htmlspecialchars( $level_link->getFullURL() ) . '" rel="nofollow">(' . $user_level->getLevelName() . ')</a>
+						<a href="' . htmlspecialchars( $level_link->getFullURL() ) . '" rel="nofollow">' . $user_level->getLevelName() . '</a>
 					</div>';
 		}
 		$output .= '</div>
