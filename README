@@ -18,6 +18,13 @@ Social was rewritten by Fenet- for wiki-chan.
 SocialProfile is licensed under GNU General Public License 2.0 or later.
 See http://www.gnu.org/copyleft/gpl.html for more details.
 
+==Install==
+1. Download this extension. You may use this command to download:
+    git clone https://github.com/wiki-chan/EmbedVideo.git
+2. Copy the contents of this extension into extension/Social folder
+3. Add the following line to your LocalSettings.php
+    wfLoadExtension( "Social" );
+
 ==Bugs==
 Bugs and issues can be reported on the extension's issue page:
 https://github.com/wiki-chan/Social/issue

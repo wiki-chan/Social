@@ -81,9 +81,6 @@
 		]
 	},
 	"config": {
-		"NamespacesWithSubpages": {
-			"2": false
-		},
 		"FriendingEnabled": true
 	}
 }
