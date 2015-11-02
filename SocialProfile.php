@@ -11,7 +11,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	);
 }
 
-$wgNamespacesWithSubpages[NS_USER] = false;
+//$wgNamespacesWithSubpages[NS_USER] = false;
 
 # 가상의 권한인 disabled라는 권한이 있어야만 편집이 가능함 = 편집 불가
 $wgNamespaceProtection[NS_USER_TALK] = array( 'disabled' );
