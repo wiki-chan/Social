@@ -45,7 +45,7 @@ class wAvatar {
 		} else {
 			$files = glob( $wgUploadDirectory . '/avatars/' . $wgAvatarKey . '_' . $this->user_id .  '_' . $this->avatar_size . "*" );
 			if ( !isset( $files[0] ) || !$files[0] ) {
-				$avatar_filename = 'default_' . $this->avatar_size . '.gif';
+				$avatar_filename = 'default_' . $this->avatar_size . '.png';
 			} else {
 				$avatar_filename = basename( $files[0] ) . '?r=' . filemtime( $files[0] );
 			}
