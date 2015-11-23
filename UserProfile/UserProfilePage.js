@@ -9,21 +9,23 @@ var UserProfilePage = {
 	oldHtml: '',
 
 	sendMessage: function() {
-		var userTo = decodeURIComponent( mw.config.get( 'wgTitle' ) ), //document.getElementById( 'user_name_to' ).value;
+		var userTo = decodeURIComponent( mw.config.get( 'wgTitle' ) ),
 			encMsg = encodeURIComponent( document.getElementById( 'message' ).value ),
 			msgType = document.getElementById( 'message_type' ).value;
 		if ( document.getElementById( 'message' ).value && !UserProfilePage.posted ) {
 			UserProfilePage.posted = 1;
 			jQuery.post(
-				mw.util.wikiScript(), {
-					action: 'ajax',
-					rs: 'wfSendBoardMessage',
-					rsargs: [userTo, encMsg, msgType, 10]
+				mw.util.wikiScript('api'), {
+					action: 'social-send-message',
+					format: 'json',
+					username: userTo,
+					message: encMsg,
+					type: msgType
 				},
 				function( data ) {
-					jQuery( '#user-page-board' ).html( data );
+					jQuery( '#user-page-board' ).prepend( data.result );
 					UserProfilePage.posted = 0;
-					jQuery( '#message' ).text( '' );
+					jQuery( '#message' ).val( '' );
 				}
 			);
 		}

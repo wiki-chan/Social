@@ -94,7 +94,6 @@ $wgSpecialPages['SendBoardBlast'] = 'SpecialBoardBlast';
 /**
  * AJAX functions used by UserBoard.
  */
-$wgAjaxExportList[] = 'UserBoardAjaxFunctions::wfSendBoardMessage';
 $wgAjaxExportList[] = 'UserBoardAjaxFunctions::wfDeleteBoardMessage';
 
 /*

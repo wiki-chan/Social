@@ -20,7 +20,11 @@
 		"UserBoard": "UserBoardClass.php",
 		"SpecialViewUserBoard": "SpecialUserBoard.php",
 		"SpecialBoardBlast": "SpecialSendBoardBlast.php",
-		"UserBoardAjaxFunctions": "UserBoardAjaxFunctions.php"
+		"UserBoardAjaxFunctions": "UserBoardAjaxFunctions.php",
+		"SendUserBoardMessage": "APISendUserBoardMessage.php"
+	},
+	"APIModules": {
+		"social-send-message": "SendUserBoardMessage"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userboard.js": {
@@ -56,7 +60,6 @@
 		},
 		"UserBoard": true,
 		"AjaxExportList": [
-			"UserBoardAjaxFunctions::wfSendBoardMessage",
 			"UserBoardAjaxFunctions::wfDeleteBoardMessage"
 		]
 	}
