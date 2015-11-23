@@ -82,9 +82,9 @@ class SpecialViewUserBoard extends SpecialPage {
 			$user_2 = Title::makeTitle( NS_USER, $user_name );
 			// TODO: Alarm class check
 			$user_safe_2 = urlencode( $user_name_2 );
-			Alarm::deleteMessage($user_id_2, 'usermesg');
+//			Alarm::deleteMessage($user_id_2, 'usermesg');
 		} else {
-			Alarm::clearMessage('usermesg');
+//			Alarm::clearMessage('usermesg');
 		}
 
 		/**

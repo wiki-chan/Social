@@ -9,7 +9,8 @@ class AvatarParserFunction {
 	 * @return boolean
 	 */
 	static function setupAvatarParserFunction( &$parser ) {
-		$parser->setFunctionHook( 'avatar', 'AvatarParserFunction::renderAvatarParserFunction' );
+		// 현재 Avatar.magic.i18n의 $magicWords 를 인식하지 못함. by 페네트-
+		//$parser->setFunctionHook( 'avatar', 'AvatarParserFunction::renderAvatarParserFunction' );
 
 		return true;
 	}
