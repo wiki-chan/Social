@@ -10,6 +10,7 @@
 	"url": "https://github.com/wiki-chan/Social",
 	"descriptionmsg": "socialprofile-desc",
 	"type": "profile",
+	"license-name": "GPL-2.0",
 	"SpecialPages": {
 		"GenerateTopUsersReport": "GenerateTopUsersReport",
 		"TopFansByStatistic": "TopFansByStat",
