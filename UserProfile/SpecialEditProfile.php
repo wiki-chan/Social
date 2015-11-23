@@ -126,7 +126,7 @@ class SpecialEditProfile extends SpecialUpdateProfile {
 
 		$out->addHTML( $this->displayBasicForm( $target ) );
 		$out->addHTML( $this->displayPersonalForm( $target ) );
-		$out->addHTML( $this->displayCustomForm( $target ) );
+		//$out->addHTML( $this->displayCustomForm( $target ) );
 	}
 
 	function createUserInputForm() {

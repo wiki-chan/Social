@@ -221,7 +221,7 @@ class SpecialUploadAvatar extends SpecialUpload {
 				<tr>' . $source . '</tr>
 				<tr>
 					<td>
-						<a class="button" href="' . $usertitle->escapeFullURL() . '">프로필로 돌아가기</a>
+						<a class="button" href="' . $this->getUser()->getUserPage()->getLinkURL() . '">프로필로 돌아가기</a>
 						<input tabindex="5" type="submit" name="wpUpload" class="site-button" value="' . $ulb . '" />
 					</td>
 				</tr>

@@ -1,4 +1,6 @@
 <?php
+if (!defined('NS_USER_PROFILE')) define( 'NS_USER_PROFILE', 202 );
+if (!defined('NS_USER_WIKI')) define( 'NS_USER_WIKI', 200 );
 
 class UserProfileFunctions {
 	/**

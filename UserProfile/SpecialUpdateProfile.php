@@ -178,7 +178,7 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 					break;
 				case 'personal':
 					$this->saveProfilePersonal( $user );
-					break;
+					break;/*
 				case 'custom':
 					$this->saveProfileCustom( $user );
 					break;
@@ -873,7 +873,7 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 			</p>
 			</div>';
 
-			$form .= '<a class="button" href="' . $usertitle->escapeFullURL() . '">프로필로 돌아가기</a>
+			$form .= '<a class="button" href="' . $user->getUserPage()->getLinkURL() . '">프로필로 돌아가기</a>
 				<input type="button" class="site-button" value="' . $this->msg( 'user-profile-update-button' )->plain() . '" size="20" onclick="document.profile.submit()" />
 			</div>
 		</form>';
@@ -939,7 +939,7 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 
 		$form .= '</div>
 			<div class="cleared"></div>';
-		$form .= '<a class="button" href="' . $usertitle->escapeFullURL() . '">프로필로 돌아가기</a>
+		$form .= '<a class="button" href="' . $user->getUserPage()->getLinkURL() . '">프로필로 돌아가기</a>
 				<input type="button" class="site-button" value="' . $this->msg( 'user-profile-update-button' )->plain() . '" size="20" onclick="document.profile.submit()" />
 			</form>';
 		$form .= '</div>';
