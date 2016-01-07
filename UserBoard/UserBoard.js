@@ -11,7 +11,7 @@ var UserBoard = {
 				encodedMsg = encodeURIComponent( message ),
 				messageType = document.getElementById( 'message_type' ).value;
 			jQuery.post(
-				mw.util.wikiScript(), {
+				mw.util.wikiScript('api'), {
 					action: 'social-send-message',
 					format: 'json',
 					username: encodedName,
