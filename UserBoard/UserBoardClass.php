@@ -418,13 +418,13 @@ class UserBoard {
 						wfMessage( 'userboard_board-to-board' )->plain() . '</a>';
 					$board_link = '<a href="' . UserBoard::getUserBoardURL( $message['user_name_from'] ) . '">' .
 						wfMessage( 'userboard_sendmessage', $message['user_name_from'] )->parse() . '</a>';
-				}
+				}/* block delete method by fenet
 				if ( $wgUser->getName() == $message['user_name'] || $wgUser->isAllowed( 'userboard-delete' ) ) {
 					$delete_link = "<span class=\"user-board-red\">
 							<a href=\"javascript:void(0);\" data-message-id=\"{$message['id']}\">" .
 								wfMessage( 'userboard_delete' )->plain() . '</a>
 						</span>';
-				}
+				}*/
 				if ( $message['type'] == 1 ) {
 					$message_type_label = '(' . wfMessage( 'userboard_private' )->plain() . ')';
 				}
