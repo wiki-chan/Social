@@ -37,11 +37,13 @@ class TopFansByStat extends UnlistedSpecialPage {
 
 		$dbr = wfGetDB( DB_SLAVE );
 
-		$statistic = $dbr->strencode( trim( $request->getVal( 'stat' ) ) );
+		$statistic = trim( $request->getVal( 'stat' ) );
 		$column = "stats_{$statistic}";
 
 		// Error if the query string value does not match our stat column
-		if ( !$dbr->fieldExists( 'user_stats', $column ) ) {
+		if ( !preg_match( '/^stats_[0-9a-z_]{1,58}$/D', $column ) ||
+			!$dbr->fieldExists( 'user_stats', $column )
+		) {
 			$out->setPageTitle( $this->msg( 'top-fans-bad-field-title' )->plain() );
 			$out->addHTML( $this->msg( 'top-fans-bad-field-message' )->plain() );
 			return false;
@@ -192,12 +194,12 @@ class TopFansByStat extends UnlistedSpecialPage {
 					'<a href="' . htmlspecialchars( $user_title->getFullURL() ) . '">' . $user_name . '</a>
 				</span>
 				<span class="top-fan-points"><b>' . $statistics_row . '</b> ' . $lowercase_statistics_name . '</span>
-				<div class="cleared"></div>
+				<div class="visualClear"></div>
 			</div>';
 			$x++;
 		}
 
-		$output .= '</div><div class="cleared"></div>';
+		$output .= '</div><div class="visualClear"></div>';
 		$out->addHTML( $output );
 	}
 }

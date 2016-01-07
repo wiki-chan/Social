@@ -83,7 +83,7 @@ class UserProfilePage extends Article {
 
 		$wgOut->addHTML( '<div id="profile-top">' );
 		$wgOut->addHTML( $this->getProfileTop( $this->user_id, $this->user_name ) );
-		$wgOut->addHTML( '<div class="cleared"></div></div>' );
+		$wgOut->addHTML( '<div class="cleared visualClear"></div></div>' );
 
 		// User does not want social profile for User:user_name, so we just
 		// show header + page content
@@ -155,7 +155,7 @@ class UserProfilePage extends Article {
 			wfDebug( __METHOD__ . ": UserProfileEndRight messed up profile!\n" );
 		}
 
-		$wgOut->addHTML( '</div><div class="cleared"></div>' );
+		$wgOut->addHTML( '</div><div class="cleared visualClear"></div>' );
 	}
 
 	function getUserStatsRow( $label, $value ) {
@@ -202,10 +202,10 @@ class UserProfilePage extends Article {
 					</div>
 					<div class="action-left">
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="profile-info-container bold-fix">' .
 				$this->getUserStatsRow(
 					wfMessage( 'user-stats-edits', $stats_data['edits'] )->escaped(),
@@ -448,7 +448,7 @@ class UserProfilePage extends Article {
 		usort( $combined_array, array( 'UserProfilePage', 'sortItems' ) );
 
 		if ( count( $combined_array ) > 0 ) {
-			$output .= '<div class="user-section-heading clear">
+			$output .= '<div class="user-section-heading">
 				<div class="user-section-title">' .
 					wfMessage('casual-games-title')->escaped().'
 				</div>
@@ -457,10 +457,10 @@ class UserProfilePage extends Article {
 					</div>
 					<div class="action-left">
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="casual-game-container">';
 
 			$x = 1;
@@ -625,7 +625,7 @@ class UserProfilePage extends Article {
 
 		$output = '';
 		if ( $joined_data ) {
-			$output .= '<div class="user-section-heading clear">
+			$output .= '<div class="user-section-heading">
 				<div class="user-section-title">' .
 					wfMessage( 'user-personal-info-title' )->escaped() .
 				'</div>
@@ -636,10 +636,10 @@ class UserProfilePage extends Article {
 					wfMessage( 'user-edit-this' )->escaped() . '</a>';
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="profile-info-container">' .
 				$this->getProfileSection( wfMessage( 'user-personal-info-real-name' )->escaped(), $profile_data['real_name'], false ) .
 				$this->getProfileSection( wfMessage( 'user-personal-info-location' )->escaped(), $location, false ) .
@@ -652,7 +652,7 @@ class UserProfilePage extends Article {
 				$this->getProfileSection( wfMessage( 'user-personal-info-about-me' )->escaped(), $profile_data['about'], false ) .
 			'</div>';
 		} elseif ( $wgUser->getName() == $user_name ) {
-			$output .= '<div class="user-section-heading clear">
+			$output .= '<div class="user-section-heading">
 				<div class="user-section-title">' .
 					wfMessage( 'user-personal-info-title' )->escaped() .
 				'</div>
@@ -662,10 +662,10 @@ class UserProfilePage extends Article {
 							wfMessage( 'user-edit-this' )->escaped() .
 						'</a>
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				wfMessage( 'user-no-personal-info' )->escaped() .
 			'</div>';
@@ -697,7 +697,7 @@ class UserProfilePage extends Article {
 
 		$output = '';
 		if ( $joined_data ) {
-			$output .= '<div class="user-section-heading clear">
+			$output .= '<div class="user-section-heading">
 				<div class="user-section-title">' .
 					wfMessage( 'custom-info-title' )->escaped() .
 				'</div>
@@ -708,10 +708,10 @@ class UserProfilePage extends Article {
 					wfMessage( 'user-edit-this' )->escaped() . '</a>';
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="profile-info-container">' .
 				$this->getProfileSection( wfMessage( 'custom-info-field1' )->escaped(), $profile_data['custom_1'], false ) .
 				$this->getProfileSection( wfMessage( 'custom-info-field2' )->escaped(), $profile_data['custom_2'], false ) .
@@ -729,10 +729,10 @@ class UserProfilePage extends Article {
 							wfMessage( 'user-edit-this' )->escaped() .
 						'</a>
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				wfMessage( 'custom-no-info' )->escaped() .
 			'</div>';
@@ -778,10 +778,10 @@ class UserProfilePage extends Article {
 					wfMessage( 'user-edit-this' )->escaped() . '</a>';
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="profile-info-container">' .
 				$this->getProfileSection( wfMessage( 'other-info-movies' )->escaped(), $profile_data['movies'], false ) .
 				$this->getProfileSection( wfMessage( 'other-info-tv' )->escaped(), $profile_data['tv'], false ) .
@@ -803,10 +803,10 @@ class UserProfilePage extends Article {
 							wfMessage( 'user-edit-this' )->escaped() .
 						'</a>
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				wfMessage( 'other-no-info' )->escaped() .
 			'</div>';
@@ -916,7 +916,7 @@ class UserProfilePage extends Article {
 		$output .= '</div>
 				<div class="user-statcount"><a href="' . htmlspecialchars( $top_users->getFullURL() ) . '" class="user-statnumber">' . $stats_data['points'] . '</a>누적 경험치</div>
 				<div class="user-statcount"><a href="' . htmlspecialchars( $view_relationships->getFullURL() ) . '" class="user-statnumber">' . $stats_data['friend_count'] . '</a>친구 수</div>'; // 편집 횟수 출력 by 페네트-
-		$output .= '<div class="cleared"></div>
+		$output .= '<div class="cleared visualClear"></div>
 			</div>
 			<ul class="profile-actions nolist">';
 
@@ -1097,9 +1097,9 @@ class UserProfilePage extends Article {
 			}
 			$output .= '</div>
 				</div>
-				<div class="cleared"></div>
+				<div class="cleared visualClear"></div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="user-relationship-container">';
 
 			foreach ( $friends as $friend ) {
@@ -1115,7 +1115,7 @@ class UserProfilePage extends Article {
 				</a>";
 
 				if ( $x == count( $friends ) || $x != 1 && $x % $per_row == 0 ) {
-					$output .= '<div class="cleared"></div>';
+					$output .= '<div class="cleared visualClear"></div>';
 				}
 
 				$x++;
@@ -1160,10 +1160,10 @@ class UserProfilePage extends Article {
 				<div class="user-section-actions">
 					<div class="action-right">
 					</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>';
+			<div class="cleared visualClear"></div>';
 
 			$x = 1;
 
@@ -1367,10 +1367,10 @@ class UserProfilePage extends Article {
 				$output .= wfMessage( 'user-count-separator', $gift_count, $gift_count )->escaped();
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="user-gift-container">';
 
 			$x = 1;
@@ -1394,7 +1394,7 @@ class UserProfilePage extends Article {
 				$output .= '<a href="' . htmlspecialchars( $gift_link->getFullURL( 'gift_id=' . $gift['id'] ) ) . '" ' .
 					$class . " rel=\"nofollow\">{$gift_image}</a>";
 				if ( $x == count( $gifts ) || $x != 1 && $x % $per_row == 0 ) {
-					$output .= '<div class="cleared"></div>';
+					$output .= '<div class="cleared visualClear"></div>';
 				}
 
 				$x++;
@@ -1456,10 +1456,10 @@ class UserProfilePage extends Article {
 				$output .= wfMessage( 'user-count-separator', $system_gift_count, $system_gift_count )->escaped();
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="user-gift-container">';
 
 			foreach ( $system_gifts as $gift ) {
@@ -1484,7 +1484,7 @@ class UserProfilePage extends Article {
 				</a>";
 
 				if ( $x == count( $system_gifts ) || $x != 1 && $x % $per_row == 0 ) {
-					$output .= '<div class="cleared"></div>';
+					$output .= '<div class="cleared visualClear"></div>';
 				}
 				$x++;
 			}
@@ -1516,9 +1516,6 @@ class UserProfilePage extends Article {
 		}
 
 		$output = ''; // Prevent E_NOTICE
-
-		// 일단 임시로 메시지 전부 다 지움
-		//Alarm::clearMessage('usermesg');
 
 		// Add JS
 		$wgOut->addModules( 'ext.socialprofile.userprofile.js' );
@@ -1566,10 +1563,10 @@ class UserProfilePage extends Article {
 			$output .= wfMessage( 'user-count-separator', $total, $total )->escaped();
 		}
 		$output .= '</div>
-				<div class="cleared"></div>
+				<div class="cleared visualClear"></div>
 			</div>
 		</div>
-		<div class="cleared"></div>';
+		<div class="cleared visualClear"></div>';
 
 		if ( $wgUser->getName() !== $user_name ) {
 			if ( $wgUser->isLoggedIn() && !$wgUser->isBlocked() ) {
@@ -1674,11 +1671,11 @@ class UserProfilePage extends Article {
 				$output .= wfMessage( 'user-count-separator' )->numParams( $fanbox_count, $fanbox_count )->parse();
 			}
 			$output .= '</div>
-					<div class="cleared"></div>
+					<div class="cleared visualClear"></div>
 
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 
 			<div class="user-fanbox-container clearfix">';
 
@@ -1810,6 +1807,7 @@ class UserProfilePage extends Article {
 
 				$x++;
 			}
+			
 			$output .= '</div>';
 		}
 
@@ -1852,7 +1850,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<ul class="profile-info-container">' .
 				$this->getProfileSection( '', $profile_data['series_1'], false, true ) .
 				$this->getProfileSection( '', $profile_data['series_2'], false, true ) .
@@ -1877,7 +1875,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				$user_message .
 			'</div>';
@@ -1922,7 +1920,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<ul class="profile-info-container">' .
 				$this->getProfileSection( '', $profile_data['character_1'], false, true ) .
 				$this->getProfileSection( '', $profile_data['character_2'], false, true ) .
@@ -1947,7 +1945,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				$user_message .
 			'</div>';
@@ -1992,7 +1990,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<ul class="profile-info-container">' .
 				$this->getProfileSection( '', $profile_data['seiyuu_1'], false, true ) .
 				$this->getProfileSection( '', $profile_data['seiyuu_2'], false, true ) .
@@ -2017,7 +2015,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				$user_message .
 			'</div>';
@@ -2060,7 +2058,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="profile-info-container">' .
 				$this->getProfileSection( '', $profile_data['whoami'] ) .
 			'</div>';
@@ -2081,7 +2079,7 @@ class UserProfilePage extends Article {
 			$output .= '</div>
 				</div>
 			</div>
-			<div class="cleared"></div>
+			<div class="cleared visualClear"></div>
 			<div class="no-info-container">' .
 				$user_message .
 			'</div>';
