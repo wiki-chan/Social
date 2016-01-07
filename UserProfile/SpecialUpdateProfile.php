@@ -453,21 +453,21 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 			'up_snacks' => $request->getVal( 'snacks' ),
 			'up_drinks' => $request->getVal( 'drinks' )
 			*/
-			'up_character1' => $wgRequest->getVal( 'character1' ),
-			'up_character2' => $wgRequest->getVal( 'character2' ),
-			'up_character3' => $wgRequest->getVal( 'character3' ),
-			'up_character4' => $wgRequest->getVal( 'character4' ),
-			'up_character5' => $wgRequest->getVal( 'character5' ),
-			'up_seiyuu1' => $wgRequest->getVal( 'seiyuu1' ),
-			'up_seiyuu2' => $wgRequest->getVal( 'seiyuu2' ),
-			'up_seiyuu3' => $wgRequest->getVal( 'seiyuu3' ),
-			'up_seiyuu4' => $wgRequest->getVal( 'seiyuu4' ),
-			'up_seiyuu5' => $wgRequest->getVal( 'seiyuu5' ),
-			'up_series1' => $wgRequest->getVal( 'series1' ),
-			'up_series2' => $wgRequest->getVal( 'series2' ),
-			'up_series3' => $wgRequest->getVal( 'series3' ),
-			'up_series4' => $wgRequest->getVal( 'series4' ),
-			'up_series5' => $wgRequest->getVal( 'series5' )
+			'up_character1' => $request->getVal( 'character1' ),
+			'up_character2' => $request->getVal( 'character2' ),
+			'up_character3' => $request->getVal( 'character3' ),
+			'up_character4' => $request->getVal( 'character4' ),
+			'up_character5' => $request->getVal( 'character5' ),
+			'up_seiyuu1' => $request->getVal( 'seiyuu1' ),
+			'up_seiyuu2' => $request->getVal( 'seiyuu2' ),
+			'up_seiyuu3' => $request->getVal( 'seiyuu3' ),
+			'up_seiyuu4' => $request->getVal( 'seiyuu4' ),
+			'up_seiyuu5' => $request->getVal( 'seiyuu5' ),
+			'up_series1' => $request->getVal( 'series1' ),
+			'up_series2' => $request->getVal( 'series2' ),
+			'up_series3' => $request->getVal( 'series3' ),
+			'up_series4' => $request->getVal( 'series4' ),
+			'up_series5' => $request->getVal( 'series5' )
 		);
 
 		$dbw->update(
