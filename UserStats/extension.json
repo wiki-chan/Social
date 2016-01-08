@@ -1,0 +1,23 @@
+{
+	"name": "User Stats",
+	"author": [
+		"페네트-"
+	],
+	"url": "https://github.com/wiki-chan/Social",
+	"description": "Add user stat information in Social",
+	"type": "profile",
+	"AutoloadClasses": {
+		"UserStatsFunctions": "UserStatsFunctions.php"
+	},
+	"Hooks": {
+		"NewRevisionFromEditComplete": [
+			"UserStatsFunctions::incEditCount"
+		],
+		"ArticleDelete": [
+			"UserStatsFunctions::removeDeletedEdits"
+		],
+		"ArticleUndelete": [
+			"UserStatsFunctions::restoreDeletedEdits"
+		]
+	}
+}
