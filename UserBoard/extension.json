@@ -52,7 +52,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "SocialProfile/UserBoard"
+		"remoteExtPath": "Social/UserBoard"
 	},
 	"config": {
 		"UserProfileDisplay": {

@@ -24,7 +24,10 @@
 		"SpecialRemoveRelationship": "SpecialRemoveRelationship.php",
 		"SpecialViewRelationshipRequests": "SpecialViewRelationshipRequests.php",
 		"SpecialViewRelationships": "SpecialViewRelationships.php",
-		"UserRelationshipAjaxFunctions": "UserRelationshipAjaxFunctions.php"
+		"RelationshipResponse": "APIRelationshipResponse.php"
+	},
+	"APIModules": {
+		"social-request-response": "RelationshipResponse"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userrelationship.css": {
@@ -37,7 +40,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "UserRelationship",
-		"remoteExtPath": "SocialProfile/UserRelationship"
+		"remoteExtPath": "Social/UserRelationship"
 	},
 	"config": {
 		"AjaxExportList": [

@@ -77,7 +77,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "SocialProfile/UserProfile"
+		"remoteExtPath": "Social/UserProfile"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [

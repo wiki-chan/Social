@@ -38,8 +38,7 @@ class GenerateTopUsersReport extends SpecialPage {
 
 		// Blocked through Special:Block? Tough luck.
 		if ( $user->isBlocked() ) {
-			$out->blockedPage( false );
-			return false;
+			throw new UserBlockedError( $user->getBlock() );
 		}
 
 		// Is the database locked or not?
@@ -50,8 +49,7 @@ class GenerateTopUsersReport extends SpecialPage {
 
 		// Check for the correct permission
 		if ( !$user->isAllowed( 'generatetopusersreport' ) ) {
-			$out->permissionRequired( 'generatetopusersreport' );
-			return false;
+			throw new PermissionsError( 'generatetopusersreport' );
 		}
 
 		// Set the page title, robot policy, etc.

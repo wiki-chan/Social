@@ -29,8 +29,7 @@ class PopulateAwards extends UnlistedSpecialPage {
 
 		// If the user doesn't have the required 'awardsmanage' permission, display an error
 		if ( !$user->isAllowed( 'awardsmanage' ) ) {
-			$out->permissionRequired( 'awardsmanage' );
-			return;
+			throw new PermissionsError( 'awardsmanage' );
 		}
 
 		// Show a message if the database is in read-only mode
@@ -41,8 +40,7 @@ class PopulateAwards extends UnlistedSpecialPage {
 
 		// If user is blocked, s/he doesn't need to access this page
 		if ( $user->isBlocked() ) {
-			$out->blockedPage();
-			return;
+			throw new UserBlockedError( $user->getBlock() );
 		}
 
 		// Set the robot policies, etc.

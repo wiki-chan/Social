@@ -47,8 +47,7 @@ class SpecialBoardBlast extends UnlistedSpecialPage {
 
 		// Blocked through Special:Block? No access for you!
 		if ( $user->isBlocked() ) {
-			$out->blockedPage( false );
-			return false;
+			throw new UserBlockedError( $user->getBlock() );
 		}
 
 		// Add CSS & JS
@@ -153,7 +152,7 @@ class SpecialBoardBlast extends UnlistedSpecialPage {
 						{$relationship['user_name']}
 					</div>";
 				if ( $x == count( $relationships ) || $x != 1 && $x % $per_row == 0 ) {
-					$output .= '<div class="cleared"></div>';
+					$output .= '<div class="visualClear"></div>';
 				}
 				$x++;
 			}
@@ -163,7 +162,7 @@ class SpecialBoardBlast extends UnlistedSpecialPage {
 
 		$output .= '</div>
 
-			<div class="cleared"></div>';
+			<div class="visualClear"></div>';
 
 		$output .= '<div class="blast-message-box-button">
 			<input type="button" value="' . $this->msg( 'boardsendbutton' )->escaped() . '" class="site-button" />
