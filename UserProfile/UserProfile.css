@@ -241,7 +241,7 @@ body:not(.action-edit):not(.action-history) .article {
 	top: 18px;
 	left: 24px;
 	/* @embed */
-	background-image: url(/skins/wikichan/images/navi-icons.png);
+	background-image: url(navi-icons.png);
 	background-repeat: no-repeat;
 }
 
