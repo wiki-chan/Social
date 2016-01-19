@@ -39,7 +39,7 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-		"localBasePath": "UserRelationship",
+		"localBasePath": "",
 		"remoteExtPath": "Social/UserRelationship"
 	},
 	"config": {
