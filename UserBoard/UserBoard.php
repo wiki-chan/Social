@@ -33,34 +33,35 @@ function wfRegisterDisplayNewMessage( OutputPage &$out, Skin &$skin ) {
 }
 */
 
-
 $wgExtensionCredits['profile'][] = array(
 	'path' => __FILE__,
 	'name' => 'Message Board',
 	'author' => array('David Pean', '페네트-'),
-	'url' => 'https://github.com/wiki-chan/SocialProfile',
+	'url' => 'https://github.com/wiki-chan/Social',
+	'license-name' => 'GPL-2.0',
 	'description' => 'Display User Board messages for a user',
 );
+
 
 // resource modules
 $wgResourceModules['ext.socialprofile.userboard.js'] = array(
 	'scripts' => 'UserBoard.js',
 	'messages' => array( 'userboard_confirmdelete' ),
 	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'remoteExtPath' => 'Social/UserBoard',
 );
 
 $wgResourceModules['ext.socialprofile.userboard.css'] = array(
 	'styles' => 'UserBoard.css',
 	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'remoteExtPath' => 'Social/UserBoard',
 	'position' => 'top' // just in case
 );
 
 $wgResourceModules['ext.socialprofile.userboard.boardblast.css'] = array(
 	'styles' => 'BoardBlast.css',
 	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'remoteExtPath' => 'Social/UserBoard',
 	'position' => 'top' // just in case
 );
 
@@ -71,7 +72,7 @@ $wgResourceModules['ext.socialprofile.userboard.boardblast.js'] = array(
 		'boardblast-js-error-missing-user'
 	),
 	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'SocialProfile/UserBoard',
+	'remoteExtPath' => 'Social/UserBoard',
 );
 
 // Should we display UserBoard-related things on social profile pages?
@@ -86,6 +87,7 @@ $wgAutoloadClasses['UserBoard'] = __DIR__ . '/UserBoardClass.php';						// class
 $wgAutoloadClasses['SpecialViewUserBoard'] = __DIR__ . '/SpecialUserBoard.php';			// special page for user board view
 $wgAutoloadClasses['SpecialBoardBlast'] = __DIR__ . '/SpecialSendBoardBlast.php';		// special page for send 'mass board message'
 $wgAutoloadClasses['UserBoardAjaxFunctions'] = __DIR__ . '/UserBoardAjaxFunctions.php';	// static functions for ajax
+$wgAutoloadClasses['SendUserBoardMessage'] = __DIR__ . 'APISendUserBoardMessage.php';   // API for send message
 
 // New special pages
 $wgSpecialPages['UserBoard'] = 'SpecialViewUserBoard';
@@ -96,10 +98,5 @@ $wgSpecialPages['SendBoardBlast'] = 'SpecialBoardBlast';
  */
 $wgAjaxExportList[] = 'UserBoardAjaxFunctions::wfDeleteBoardMessage';
 
-/*
-// 새로운 알림 출력 by 페네트
-$wgAjaxExportList[] = 'UserBoardAjaxFunctions::wfGetNewMessage';
-$wgAjaxExportList[] = 'UserBoardAjaxFunctions::wfGetResetNewMessageCount';
-*/
-
-//$wgHooks['GetAlarmMessage'][] = 'UserBoard::AlarmMessage';
+// API module
+$wgAPIModules['social-send-message'] = 'SendUserBoardMessage';
