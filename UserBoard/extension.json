@@ -65,6 +65,9 @@
 		],
 		"EchoGetDefaultNotifiedUsers": [
 			"UserBoardHooks::onEchoGetDefaultNotifiedUsers"
+		],
+		"EchoGetBundleRules": [
+			"UserBoardHooks::onEchoGetBundleRules"
 		]
 	},
 	"config": {

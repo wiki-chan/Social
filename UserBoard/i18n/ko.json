@@ -58,5 +58,7 @@
 	"echo-category-title-social-msg": "사용자 페이지의 메시지",
 	"echo-pref-tooltip-social-msg": "내 사용자 페이지에 누군가가 메시지를 남기거나, 다른 사용자 페이지에서 나를 언급한 경우에 내게 알립니다.",
 
-	"notification-social-msg-send": "$1 님이 당신에게 메시지를 남겼습니다."
+	"notification-social-msg-send": "$1 님이 당신에게 메시지를 남겼습니다.",
+
+	"notification-social-msg-send-bundle": "$1명의 사용자로부터 $2개의 메시지를 받았습니다."
 }

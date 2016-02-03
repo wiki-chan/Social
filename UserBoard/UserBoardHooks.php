@@ -50,4 +50,19 @@ class UserBoardHooks {
 		}
 		return true;
 	}
+
+	/**
+	 * Set bundle for message
+	 * @param $event EchoEvent
+	 * @param $bundleString String
+	 * @return bool
+	 */
+	public static function onEchoGetBundleRules( $event, &$bundleString ) {
+		switch ( $event->getType() ) {
+			case 'social-msg-send':
+				$bundleString = 'social-msg-send';
+				break;
+		}
+		return true;
+	}
 }

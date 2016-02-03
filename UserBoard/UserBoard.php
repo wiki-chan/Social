@@ -96,6 +96,7 @@ $wgSpecialPages['SendBoardBlast'] = 'SpecialBoardBlast';
 // For the Echo extension
 $wgHooks['BeforeCreateEchoEvent'][] = 'UserBoardHooks::onBeforeCreateEchoEvent';
 $wgHooks['EchoGetDefaultNotifiedUsers'][] = 'UserBoardHooks::onEchoGetDefaultNotifiedUsers';
+$wgHooks['EchoGetBundleRules'][] = 'UserBoardHooks::onEchoGetBundleRules';
 
 $wgDefaultUserOptions['echo-subscriptions-web-social-msg'] = true;
 $wgDefaultUserOptions['echo-subscriptions-email-social-msg'] = false;

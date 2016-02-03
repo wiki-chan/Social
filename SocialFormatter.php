@@ -28,6 +28,17 @@ class SocialFormatter extends EchoBasicFormatter {
 				$message->params($link);
 				break;
 
+
+			case 'bundle-user-count':
+				$user_count = $this->bundleData['agent-other-count'] + 1; // 나 빼고 다른 사람 + 나
+				$message->params($user_count);
+				break;
+
+			case 'bundle-noti-count':
+				$noti_count = $this->bundleData['raw-data-count'];
+				$message->params($noti_count);
+				break;
+
 			default:
 				parent::processParam( $event, $param, $message, $user );
 		}
