@@ -29,6 +29,7 @@ $wgExtensionMessagesFiles['SocialProfileNamespaces'] = __DIR__ . '/SocialProfile
 
 // Classes to be autoloaded
 $wgAutoloadClasses['SocialProfileInitClass'] = __DIR__ . '/SocialProfileInitClass.php';
+$wgAutoloadClasses['SocialFormatter'] = __DIR__ . '/SocialFormatter.php';
 
 // Necessary AJAX functions
 // TODO: 별도 클래스로 각각 분리할 것

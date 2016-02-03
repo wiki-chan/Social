@@ -22,6 +22,7 @@
 	},
 	"AutoloadClasses": {
 		"SocialProfileInitClass": "SocialProfileInitClass.php",
+		"SocialFormatter": "SocialFormatter.php",
 		"SocialProfileHooks": "SocialProfileHooks.php"
 	},
 	"ResourceModules": {

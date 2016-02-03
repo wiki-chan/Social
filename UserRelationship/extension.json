@@ -7,6 +7,10 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:SocialProfile",
 	"description": "A special page for adding friends/foe requests for existing users in the wiki",
 	"type": "profile",
+	"DefaultUserOptions": {
+		"echo-subscriptions-web-social-rel": true,
+		"echo-subscriptions-email-social-rel": false
+	},
 	"SpecialPages": {
 		"AddRelationship": "SpecialAddRelationship",
 		"RemoveRelationship": "SpecialRemoveRelationship",
@@ -28,6 +32,7 @@
 		"SpecialViewRelationshipRequests": "SpecialViewRelationshipRequests.php",
 		"SpecialViewRelationships": "SpecialViewRelationships.php",
 		"RelationshipResponse": "APIRelationshipResponse.php",
+		"UserRelationshipHooks": "UserRelationshipHooks.php"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userrelationship.css": {
@@ -41,6 +46,14 @@
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
 		"remoteExtPath": "Social/UserRelationship"
+	},
+	"Hooks": {
+		"BeforeCreateEchoEvent": [
+			"UserRelationshipHooks::onBeforeCreateEchoEvent"
+		],
+		"EchoGetDefaultNotifiedUsers": [
+			"UserRelationshipHooks::onEchoGetDefaultNotifiedUsers"
+		]
 	},
 	"config": {
 		"AjaxExportList": [

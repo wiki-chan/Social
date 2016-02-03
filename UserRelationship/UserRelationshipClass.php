@@ -74,6 +74,22 @@ class UserRelationship {
 			$this->sendRelationshipRequestEmail( $userIdTo, $this->user_name, $type );
 		}
 
+		if (class_exists('EchoEvent')) {
+			$userFrom = User::newFromId($this->user_id);
+
+			EchoEvent::create(array(
+				'type' => 'social-rel-add',
+				'agent' => $userFrom,
+				'title' => $userFrom->getUserPage(),
+				'extra' => array(
+					'target' => $userIdTo,
+					'from' => $this->user_id,
+					'rel_type'  => $type,
+					'message' => $message
+				)
+			));
+		}
+
 		return $requestId;
 	}
 
@@ -286,6 +302,21 @@ class UserRelationship {
 			$wgMemc->delete( wfMemcKey( 'relationship', 'profile', "{$this->user_id}-{$ur_type}" ) );
 			$wgMemc->delete( wfMemcKey( 'relationship', 'profile', "{$ur_user_id_from}-{$ur_type}" ) );
 
+			if (class_exists('EchoEvent')) {
+				$userFrom = User::newFromId($this->user_id);
+
+				EchoEvent::create(array(
+					'type' => 'social-rel-accept',
+					'agent' => $userFrom,
+					'title' => $userFrom->getUserPage(),
+					'extra' => array(
+						'target' => $ur_user_id_from,
+						'from' => $this->user_id,
+						'rel_type'  => $ur_type
+					)
+				));
+			}
+
 			// Hooks (for Semantic SocialProfile mostly)
 			if ( $ur_type == 1 ) {
 				Hooks::run( 'NewFriendAccepted', array( $ur_user_name_from, $this->user_name ) );
@@ -375,6 +406,7 @@ class UserRelationship {
 			/* WHERE */array( 'ur_id' => $relationshipRequestId ),
 			__METHOD__
 		);
+		// TODO: delete db query
 	}
 
 	/**

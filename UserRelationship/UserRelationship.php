@@ -34,9 +34,17 @@ $wgAutoloadClasses['SpecialRemoveRelationship'] = __DIR__ . '/SpecialRemoveRelat
 $wgAutoloadClasses['SpecialViewRelationshipRequests'] = __DIR__ . '/SpecialViewRelationshipRequests.php';		// special page for view requested relationship
 $wgAutoloadClasses['SpecialViewRelationships'] = __DIR__ . '/SpecialViewRelationships.php';						// special page for show relationship
 $wgAutoloadClasses['RelationshipResponse'] = __DIR__ . '/APIRelationshipResponse.php';							// Relationship Response API
+$wgAutoloadClasses['UserRelationshipHooks'] = __DIR__ . '/UserRelationshipHooks.php';							// Hook functions
 
 // for API modules
 $wgAPIModules['social-request-response'] = 'RelationshipResponse';
+
+// For the Echo extension
+$wgHooks['BeforeCreateEchoEvent'][] = 'UserRelationshipHooks::onBeforeCreateEchoEvent';
+$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'UserRelationshipHooks::onEchoGetDefaultNotifiedUsers';
+
+$wgDefaultUserOptions['echo-subscriptions-web-social-rel'] = true;
+$wgDefaultUserOptions['echo-subscriptions-email-social-rel'] = false;
 
 // resource modules
 $wgResourceModules['ext.socialprofile.userrelationship.css'] = array(
