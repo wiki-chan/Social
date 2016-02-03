@@ -9,7 +9,7 @@ class UserBoard {
 	 */
 	public function __construct() {}
 
-	// TODO: Alarm check
+	// DEPRECATED
 	public static function AlarmMessage($type, $sender, $data, $date, &$message, &$link) {
 		if ($type != "usermesg") return true;
 

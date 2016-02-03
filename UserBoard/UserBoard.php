@@ -86,8 +86,7 @@ $wgMessagesDirs['SocialProfileUserBoard'] = __DIR__ . '/i18n';
 $wgAutoloadClasses['UserBoard'] = __DIR__ . '/UserBoardClass.php';						// class for control user board messages
 $wgAutoloadClasses['SpecialViewUserBoard'] = __DIR__ . '/SpecialUserBoard.php';			// special page for user board view
 $wgAutoloadClasses['SpecialBoardBlast'] = __DIR__ . '/SpecialSendBoardBlast.php';		// special page for send 'mass board message'
-$wgAutoloadClasses['UserBoardAjaxFunctions'] = __DIR__ . '/UserBoardAjaxFunctions.php';	// static functions for ajax
-$wgAutoloadClasses['SendUserBoardMessage'] = __DIR__ . 'APISendUserBoardMessage.php';   // API for send message
+$wgAutoloadClasses['SendUserBoardMessage'] = __DIR__ . '/APISendUserBoardMessage.php';	// API for send message
 
 // New special pages
 $wgSpecialPages['UserBoard'] = 'SpecialViewUserBoard';

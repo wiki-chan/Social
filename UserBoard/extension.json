@@ -24,8 +24,7 @@
 		"UserBoard": "UserBoardClass.php",
 		"SpecialViewUserBoard": "SpecialUserBoard.php",
 		"SpecialBoardBlast": "SpecialSendBoardBlast.php",
-		"UserBoardAjaxFunctions": "UserBoardAjaxFunctions.php",
-		"SendUserBoardMessage": "PISendUserBoardMessage.php"
+		"SendUserBoardMessage": "APISendUserBoardMessage.php"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userboard.js": {
