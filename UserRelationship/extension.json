@@ -13,6 +13,9 @@
 		"ViewRelationshipRequests": "SpecialViewRelationshipRequests",
 		"ViewRelationships": "SpecialViewRelationships"
 	},
+	"APIModules": {
+		"social-request-response": "RelationshipResponse"
+	},
 	"MessagesDirs": {
 		"SocialProfileUserRelationship": [
 			"i18n"
@@ -24,10 +27,7 @@
 		"SpecialRemoveRelationship": "SpecialRemoveRelationship.php",
 		"SpecialViewRelationshipRequests": "SpecialViewRelationshipRequests.php",
 		"SpecialViewRelationships": "SpecialViewRelationships.php",
-		"RelationshipResponse": "APIRelationshipResponse.php"
-	},
-	"APIModules": {
-		"social-request-response": "RelationshipResponse"
+		"RelationshipResponse": "APIRelationshipResponse.php",
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userrelationship.css": {
