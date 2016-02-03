@@ -87,10 +87,18 @@ $wgAutoloadClasses['UserBoard'] = __DIR__ . '/UserBoardClass.php';						// class
 $wgAutoloadClasses['SpecialViewUserBoard'] = __DIR__ . '/SpecialUserBoard.php';			// special page for user board view
 $wgAutoloadClasses['SpecialBoardBlast'] = __DIR__ . '/SpecialSendBoardBlast.php';		// special page for send 'mass board message'
 $wgAutoloadClasses['SendUserBoardMessage'] = __DIR__ . '/APISendUserBoardMessage.php';	// API for send message
+$wgAutoloadClasses['UserBoardHooks'] = __DIR__ . '/UserBoardHooks.php';					// Hook functions
 
 // New special pages
 $wgSpecialPages['UserBoard'] = 'SpecialViewUserBoard';
 $wgSpecialPages['SendBoardBlast'] = 'SpecialBoardBlast';
+
+// For the Echo extension
+$wgHooks['BeforeCreateEchoEvent'][] = 'UserBoardHooks::onBeforeCreateEchoEvent';
+$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'UserBoardHooks::onEchoGetDefaultNotifiedUsers';
+
+$wgDefaultUserOptions['echo-subscriptions-web-social-msg'] = true;
+$wgDefaultUserOptions['echo-subscriptions-email-social-msg'] = false;
 
 /**
  * AJAX functions used by UserBoard.

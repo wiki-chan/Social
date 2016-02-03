@@ -87,8 +87,21 @@ class UserBoard {
 		$stats = new UserStatsTrack( $user_id_from, $user_name_from );
 		$stats->incStatField( 'user_board_sent' );
 
-		if ( class_exists('Alarm') )
-			Alarm::addAlarmMessage($user_id_to, 'usermesg', $id, $user_id_from);
+		if (class_exists('EchoEvent')) {
+			$userFrom = User::newFromId($user_id_from);
+
+			EchoEvent::create(array(
+				'type' => 'social-msg-send',
+				'agent' => $userFrom,
+//				'title' => $userFrom->getUserPage(),
+				'extra' => array(
+					'target' => $user_id_to,
+					'from' => $user_id_from,
+					'type' => $message_type,
+					'message'  => $message
+				)
+			));
+		}
 
 		return $id;
 	}

@@ -8,6 +8,10 @@
 	"description": "Display User Board messages for a user",
 	"license-name": "GPL-2.0",
 	"type": "profile",
+	"DefaultUserOptions": {
+		"echo-subscriptions-web-social-msg": true,
+		"echo-subscriptions-email-social-msg": false
+	},
 	"SpecialPages": {
 		"UserBoard": "SpecialViewUserBoard",
 		"SendBoardBlast": "SpecialBoardBlast"
@@ -24,7 +28,8 @@
 		"UserBoard": "UserBoardClass.php",
 		"SpecialViewUserBoard": "SpecialUserBoard.php",
 		"SpecialBoardBlast": "SpecialSendBoardBlast.php",
-		"SendUserBoardMessage": "APISendUserBoardMessage.php"
+		"SendUserBoardMessage": "APISendUserBoardMessage.php",
+		"UserBoardHooks": "UserBoardHooks.php"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userboard.js": {
@@ -53,6 +58,14 @@
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
 		"remoteExtPath": "Social/UserBoard"
+	},
+	"Hooks": {
+		"BeforeCreateEchoEvent": [
+			"UserBoardHooks::onBeforeCreateEchoEvent"
+		],
+		"EchoGetDefaultNotifiedUsers": [
+			"UserBoardHooks::onEchoGetDefaultNotifiedUsers"
+		]
 	},
 	"config": {
 		"UserProfileDisplay": {

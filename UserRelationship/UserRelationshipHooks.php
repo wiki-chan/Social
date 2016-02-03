@@ -22,7 +22,7 @@ class UserRelationshipHooks {
 			'formatter-class' => 'SocialFormatter',
 			'title-message' => 'notification-social-rel-add',
 			'title-params' => array( 'user', 'relationship' ),
-			'payload' => array( 'relationship-add-message' ),
+			'payload' => array( 'relationship-add' ),
 			'email-subject-message' => 'notification-social-rel-add-email-subject',
 			'email-subject-params' => array( 'user' ),
 			'email-body-batch-message' => 'notification-social-rel-add-email-batch-body',

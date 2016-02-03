@@ -35,13 +35,33 @@ class SocialFormatter extends EchoBasicFormatter {
 
 	protected function formatPayload( $payload, $event, $user ) {
 		switch ( $payload ) {
-			case 'relationship-add-message':
+			case 'relationship-add':
 				$extra = $event->getExtra();
 				return $extra['message'];
+				break;
+			case 'send-message':
+				global $wgParser, $wgTitle, $wgOut;
+
+				$extra = $event->getExtra();
+				$message = $this->truncate($extra['message']);
+				return $message;
+				//return $wgParser->getFreshParser()->parse($message, $wgTitle, $wgOut->parserOptions())->getText();
 				break;
 			default:
 				return parent::formatPayload( $payload, $event, $user );
 				break;
 		}
+	}
+
+	private function truncate($string, $length = 100, $append="&hellip;") {
+		$string = trim($string);
+
+		if (strlen($string) > $length) {
+			$string = wordwrap($string, $length);
+			$string = explode("\n", $string, 2);
+			$string = $string[0] . $append;
+		}
+
+		return $string;
 	}
 }
