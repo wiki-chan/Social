@@ -9,7 +9,7 @@ class UserBoard {
 	 */
 	public function __construct() {}
 
-	// TODO: Alarm check
+	// DEPRECATED
 	public static function AlarmMessage($type, $sender, $data, $date, &$message, &$link) {
 		if ($type != "usermesg") return true;
 
@@ -87,8 +87,21 @@ class UserBoard {
 		$stats = new UserStatsTrack( $user_id_from, $user_name_from );
 		$stats->incStatField( 'user_board_sent' );
 
-		if ( class_exists('Alarm') )
-			Alarm::addAlarmMessage($user_id_to, 'usermesg', $id, $user_id_from);
+		if (class_exists('EchoEvent')) {
+			$userFrom = User::newFromId($user_id_from);
+
+			EchoEvent::create(array(
+				'type' => 'social-msg-send',
+				'agent' => $userFrom,
+//				'title' => $userFrom->getUserPage(),
+				'extra' => array(
+					'target' => $user_id_to,
+					'from' => $user_id_from,
+					'type' => $message_type,
+					'message'  => $message
+				)
+			));
+		}
 
 		return $id;
 	}
@@ -122,7 +135,7 @@ class UserBoard {
 			$sender = new MailAddress( $wgPasswordSender,
 				wfMessage( 'emailsender' )->inContentLanguage()->text() );
 			$to = new MailAddress( $user );
-			UserMailer::send( $to, $sender, $subject, $body, null, 'text/html; charset=UTF-8' );
+			UserMailer::send( $to, $sender, $subject, $body, array( 'contentType' => 'text/html; charset=UTF-8' ) );
 		}
 	}
 

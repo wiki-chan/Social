@@ -9,21 +9,11 @@
 	],
 	"url": "https://github.com/wiki-chan/Social",
 	"descriptionmsg": "socialprofile-desc",
-	"type": "profile",
 	"license-name": "GPL-2.0",
-	"SpecialPages": {
-		"GenerateTopUsersReport": "GenerateTopUsersReport",
-		"TopFansByStatistic": "TopFansByStat",
-		"TopUsers": "TopUsersPoints",
-		"TopUsersRecent": "TopFansRecent",
-		"UpdateEditCounts": "UpdateEditCounts"
-	},
+	"type": "profile",
 	"MessagesDirs": {
 		"SocialProfile": [
 			"i18n"
-		],
-		"SocialProfileUserStats": [
-			"UserStats/i18n"
 		]
 	},
 	"ExtensionMessagesFiles": {
@@ -32,16 +22,7 @@
 	},
 	"AutoloadClasses": {
 		"SocialProfileInitClass": "SocialProfileInitClass.php",
-		"GenerateTopUsersReport": "UserStats/GenerateTopUsersReport.php",
-		"UpdateEditCounts": "UserStats/SpecialUpdateEditCounts.php",
-		"UserLevel": "UserStats/UserStatsClass.php",
-		"UserStats": "UserStats/UserStatsClass.php",
-		"UserStatsTrack": "UserStats/UserStatsClass.php",
-		"UserEmailTrack": "UserStats/UserStatsClass.php",
-		"UserSystemMessage": "UserSystemMessages/UserSystemMessagesClass.php",
-		"TopFansByStat": "UserStats/TopFansByStat.php",
-		"TopFansRecent": "UserStats/TopFansRecent.php",
-		"TopUsersPoints": "UserStats/TopUsers.php",
+		"SocialFormatter": "SocialFormatter.php",
 		"SocialProfileHooks": "SocialProfileHooks.php"
 	},
 	"ResourceModules": {
@@ -53,11 +34,13 @@
 			"styles": "responsive.less",
 			"position": "top"
 		},
-		"ext.socialprofile.userstats.css": {
-			"styles": "TopList.css",
-			"localBasePath": "UserStats",
-			"remoteExtPath": "SocialProfile/UserStats",
-			"position": "top"
+		"ext.socialprofile.flash": {
+			"scripts": "flash.js",
+			"position": "bottom"
+		},
+		"ext.socialprofile.LightBox": {
+			"scripts": "LightBox.js",
+			"position": "bottom"
 		}
 	},
 	"ResourceFileModulePaths": {

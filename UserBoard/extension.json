@@ -4,12 +4,20 @@
 		"David Pean",
 		"페네트-"
 	],
-	"url": "https://github.com/wiki-chan/SocialProfile",
+	"url": "https://github.com/wiki-chan/Social",
 	"description": "Display User Board messages for a user",
+	"license-name": "GPL-2.0",
 	"type": "profile",
+	"DefaultUserOptions": {
+		"echo-subscriptions-web-social-msg": true,
+		"echo-subscriptions-email-social-msg": false
+	},
 	"SpecialPages": {
 		"UserBoard": "SpecialViewUserBoard",
 		"SendBoardBlast": "SpecialBoardBlast"
+	},
+	"APIModules": {
+		"social-send-message": "SendUserBoardMessage"
 	},
 	"MessagesDirs": {
 		"SocialProfileUserBoard": [
@@ -20,11 +28,8 @@
 		"UserBoard": "UserBoardClass.php",
 		"SpecialViewUserBoard": "SpecialUserBoard.php",
 		"SpecialBoardBlast": "SpecialSendBoardBlast.php",
-		"UserBoardAjaxFunctions": "UserBoardAjaxFunctions.php",
-		"SendUserBoardMessage": "APISendUserBoardMessage.php"
-	},
-	"APIModules": {
-		"social-send-message": "SendUserBoardMessage"
+		"SendUserBoardMessage": "APISendUserBoardMessage.php",
+		"UserBoardHooks": "UserBoardHooks.php"
 	},
 	"ResourceModules": {
 		"ext.socialprofile.userboard.js": {
@@ -53,6 +58,17 @@
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
 		"remoteExtPath": "Social/UserBoard"
+	},
+	"Hooks": {
+		"BeforeCreateEchoEvent": [
+			"UserBoardHooks::onBeforeCreateEchoEvent"
+		],
+		"EchoGetDefaultNotifiedUsers": [
+			"UserBoardHooks::onEchoGetDefaultNotifiedUsers"
+		],
+		"EchoGetBundleRules": [
+			"UserBoardHooks::onEchoGetBundleRules"
+		]
 	},
 	"config": {
 		"UserProfileDisplay": {

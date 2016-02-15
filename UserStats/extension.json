@@ -1,13 +1,47 @@
 {
 	"name": "User Stats",
 	"author": [
+		"David Pean",
 		"페네트-"
 	],
 	"url": "https://github.com/wiki-chan/Social",
 	"description": "Add user stat information in Social",
+	"license-name": "GPL-2.0",
 	"type": "profile",
+	"SpecialPages": {
+		"GenerateTopUsersReport": "GenerateTopUsersReport",
+		"TopFansByStatistic": "TopFansByStat",
+		"TopUsers": "TopUsersPoints",
+		"TopUsersRecent": "TopFansRecent",
+		"UpdateEditCounts": "UpdateEditCounts"
+	},
+	"MessagesDirs": {
+		"SocialProfileUserStats": [
+			"i18n"
+		]
+	},
 	"AutoloadClasses": {
-		"UserStatsFunctions": "UserStatsFunctions.php"
+		"UserStatsFunctions": "UserStatsFunctions.php",
+		"GenerateTopUsersReport": "GenerateTopUsersReport.php",
+		"UpdateEditCounts": "SpecialUpdateEditCounts.php",
+		"UserLevel": "UserStatsClass.php",
+		"UserStats": "UserStatsClass.php",
+		"UserStatsTrack": "UserStatsClass.php",
+		"UserEmailTrack": "UserStatsClass.php",
+		"UserSystemMessage": "/UserSystemMessages/UserSystemMessagesClass.php",
+		"TopFansByStat": "TopFansByStat.php",
+		"TopFansRecent": "TopFansRecent.php",
+		"TopUsersPoints": "TopUsers.php"
+	},
+	"ResourceModules": {
+		"ext.socialprofile.userstats.css": {
+			"styles": "TopList.css",
+			"position": "top"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "UserStats",
+		"remoteExtPath": "SocialProfile/UserStats"
 	},
 	"Hooks": {
 		"NewRevisionFromEditComplete": [
