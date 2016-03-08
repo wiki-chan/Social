@@ -40,7 +40,7 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-		"localBasePath": "UserStats",
+		"localBasePath": "",
 		"remoteExtPath": "SocialProfile/UserStats"
 	},
 	"Hooks": {

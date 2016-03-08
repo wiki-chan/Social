@@ -117,7 +117,7 @@ class UserBoard {
 		$user->loadFromId();
 
 		// Send email if user's email is confirmed and s/he's opted in to recieving social notifications
-		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifymessage', 1 ) ) {
+		if ( $user->isEmailConfirmed() && $user->getIntOption( 'notifymessage', 1 ) && false ) {
 			$board_link = SpecialPage::getTitleFor( 'UserBoard' );
 			$update_profile_link = SpecialPage::getTitleFor( 'UpdateProfile' );
 			$subject = wfMessage( 'message_received_subject', $user_from )->parse();

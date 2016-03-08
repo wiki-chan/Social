@@ -12,7 +12,8 @@ class SendUserBoardMessage extends ApiBase {
 		// Don't allow blocked users to send messages and also don't allow message
 		// sending when the database is locked for some reason
 		if ( $wgUser->isBlocked() || wfReadOnly() ) {
-			return false;
+			$this->getResult()->addValue( null, 'result', "현재 메시지를 보낼 수 없습니다.");
+			return true;
 		}
 
 		$user_name = stripslashes( $user_name );
