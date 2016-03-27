@@ -28,7 +28,7 @@
 		"UserStats": "UserStatsClass.php",
 		"UserStatsTrack": "UserStatsClass.php",
 		"UserEmailTrack": "UserStatsClass.php",
-		"UserSystemMessage": "/UserSystemMessages/UserSystemMessagesClass.php",
+		"UserSystemMessage": "/../UserSystemMessages/UserSystemMessagesClass.php",
 		"TopFansByStat": "TopFansByStat.php",
 		"TopFansRecent": "TopFansRecent.php",
 		"TopUsersPoints": "TopUsers.php"
