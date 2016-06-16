@@ -1,21 +1,59 @@
+body:not(.action-edit):not(.action-history) .article {
+	padding: 0;
+	background: none;
+	border: none;
+}
+
 .cleared {
 	clear: both;
 }
+
 .clearfix:after {
 	content: '';
 	display: table;
 }
+
+.clearfix { display: inline-block; }
+
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%; }
+/* End hide from IE-mac */
+
+.firstHeading {
+	border-bottom: none;
+	margin: 0px !important;
+	display: none;
+}
+
+.pagetitle {
+	display: inline !important;
+}
+
+#main {
+	padding: 0px 0px 0px 0px !important;
+}
+
 #user-page-left {
 	float: left;
 	width: 300px;
-}
-#user-page-right {
-	width: calc(100% - 310px);
-}
-#user-page-left, #user-page-right {
 	padding: 10px;
-	box-sizing: border-box;
 }
+
+#user-page-right {
+	float: right;
+	width: 620px;
+	padding: 10px;
+}
+
+#user-page-left h2, #user-page-right h2 {
+	border-bottom: 1px solid #dcdcdc;
+	padding: 0px 0px 3px 0px;
+	margin: 0px 0px 5px 0px;
+	font-size: 17px;
+	letter-spacing: -1px;
+	color: #333;
+}
+
 .no-info-container {
 	margin: 5px 0px 20px 0px;
 	background-color: #F2F4F7;
@@ -23,6 +61,7 @@
 	text-align: center;
 	color: #777;
 }
+
 .item-small {
 	color: #999;
 	font-size: 12px;
@@ -30,160 +69,205 @@
 	white-space: nowrap;
 }
 
-/* 단락 제목 */
-.user-section-heading {
-	position: relative;
+.user-section-heading:after {
+	content: '';
+	display: table;
 }
+
 .user-section-title {
-	font-size: 1.4rem;
-	margin-bottom: .5em;
+	float: left;
+	font-size: 20px;
 }
+
 .user-section-actions {
-	position: absolute;
-	right: 0;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+	float: right;
 }
 
 /* 편집 버튼 */
-.action-left, .action-right {
-	display: inline-block;
-	margin: 0 .5em;
+.action-left {
+	float: left;
+	margin-right: 10px;
+	color: #aaa;
 }
+.action-right {
+	float: right;
+}
+
 .user-section-actions a {
-	display: inline-block;
-	background: #5bc0de;
-	border: 1px solid #46b8da;
+	font-size: 12px;
+	padding: 2px 4px;
 	color: #fff !important;
-	font-size: .95rem;
-	line-height: 1;
-	padding: 4px 5px;
-	margin: 1px;
-	text-align: center;
-	white-space: nowrap;
-	position: relative;
-	text-decoration: none !important;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	background: #50a9d2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 3px;
 }
 .user-section-actions a:hover {
-	background-color: #39b3d7;
-	border-color: #269abc;
-}
-.user-section-actions a:active {
-	outline: 0;
-	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
-	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+	background: #a5a5a5;
 }
 
-/* Top Area */
+/* Profile Top */
 #profile-top {
 	position: relative;
-	height: 150px;
-	margin-bottom: 1.5em;
-	border: 1px solid #e5e5e5;
-	border-radius: 1em;
-	-webkit-box-shadow: 0 2px 10px rgba(0,0,0, .1);
-	box-shadow: 0 2px 10px rgba(0,0,0, .1);
+	padding: 0 2em;
+	margin-bottom: 1em;
 }
 
-/* Top: Avatar */
+/* Left: Avatar image */
 #profile-image {
 	float: left;
-	margin: 25px 2em 25px 2.5em;
+	margin-right: 16px;
 }
+
 #profile-image img {
 	display: block;
 	width: 100px;
 	height: 100px;
 	background-color: #fff;
-	border-radius: 1em;
 }
 
-/* Top: Name & Exp */
+/* Right: Username etc */
+#profile-right {
+	margin-left: 120px; /* 100px + 4px of padding + 16px of margin from #profile-image */
+}
+
 #profile-title-container {
 	float: left;
-	height: 100px;
-	margin: 25px 3em 25px 1.5em;
+	margin: 50px 2em 0;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
-/* Top: Name */
+/* 사용자 이름 */
 #profile-title {
-	font-size: 1.75rem;
-	line-height: 2;
+	display: inline-block;
+	max-width: 200px;
+	font-size: 1.66rem;
 	white-space: nowrap;
 }
 
-/* Top: Exp, Lv */
-#honorific-level, #points-level {
-	margin-left: .5em;
+/* 경험치, 레벨 */
+#points-level {
+	display: none;
 }
-#honorific-level a, #points-level a {
-	color: #999;
-}
-#honorific-level a:before, #points-level a:before {
+#honorific-level {
 	display: inline-block;
-	content: '・';
-	color: #00a6bc;
-	margin-right: .5em;
+	margin-left: 6px;
+}
+#honorific-level a {
+	font-size: 0.9rem;
+	padding: 2px 4px;
+	background-color: #50a9d2;
+	color: #fff !important;
+	border-radius: 3px;
+	vertical-align: 4px;
+	white-space: nowrap;
+	text-decoration: none;
+}
+#honorific-level a:hover {
+	background-color: #a5a5a5;
 }
 
-/* Top: Edits, Friends count */
+/* 편집 횟수, 친구 수 */
 .user-statcount {
 	float: left;
-	padding: 0 1.5em;
-	margin: 50px 0;
+	font-size: 12px;
+	margin: 50px 1em 0;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 	text-align: center;
-}
-.user-statcount span {
-	display: block;
 }
 .user-statnumber {
 	display: block;
-	font-size: 1.6rem;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Geneva, sans-serif;
 }
 
 /* 우측 상단 메뉴 */
 .profile-actions {
 	position: absolute;
-	top: 2em;
+	top: 50%;
 	right: 2em;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 .profile-actions li {
-	display: inline-block;
-	margin: 0 1px;
+	float: left;
+	margin-left: 5px;
+}
+.profile-actions li a {
+	display: block;
+	width: 80px;
+	height: 80px;
+	position: relative;
+}
+.profile-actions li.type1 {
+	background: #63bdfc;
+}
+.profile-actions li.type2 {
+	background: #529cff;
+}
+.profile-actions li.type3 {
+	background: #008ccf;
+}
+.profile-actions li.type4 {
+	background: #6cbe42;
 }
 .profile-actions li:hover {
 	-webkit-box-shadow: inset 0px 0px 4px rgba(255, 255, 255, 0.9);
+	-moz-box-shadow: inset 0px 0px 4px rgba(255,255,255,.9);
 	box-shadow: inset 0px 0px 4px rgba(255, 255, 255, 0.9);
 }
-.profile-actions a {
-	display: inline-block;
-	background: #5bc0de;
-	border: 1px solid #46b8da;
+
+/* 메뉴의 글자 */
+.profile-actions span.caption {
+	position: absolute;
+	bottom: 3px;
+	left: 6px;
 	color: #fff !important;
-	font-size: 1rem;
-	line-height: 1;
-	padding: 8px;
-	text-align: center;
-	white-space: nowrap;
-	position: relative;
-	text-decoration: none !important;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	font-size: 12px;
 }
-.profile-actions a:hover {
-	background-color: #39b3d7;
-	border-color: #269abc;
+
+/* 메뉴의 그림 아이콘 */
+.profile-actions span.icon {
+	content: '';
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 18px;
+	left: 24px;
+	/* @embed */
+	background-image: url(navi-icons.png);
+	background-repeat: no-repeat;
 }
-.profile-actions a:active {
-	outline: 0;
-	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
-	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+
+.profile-actions span.avatar {
+	background-position: 0 -192px;
+}
+.profile-actions span.relationship {
+	background-position: 0 -224px;
+}
+.profile-actions span.addfriend {
+	background-position: 0 -256px;
+}
+.profile-actions span.removefriend {
+	background-position: 0 -288px;
+}
+.profile-actions span.message {
+	background-position: 0 -320px;
+}
+.profile-actions span.watchlist {
+	background-position: 0 -352px;
+}
+.profile-actions span.sandbox {
+	background-position: 0 -32px;
+}
+.profile-actions span.contributions {
+	background-position: 0 -384px;
 }
 
 /* User-Relationship */
@@ -305,7 +389,7 @@
 
 .user-board-message-from {
 	float: left;
-	margin: .3em 0 .2em 10px;
+	margin: 3px 0 3px 10px;
 }
 
 .user-board-message-from a {
@@ -318,7 +402,7 @@
 	font-size: 12px;
 	color: #797979;
 	float: right;
-	margin: .4em 10px 0 0;
+	margin: 4px 10px 4px 0;
 }
 
 .user-board-message-content {
@@ -327,6 +411,12 @@
 	border: 1px solid #d0ecf8;
 	margin: 0 10px;	
 	padding: 5px;
+}
+
+.user-board-message-time {
+	font-size: 11px;
+	color: #797979;
+	margin: 2px 0px 0px 5px;
 }
 
 .user-board-message-image {
@@ -349,9 +439,10 @@
 
 .user-board-message-body p {
 	text-align: left !important;
-	margin: 0 !important;
 	overflow: hidden;
 }
+.user-board-message-body p:first-of-type { margin-top: 0 !important; }
+.user-board-message-body p:last-of-type { margin-bottom: 0 !important; }
 
 .user-board-message-links {
 	text-align: right;
@@ -617,9 +708,6 @@ table.avatar-success-page td.image-cell img {
 	width: 30%;
 	float: left;
 	margin-right: 2%;
-}
-.profile-update textarea {
-	min-height: 6.5em;
 }
 
 .profile-tab-bar {

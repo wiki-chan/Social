@@ -929,21 +929,21 @@ class UserProfilePage extends Article {
 			*/
 			$output .= //$wgLang->pipeList( array(
 //				'<a href="' . htmlspecialchars( $update_profile->getFullURL() ) . '">' . wfMessage( 'user-edit-profile' )->escaped() . '</a>' .
-				'<li><a href="' . htmlspecialchars( $upload_avatar->getFullURL() ) . '">' . wfMessage( 'user-upload-avatar' )->escaped() . '</a></li>' .
-				'<li><a href="' . htmlspecialchars( $view_relationship_requests->getFullURL() ) . '">' . wfMsg( 'user-requests-title' ) . '</a></li>' .
-				'<li><a href="' . htmlspecialchars( $watchlist->getFullURL() ) . '">' . wfMessage( 'user-watchlist' )->escaped() . '</a></li>' .
+				'<li class="type1"><a href="' . htmlspecialchars( $upload_avatar->getFullURL() ) . '"><span class="icon avatar"></span><span class="caption">' . wfMessage( 'user-upload-avatar' )->escaped() . '</span></a></li>' .
+				'<li class="type2"><a href="' . htmlspecialchars( $view_relationship_requests->getFullURL() ) . '"><span class="icon relationship"></span><span class="caption">' . wfMsg( 'user-requests-title' ) . '</span></a></li>' .
+				'<li class="type3"><a href="' . htmlspecialchars( $watchlist->getFullURL() ) . '"><span class="icon watchlist"></span><span class="caption">' . wfMessage( 'user-watchlist' )->escaped() . '</span></a></li>' .
 				'';
 			//) );
 		} elseif ( $wgUser->isLoggedIn() ) {
 			if ( $relationship == false ) {
 				$output .= //$wgLang->pipeList( array(
-					'<li><a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow">' . wfMessage( 'user-add-friend' )->escaped() . '</a></li>'.
+					'<li class="type1"><a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow"><span class="icon addfriend"></span><span class="caption">' . wfMessage( 'user-add-friend' )->escaped() . '</span></a></li>'.
 //					'<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=2' ) ) . '" rel="nofollow">' . wfMessage( 'user-add-foe' )->escaped() . '</a>'.
 					'';
 				//) );
 			} elseif ( $relationship == 1 ) {
 				$output .= //$wgLang->pipeList( array(
-					'<li><a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '">' . wfMessage( 'user-remove-friend' )->escaped() . '</a></li>'.
+					'<li class="type2"><a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '"><span class="icon removefriend"></span><span class="caption">' . wfMessage( 'user-remove-friend' )->escaped() . '</span></a></li>'.
 					'';
 //					) );
 			}/* elseif ( $relationship == 2 ) {
@@ -955,7 +955,7 @@ class UserProfilePage extends Article {
 
 			global $wgUserBoard;
 			if ( $wgUserBoard ) {
-				$output .= '<li><a href="' . htmlspecialchars( $send_message->getFullURL( 'user=' . $wgUser->getName() . '&conv=' . $user_safe ) ) . '" rel="nofollow">' . wfMessage( 'user-send-message' )->escaped() . '</a>';
+				$output .= '<li class="type3"><a href="' . htmlspecialchars( $send_message->getFullURL( 'user=' . $wgUser->getName() . '&conv=' . $user_safe ) ) . '" rel="nofollow"><span class="icon message"></span><span class="caption">' . wfMessage( 'user-send-message' )->escaped() . '</span></a>';
 				// $output .= wfMessage( 'pipe-separator' )->escaped();
 			}
 /*			$output .= '<a href="' . htmlspecialchars( $give_gift->getFullURL( 'user=' . $user_safe ) ) . '" rel="nofollow">' .
@@ -963,7 +963,7 @@ class UserProfilePage extends Article {
 			$output .= wfMessage( 'pipe-separator' )->escaped();*/
 		}
 
-		$output .= '<li><a href="' . htmlspecialchars( $sandbox->getFullURL() ) . '" rel="nofollow">' . wfMessage( 'user-sandbox' )->escaped() . '</a></li>';
+		$output .= '<li class="type1"><a href="' . htmlspecialchars( $sandbox->getFullURL() ) . '" rel="nofollow"><span class="icon sandbox"></span><span class="caption">' . wfMessage( 'user-sandbox' )->escaped() . '</span></a></li>';
 		// $output .= '<li><a href="' . htmlspecialchars( $contributions->getFullURL() ) . '" rel="nofollow">' . wfMessage( 'user-contributions' )->escaped() . '</a></li>';
 
 		// div.profile-actions 의 메뉴 중 일부 출력하지 않음 (by 카페인러브)
