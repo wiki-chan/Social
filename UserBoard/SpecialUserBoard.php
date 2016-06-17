@@ -333,7 +333,7 @@ class SpecialViewUserBoard extends SpecialPage {
 							<a href=\"{$userPageURL}\" title=\"{$ub_message['user_name_from']}}\">{$ub_message['user_name_from']} </a> {$ub_message_type_label}
 					</div>
 					<div class=\"user-board-message-time\">"
-						. $this->msg( 'userboard_posted_ago', $b->getTimeAgo( $ub_message['timestamp'] ) )->parse() .
+						. $b->getTimeFormat( $ub_message['timestamp'] ) .
 					"</div>
 					<div class=\"user-board-message-content\">
 						<div class=\"user-board-message-image\">

@@ -21,7 +21,7 @@ class UserBoard {
 			__METHOD__
 		);
 		if ($res === false) return false;
-//var_dump($res);
+
 		$message = $res->ub_user_name_from . "(으)로부터 새 ";
 		if ($res->ub_type == 1) $message .= "비밀 ";
 		$message .= "메시지를 받았습니다";
@@ -453,7 +453,7 @@ class UserBoard {
 					<a href=\"{$sender}\" title=\"{$message['user_name_from']}\">{$message['user_name_from']}</a> {$message_type_label}
 					</div>
 					<div class=\"user-board-message-time\">" .
-						wfMessage( 'userboard_posted_ago', $this->getTimeAgo( $message['timestamp'] ) )->parse() .
+						$this->getTimeFormat( $message['timestamp'] ) .
 					"</div>
 					<div class=\"user-board-message-content\">
 						<div class=\"user-board-message-image\">
@@ -553,12 +553,12 @@ class UserBoard {
 	}
 
 	/**
-	 * Gets the time how long ago the given board message was posted
+	 * Gets the time format
 	 *
 	 * @param $time
 	 * @return $timeStr Mixed: time, such as "20 days" or "11 hours"
 	 */
-	public function getTimeAgo( $time ) {
+	public function getTimeFormat( $time ) {
 		$timeArray = $this->dateDiff( time(), $time );
 		$timeStr = '';
 		$timeStrD = $this->getTimeOffset( $timeArray, 'd', 'days' );
@@ -566,7 +566,7 @@ class UserBoard {
 		$timeStrM = $this->getTimeOffset( $timeArray, 'm', 'minutes' );
 		$timeStrS = $this->getTimeOffset( $timeArray, 's', 'seconds' );
 		$timeStr = $timeStrD;
-		if ( $timeStr < 2 ) {
+		if ( $timeArray['d'] < 2 ) {
 			$timeStr .= $timeStrH;
 			$timeStr .= $timeStrM;
 			if ( !$timeStr ) {
@@ -575,6 +575,13 @@ class UserBoard {
 		}
 		if ( !$timeStr ) {
 			$timeStr = wfMessage( 'userboard-time-seconds', 1 )->parse();
+		}
+
+		if ( $timeArray['d'] > 30) {
+			$timeStr = date( 'Y-m-d H:i:s', $time );
+		}
+		else {
+			$timeStr = wfMessage( 'userboard_posted_ago', $timeStr )->parse();
 		}
 		return $timeStr;
 	}
