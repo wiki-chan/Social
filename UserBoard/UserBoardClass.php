@@ -427,11 +427,16 @@ class UserBoard {
 				$delete_link = '';
 
 				if ( $wgUser->getName() != $message['user_name_from'] ) {
+					/*
 					$board_to_board = '<a href="' . UserBoard::getUserBoardToBoardURL( $message['user_name'], $message['user_name_from'] ) . '">' .
 						wfMessage( 'userboard_board-to-board' )->plain() . '</a>';
 					$board_link = '<a href="' . UserBoard::getUserBoardURL( $message['user_name_from'] ) . '">' .
 						wfMessage( 'userboard_sendmessage', $message['user_name_from'] )->parse() . '</a>';
-				}/* block delete method by fenet
+					*/
+					$board_to_board = '<a href="' . UserBoard::getUserBoardToBoardURL( $message['user_name'], $message['user_name_from'] ) . '">답장하기</a>';
+					$board_link = '<a href="' . UserBoard::getUserBoardURL( $message['user_name_from'] ) . '">대화 보기</a>';
+				}
+				/* block delete method by fenet
 				if ( $wgUser->getName() == $message['user_name'] || $wgUser->isAllowed( 'userboard-delete' ) ) {
 					$delete_link = "<span class=\"user-board-red\">
 							<a href=\"javascript:void(0);\" data-message-id=\"{$message['id']}\">" .
@@ -447,35 +452,33 @@ class UserBoard {
 				$message_id = $message['id'];
 
 				$sender = htmlspecialchars( $user->getFullURL() );
-				$output .= "<div class=\"user-board-message\">
-					<div class=\"user-board-message-id\" style=\"display:none;\">{$message_id}</div>
-					<div class=\"user-board-message-from\">
-					<a href=\"{$sender}\" title=\"{$message['user_name_from']}\">{$message['user_name_from']}</a> {$message_type_label}
-					</div>
-					<div class=\"user-board-message-time\">" .
-						$this->getTimeFormat( $message['timestamp'] ) .
-					"</div>
-					<div class=\"user-board-message-content\">
-						<div class=\"user-board-message-image\">
+
+				if ( $message['type'] == 1 ) {
+					$output .= '<li class="private">';
+				} else {
+					$output .= '<li>'
+				}
+				$output .= "<div class=\"user-board-message-id\" style=\"display:none;\">{$message_id}</div>
+					<div class=\"group\">
+						<div class=\"avatar\">
 							<a href=\"{$sender}\" title=\"{$message['user_name_from']}\">{$avatar->getAvatarURL()}</a>
+							<span>{$message['user_name_from']}</span>
 						</div>
-						<div class=\"user-board-message-body\">
-							{$message_text}
-						</div>
-						<div class=\"visualClear\"></div>
+					<div class=\"message\">
+						<p class=\"notice\">{$message_type_label}</p>
+						{$message_text}
+						<div class=\"timestamp\">" . $this->getTimeFormat( $message['timestamp'] ) . "</div>
 					</div>
-					<div class=\"user-board-message-links\">
+					<ul class=\"actions\">
 						{$board_link}
 						{$board_to_board}
 						{$delete_link}
-					</div>
-				</div>";
+					</ul>
+				</li>";
 			}
 			$output .= "<div id=\"user-board-message-max-id\" style=\"display:none;\">{$max_id}</div>";
 		} elseif ( $wgUser->getName() == $wgTitle->getText() ) {
-			$output .= '<div class="no-info-container">' .
-				wfMessage( 'userboard_nomessages' )->parse() .
-			'</div>';
+			$output .= '<div class="no-info">' . wfMessage( 'userboard_nomessages' )->parse() . '</div>';
 
 		}
 
