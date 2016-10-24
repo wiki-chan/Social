@@ -284,3 +284,58 @@
 
 	#user-likes { margin-top: 2em; }
 }
+
+/* Profile Edit Page */
+/* cf. SpecialUpdateProfile.php */
+
+/* Tabs */
+.profile-tab-bar {
+	clear: both;
+	margin-bottom: 1.2em;
+}
+.profile-tab-bar > div + div {
+	margin-left: 2px;
+}
+
+.profile-tab-bar > div > a {
+	display: inline-block;
+	border: 1px solid #E2E2E2;
+	background-color: #FFF;
+	color: #767676;
+	line-height: 1;
+	padding: .55em .5em;
+	margin: 2px;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+.profile-tab-on > a {
+	background-color: #4FAEE0;
+	color: #FFF;
+	border-color: #4FAEE0;
+}
+.profile-tab > a:hover {
+	text-decoration: none;
+	border-color: #ADADAD;
+	background-color: #ADADAD;
+	color: #FFF;
+}
+
+/* Edit Section */
+.profile-update {
+
+}
+.profile-update h4 {
+
+}
+.profile-update ul {
+	padding: 0;
+	margin: 0;
+}
+.profile-update li {
+	display: block;
+	margin: .2em 0;
+}
+.profile-update textarea {
+
+}
