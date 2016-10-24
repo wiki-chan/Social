@@ -687,19 +687,14 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 		</div>
 		<div class="cleared visualClear"></div>';
 */
-		$form .= '<form action="" method="post" enctype="multipart/form-data" name="profile">';
-		$form .= '<div class="profile-info clearfix">';
-		$form .= '<div class="profile-update">';
-		$form .= '<p class="profile-update-unit-left">' . '나는 어떤 사람인가요?' . '</p>
-			<textarea name="whoami" id="whoami">' . $whoami . '</textarea>
-			<div class="cleared"></div>';
-/*		$form .= '<a class="button" href="' . $usertitle->escapeFullURL() . '">프로필로 돌아가기</a>
-			<input type="button" class="site-button" value="' . wfMsg( 'user-profile-update-button' ) . '" size="20" onclick="document.profile.submit()" />
-*/
-		$form .= '
-			<input type="button" class="site-button" value="' . $this->msg( 'user-profile-update-button' )->plain() . '" size="20" onclick="document.profile.submit()" />
-			</div>
-		</form>';
+		$form .= '<form action="" method="post" enctype="multipart/form-data" name="profile">'
+					. '<section class="profile-update">';
+						. '<h4>나에 대해서</h4>'
+						. '<textarea name="whoami" id="whoami" rows="12">' . $whoami . '</textarea>'
+					. '</section>'
+					. '<a class="button" href="' . $usertitle->escapeFullURL() . '">돌아가기</a>'
+					. '<input type="button" class="site-button" value="갱신하기" onclick="document.profile.submit()" />'
+				. '</form>';
 
 		return $form;
 	}
@@ -850,7 +845,7 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 					. '</section>';
 
 			$form .= '<a class="btn" href="' . $user->getUserPage()->getLinkURL() . '">돌아가기</a>'
-					. '<input type="button" value="수정 완료" onclick="document.profile.submit()" />';
+					. '<input type="button" value="갱신하기" onclick="document.profile.submit()" />';
 
 			$form .= '</div>'
 					. '</form>';
