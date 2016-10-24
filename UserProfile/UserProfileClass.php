@@ -265,7 +265,7 @@ class UserProfile {
 
 	static function getEditProfileNav( $current_nav ) {
 		$lines = explode( "\n", wfMessage( 'update_profile_nav' )->inContentLanguage()->text() );
-		$output = '<div class="profile-tab-bar">';
+		$output = '<nav class="profile-tabs"><ul>';
 
 		foreach ( $lines as $line ) {
 			if ( strpos( $line, '*' ) !== 0 ) {
@@ -281,13 +281,13 @@ class UserProfile {
 					$link_text = $msgObj->parse();
 				}
 
-				$output .= '<div class="profile-tab' . ( ( $current_nav == $link_text ) ? '-on' : '' ) . '">';
+				$output .= '<li class="' . ( ( $current_nav == $link_text ) ? 'active' : '' ) . '">';
 				$output .= Linker::link( $page, $link_text );
-				$output .= '</div>';
+				$output .= '</li>';
 			}
 		}
 
-		$output .= '<div class="visualClear"></div></div>';
+		$output .= '</ul></nav>';
 
 		return $output;
 	}

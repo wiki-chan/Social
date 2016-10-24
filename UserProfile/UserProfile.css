@@ -289,15 +289,18 @@
 /* cf. SpecialUpdateProfile.php */
 
 /* Tabs */
-.profile-tab-bar {
+.profile-tabs {
 	clear: both;
 	margin-bottom: 1.2em;
 }
-.profile-tab-bar > div + div {
-	margin-left: 2px;
+.profile-tabs ul {
+	padding: 0;
+	margin: 0;
 }
+.profile-tabs li { display: inline-block; }
+.profile-tabs li + li { margin-left: 2px; }
 
-.profile-tab-bar > div > a {
+.profile-tabs li > a {
 	display: inline-block;
 	border: 1px solid #E2E2E2;
 	background-color: #FFF;
@@ -309,12 +312,12 @@
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 }
-.profile-tab-on > a {
+.profile-tabs li.active > a {
 	background-color: #4FAEE0;
 	color: #FFF;
 	border-color: #4FAEE0;
 }
-.profile-tab > a:hover {
+.profile-tab li > a:hover {
 	text-decoration: none;
 	border-color: #ADADAD;
 	background-color: #ADADAD;
