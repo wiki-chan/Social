@@ -1,87 +1,39 @@
-.cleared {
-	clear: both;
-}
-
-.clearfix:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-
-.clearfix { display: inline-block; }
-
-/* Hides from IE-mac \*/
-* html .clearfix { height: 1%; }
-/* End hide from IE-mac */
-
-/*.blast-friends-list {
-}*/
-
-#blast-friends-list div.blast-friend-selected,
-#blast-friends-list div.blast-foe-selected {
-	background-color:#FFFCA9;
-	border: 1px solid #FDC745;
-	font-weight: bold;
-	padding: 3px;
+#blast-friends-list > div {
+	display: inline-block;
+	line-height: 1.2;
+	padding: .6em .8em;
+	margin: 2px;
+    border-radius: 1.2em;
+	border: 1px solid #E3E7EA;
+	color: #7C7C7C;
+	white-space: nowrap;
 	overflow: hidden;
-	margin: 0px 3px 3px 0px;
-	float: left;
 	cursor: pointer;
-	width: 200px;
-	overflow: hidden;
-	font-weight: bold;
-	padding: 4px;
-	height: 17px;
+	transition: border-color .1s color .1s;
 }
-
 #blast-friends-list div.blast-friend-unselected,
 #blast-friends-list div.blast-foe-unselected {
-	border: 1px dotted #ccc;
-	font-weight: bold;
-	padding: 3px;
-	overflow: hidden;
-	margin: 0px 3px 3px 0px;
-	float: left;
-	cursor: pointer;
-	width: 200px;
-	overflow: hidden;
-	font-weight: bold;
-	padding: 4px;
-	height: 17px;
+
+}
+#blast-friends-list div.blast-friend-selected,
+#blast-friends-list div.blast-foe-selected {
+	border: 1px solid #1BABE2;
+	color: #1BABE2;
 }
 
+/*
 .board-blast-message-form {
-	margin: 8px 0px 0px 0px;
 }
-
 .blast-nav {
-	margin: 0px 0px 12px 0px;
-	font-size: 12px;
 }
-
 .blast-nav-text {
-	margin: 0px 0px 5px 0px;
 }
-
 .blast-message-box-button {
-	padding: 10px 0px 0px 0px;
 }
-
+*/
 .blast-message-text {
-	color: #999999;
-	font-weight: bold;
-	font-size: 12px;
-	margin: 0px 0px 3px 0px;
-}
-
-.board-blast-message-form h2 {
-	color: #333333;
-	margin: 0px 0px 10px 0px !important;
-}
-
-.blast-nav h2 {
-	color: #333333;
-	margin: 15px 0px 10px 0px !important;
+	font-size: .92857142rem;
+	color: #B0B2B5;
+	text-align: center;
+	margin: .5em 0;
 }

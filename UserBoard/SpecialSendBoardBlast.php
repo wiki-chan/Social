@@ -112,22 +112,22 @@ class SpecialBoardBlast extends UnlistedSpecialPage {
 		<div class="blast-nav">
 				<h2>' . $this->msg( 'boardblaststep2' )->escaped() . '</h2>
 				<div class="blast-nav-links">
-					<a href="javascript:void(0);" class="blast-select-all-link">' .
-						$this->msg( 'boardlinkselectall' )->escaped() . '</a> -
-					<a href="javascript:void(0);" class="blast-unselect-all-link">' .
+					<a href="javascript:void(0);" class="btn blast-select-all-link">' .
+						$this->msg( 'boardlinkselectall' )->escaped() . '</a>
+					<a href="javascript:void(0);" class="btn blast-unselect-all-link">' .
 						$this->msg( 'boardlinkunselectall' )->escaped() . '</a> ';
 
 		if ( $friendCount > 0 && $foeCount > 0 ) {
-			$output .= '- <a href="javascript:void(0);" class="blast-select-friends-link">' .
+			$output .= '- <a href="javascript:void(0);" class="btn blast-select-friends-link">' .
 				$this->msg( 'boardlinkselectfriends' )->escaped() . '</a> -';
-			$output .= '<a href="javascript:void(0);" class="blast-unselect-friends-link">' .
+			$output .= '<a href="javascript:void(0);" class="btn blast-unselect-friends-link">' .
 				$this->msg( 'boardlinkunselectfriends' )->escaped() . '</a>';
 		}
 
 		if ( $foeCount > 0 && $friendCount > 0 ) {
-			$output .= '- <a href="javascript:void(0);" class="blast-select-foes-link">' .
+			$output .= '- <a href="javascript:void(0);" class="btn blast-select-foes-link">' .
 				$this->msg( 'boardlinkselectfoes' )->escaped() . '</a> -';
-			$output .= '<a href="javascript:void(0);" class="blast-unselect-foes-link">' .
+			$output .= '<a href="javascript:void(0);" class="btn blast-unselect-foes-link">' .
 				$this->msg( 'boardlinkunselectfoes' )->escaped() . '</a>';
 		}
 		$output .= '</div>
@@ -148,25 +148,23 @@ class SpecialBoardBlast extends UnlistedSpecialPage {
 					$class = 'foe';
 				}
 				$id = $relationship['user_id'];
-				$output .= '<div class="blast-' . $class . "-unselected\" id=\"user-{$id}\">
-						{$relationship['user_name']}
-					</div>";
+				$output .= '<div class="blast-' . $class . "-unselected\" id=\"user-{$id}\">{$relationship['user_name']}</div>";
+				/*
 				if ( $x == count( $relationships ) || $x != 1 && $x % $per_row == 0 ) {
 					$output .= '<div class="visualClear"></div>';
 				}
+				*/
 				$x++;
 			}
 		} else {
 			$output .= '<div>' . $this->msg( 'boardnofriends' )->escaped() . '</div>';
 		}
 
-		$output .= '</div>
+		$output .= '</div>';
 
-			<div class="visualClear"></div>';
-
-		$output .= '<div class="blast-message-box-button">
-			<input type="button" value="' . $this->msg( 'boardsendbutton' )->escaped() . '" class="site-button" />
-		</div>';
+		$output .= '<div class="blast-message-box-button">'
+				. '<input type="button" value="' . $this->msg( 'boardsendbutton' )->escaped() . '" class="site-button" />'
+				. '</div>';
 
 		return $output;
 	}
