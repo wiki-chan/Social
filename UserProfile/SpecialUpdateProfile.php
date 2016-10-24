@@ -813,70 +813,47 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 			<div class="cleared visualClear"></div>
 			</div>'
 			*/
-			$form .= '<form action="" method="post" enctype="multipart/form-data" name="profile">';
-			$form .= '<div class="profile-info clearfix">';
-			$form .= '<div class="profile-update">';
+			$form .= '<form action="" method="post" enctype="multipart/form-data" name="profile">'
+					. '<div class="profile-update">';
 
-			$form .= '<div class="profile-update-column">';
-			$form .= '<p class="profile-update-title">' . "좋아하는 작품" . '</p>';
-			$form .= '<p class="profile-update-unit">
-				<textarea name="series1" id="series1" rows="1" cols="75">' . ( isset( $series1 ) ? $series1 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="series2" id="series2" rows="1" cols="75">' . ( isset( $series2 ) ? $series2 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="series3" id="series3" rows="1" cols="75">' . ( isset( $series3 ) ? $series3 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="series4" id="series4" rows="1" cols="75">' . ( isset( $series4 ) ? $series4 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="series5" id="series5" rows="1" cols="75">' . ( isset( $series5 ) ? $series5 : '' ) . '</textarea>
-			</p>';
+			$form .= '<section class="profile-update-column">'
+						. '<h4>내가 좋아하는 작품</h4>'
+						. '<ul>'
+							. '<li><textarea name="series1" id="series1">' . ( isset( $series1 ) ? $series1 : '' ) . '</textarea></li>'
+							. '<li><textarea name="series2" id="series2">' . ( isset( $series2 ) ? $series2 : '' ) . '</textarea></li>'
+							. '<li><textarea name="series3" id="series3">' . ( isset( $series3 ) ? $series3 : '' ) . '</textarea></li>'
+							. '<li><textarea name="series4" id="series4">' . ( isset( $series4 ) ? $series4 : '' ) . '</textarea></li>'
+							. '<li><textarea name="series5" id="series5">' . ( isset( $series5 ) ? $series5 : '' ) . '</textarea></li>'
+						. '</ul>'
+					. '</section>';
 
-			$form .= '</div><div class="profile-update-column">';
-			$form .= '<p class="profile-update-title">' . "좋아하는 캐릭터" . '</p>';
-			$form .= '<p class="profile-update-unit">
-				<textarea name="character1" id="character1" rows="1" cols="75">' . ( isset( $character1 ) ? $character1 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="character2" id="character2" rows="1" cols="75">' . ( isset( $character2 ) ? $character2 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="character3" id="character3" rows="1" cols="75">' . ( isset( $character3 ) ? $character3 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="character4" id="character4" rows="1" cols="75">' . ( isset( $character4 ) ? $character4 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="character5" id="character5" rows="1" cols="75">' . ( isset( $character5 ) ? $character5 : '' ) . '</textarea>
-			</p>';
+			$form .= '<section class="profile-update-column">'
+						. '<h4>내가 좋아하는 캐릭터</h4>'
+						. '<ul>'
+							. '<li><textarea name="character1" id="character1">' . ( isset( $character1 ) ? $character1 : '' ) . '</textarea></li>'
+							. '<li><textarea name="character2" id="character2">' . ( isset( $character2 ) ? $character2 : '' ) . '</textarea></li>'
+							. '<li><textarea name="character3" id="character3">' . ( isset( $character3 ) ? $character3 : '' ) . '</textarea></li>'
+							. '<li><textarea name="character4" id="character4">' . ( isset( $character4 ) ? $character4 : '' ) . '</textarea></li>'
+							. '<li><textarea name="character5" id="character5">' . ( isset( $character5 ) ? $character5 : '' ) . '</textarea></li>'
+						. '</ul>'
+					. '</section>';
 
-			$form .= '</div><div class="profile-update-column">';
-			$form .= '<p class="profile-update-title">' . "좋아하는 성우" . '</p>';
-			$form .= '
-			<p class="profile-update-unit">
-				<textarea name="seiyuu1" id="seiyuu1" rows="1" cols="75">' . ( isset( $seiyuu1 ) ? $seiyuu1 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="seiyuu2" id="seiyuu2" rows="1" cols="75">' . ( isset( $seiyuu2 ) ? $seiyuu2 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="seiyuu3" id="seiyuu3" rows="1" cols="75">' . ( isset( $seiyuu3 ) ? $seiyuu3 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="seiyuu4" id="seiyuu4" rows="1" cols="75">' . ( isset( $seiyuu4 ) ? $seiyuu4 : '' ) . '</textarea>
-			</p>
-			<p class="profile-update-unit">
-				<textarea name="seiyuu5" id="seiyuu5" rows="1" cols="75">' . ( isset( $seiyuu5 ) ? $seiyuu5 : '' ) . '</textarea>
-			</p>
-			</div>';
+			$form .= '<section class="profile-update-column">'
+						. '<h4>내가 좋아하는 성우</h4>'
+						. '<ul>'
+							. '<li><textarea name="seiyuu1" id="seiyuu1">' . ( isset( $seiyuu1 ) ? $seiyuu1 : '' ) . '</textarea></li>'
+							. '<li><textarea name="seiyuu2" id="seiyuu2">' . ( isset( $seiyuu2 ) ? $seiyuu2 : '' ) . '</textarea></li>'
+							. '<li><textarea name="seiyuu3" id="seiyuu3">' . ( isset( $seiyuu3 ) ? $seiyuu3 : '' ) . '</textarea></li>'
+							. '<li><textarea name="seiyuu4" id="seiyuu4">' . ( isset( $seiyuu4 ) ? $seiyuu4 : '' ) . '</textarea></li>'
+							. '<li><textarea name="seiyuu5" id="seiyuu5">' . ( isset( $seiyuu5 ) ? $seiyuu5 : '' ) . '</textarea></li>'
+						. '</ul>'
+					. '</section>';
 
-			$form .= '<a class="button" href="' . $user->getUserPage()->getLinkURL() . '">프로필로 돌아가기</a>
-				<input type="button" class="site-button" value="' . $this->msg( 'user-profile-update-button' )->plain() . '" size="20" onclick="document.profile.submit()" />
-			</div>
-		</form>';
+			$form .= '<a class="btn" href="' . $user->getUserPage()->getLinkURL() . '">돌아가기</a>'
+					. '<input type="button" value="수정 완료" onclick="document.profile.submit()" />';
+
+			$form .= '</div>'
+					. '</form>';
 
 		return $form;
 	}
