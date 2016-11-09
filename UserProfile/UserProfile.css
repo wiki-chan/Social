@@ -137,11 +137,10 @@ body:not(.action-edit):not(.action-history) .article {
 /* 사용자 이름 */
 #profile-title {
 	font-size: 22px;
-	line-height: 26px;
 	white-space: nowrap;
-	overflow-x: hidden;
+	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-bottom: .25em;
+	margin-bottom: 4px;
 }
 
 /* 레벨, 경험치 */
