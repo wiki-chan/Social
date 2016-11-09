@@ -63,7 +63,8 @@ body:not(.action-edit):not(.action-history) .article {
 }
 
 .action-left { float: left; }
-.action-right: { float: right; }
+.user-section-actions.combined { float: left; }
+.user-section-actions.combined .action-right { float: right; }
 
 .item-small {
 	color: #999;
@@ -75,15 +76,13 @@ body:not(.action-edit):not(.action-history) .article {
 .user-section-heading {
 	line-height: 30px;
 }
-
 .user-section-title {
 	float: left;
 	font-size: 18px;
 }
 
 .user-section-actions {
-	float: left;
-	margin-left: 1em;
+	margin-left: 10px;
 }
 .user-section-actions a {
 	font-size: 12px;
@@ -131,16 +130,17 @@ body:not(.action-edit):not(.action-history) .article {
 
 /* Right: Username etc */
 #profile-title-container {
-	max-width: 200px;
+	max-width: 180px;
 	white-space: nowrap;
+	font-size: 0; /* margin fix */
 }
 
 /* 사용자 이름 */
 #profile-title {
-	display: inline-block;
 	font-size: 22px;
 	line-height: 26px;
 	white-space: nowrap;
+	margin-bottom: .25em;
 }
 
 /* 레벨, 경험치 */
@@ -148,13 +148,17 @@ body:not(.action-edit):not(.action-history) .article {
 #points-level {
 	display: inline-block;
 	padding-left: .5em;
-}
-#honorific-level > a,
-#points-level > a {
+	font-size: 14px;
 	font-family: 'Malgun Gothic', sans-serif;
 }
 
-#honorific-level { display: none; } /* 경험치 표시하지 않음 */
+#points-level:before {
+	content: '|';
+	font-size: 12px;
+	vertical-align: 1px;
+	color: #DDD;
+	margin: 0 5px;
+}
 
 /* 편집 횟수, 친구 수 */
 .user-statcount {
@@ -169,7 +173,8 @@ body:not(.action-edit):not(.action-history) .article {
 
 /* 우측 상단 메뉴 */
 .profile-actions {
-	text-align: right;
+	text-align: right !important;
+	vertical-align: top !important;
 	font-size: 0; /* margin fix */
 }
 
@@ -390,9 +395,9 @@ body:not(.action-edit):not(.action-history) .article {
 }
 
 .user-board-message-time {
-	font-size: 12px;
-	color: #797979;
 	float: right;
+	font-size: 12px;
+	color: #9cb0bb;
 	margin: 4px 10px 4px 0;
 }
 
@@ -402,11 +407,6 @@ body:not(.action-edit):not(.action-history) .article {
 	border: 1px solid #d0ecf8;
 	margin: 0 10px;	
 	padding: 5px;
-}
-
-.user-board-message-time {
-	color: #68a7ce;
-	margin: 2px 0px 0px 5px;
 }
 
 .user-board-message-image {

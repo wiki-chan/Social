@@ -1546,7 +1546,7 @@ class UserProfilePage extends Article {
 			<div class="user-section-title">' .
 				wfMessage( 'user-board-title' )->escaped() .
 			'</div>
-			<div class="user-section-actions">
+			<div class="user-section-actions combined">
 				<div class="action-right">';
 		if ( $wgUser->getName() == $user_name ) {
 			if ( $friends ) {
