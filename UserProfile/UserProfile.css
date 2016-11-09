@@ -62,9 +62,6 @@ body:not(.action-edit):not(.action-history) .article {
 	color: #777;
 }
 
-.action-left { float: left; }
-.user-section-actions.combined { float: left; }
-.user-section-actions.combined .action-right { float: right; }
 
 .item-small {
 	color: #999;
@@ -82,8 +79,12 @@ body:not(.action-edit):not(.action-history) .article {
 }
 
 .user-section-actions {
+	float: left;
 	margin-left: 10px;
 }
+.user-section-actions.combined { float: none; }
+.user-section-actions .action-left { float: left; }
+.user-section-actions.combined .action-right { float: right; }
 .user-section-actions a {
 	font-size: 12px;
 	margin: 0 .2em;
@@ -96,7 +97,6 @@ body:not(.action-edit):not(.action-history) .article {
 	margin: 0 .6em 0 .4em;
 	background-color: #CCC;
 }
-
 
 #user-page-left .user-section-actions { float: left; }
 #user-page-left .action-left { float: none; }
@@ -130,8 +130,7 @@ body:not(.action-edit):not(.action-history) .article {
 
 /* Right: Username etc */
 #profile-title-container {
-	max-width: 180px;
-	white-space: nowrap;
+	width: 200px;
 	font-size: 0; /* margin fix */
 }
 
@@ -140,6 +139,8 @@ body:not(.action-edit):not(.action-history) .article {
 	font-size: 22px;
 	line-height: 26px;
 	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 	margin-bottom: .25em;
 }
 
