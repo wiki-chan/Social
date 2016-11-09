@@ -62,6 +62,9 @@ body:not(.action-edit):not(.action-history) .article {
 	color: #777;
 }
 
+.action-left { float: left; }
+.action-right: { float: right; }
+
 .item-small {
 	color: #999;
 	font-size: 12px;
@@ -69,140 +72,128 @@ body:not(.action-edit):not(.action-history) .article {
 	white-space: nowrap;
 }
 
-.user-section-heading:after {
-	content: '';
-	display: table;
+.user-section-heading {
+	line-height: 30px;
 }
 
 .user-section-title {
 	float: left;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .user-section-actions {
-	float: right;
-}
-
-/* 편집 버튼 */
-.action-left {
 	float: left;
-	margin-right: 10px;
-	color: #aaa;
+	margin-left: 1em;
 }
-.action-right {
-	float: right;
-}
-
 .user-section-actions a {
 	font-size: 12px;
-	padding: 2px 4px;
-	color: #fff !important;
-	background: #50a9d2;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	margin-left: 3px;
+	margin: 0 .2em;
 }
-.user-section-actions a:hover {
-	background: #a5a5a5;
+.user-section-actions a + a:before {
+	content: '';
+	display: inline-block;
+	width: 1px;
+	height: .75em;
+	margin: 0 .6em 0 .4em;
+	background-color: #CCC;
 }
+
+
+#user-page-left .user-section-actions { float: left; }
+#user-page-left .action-left { float: none; }
+#user-page-right .action-left { margin-left: 1em; color: #919599; }
 
 /* Profile Top */
 #profile-top {
-	position: relative;
-	padding: 0 2em;
-	margin-bottom: 1em;
+	display: table;
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+#profile-top > * {
+	display: table-cell;
+	vertical-align: middle;
+	min-height: 100px;
 }
 
 /* Left: Avatar image */
 #profile-image {
-	float: left;
-	margin-right: 16px;
+	width: 130px;
 }
-
-#profile-image img {
+#profile-image > img {
 	display: block;
 	width: 100px;
 	height: 100px;
+	overflow: hidden;
 	background-color: #fff;
 }
 
 /* Right: Username etc */
-#profile-right {
-	margin-left: 120px; /* 100px + 4px of padding + 16px of margin from #profile-image */
-}
-
 #profile-title-container {
-	float: left;
-	margin: 50px 2em 0;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
+	max-width: 200px;
+	white-space: nowrap;
 }
 
 /* 사용자 이름 */
 #profile-title {
 	display: inline-block;
-	max-width: 200px;
-	font-size: 1.66rem;
+	font-size: 22px;
+	line-height: 26px;
 	white-space: nowrap;
 }
 
-/* 경험치, 레벨 */
+/* 레벨, 경험치 */
+#honorific-level,
 #points-level {
-	display: none;
-}
-#honorific-level {
 	display: inline-block;
-	margin-left: 6px;
+	padding-left: .5em;
 }
-#honorific-level a {
-	font-size: 0.9rem;
-	padding: 2px 4px;
-	background-color: #50a9d2;
-	color: #fff !important;
-	border-radius: 3px;
-	vertical-align: 4px;
-	white-space: nowrap;
-	text-decoration: none;
+#honorific-level > a,
+#points-level > a {
+	font-family: 'Malgun Gothic', sans-serif;
 }
-#honorific-level a:hover {
-	background-color: #a5a5a5;
-}
+
+#honorific-level { display: none; } /* 경험치 표시하지 않음 */
 
 /* 편집 횟수, 친구 수 */
 .user-statcount {
-	float: left;
-	font-size: 12px;
-	margin: 50px 1em 0;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	text-align: center;
+	width: 70px;
+	padding: 0 10px;
 }
 .user-statnumber {
 	display: block;
 	font-size: 20px;
-	font-weight: bold;
-	font-family: "Trebuchet MS", Geneva, sans-serif;
+	font-family: 'Malgun Gothic', sans-serif;
 }
 
 /* 우측 상단 메뉴 */
 .profile-actions {
-	position: absolute;
-	top: 50%;
-	right: 2em;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
+	text-align: right;
+	font-size: 0; /* margin fix */
 }
 
 .profile-actions li {
-	float: left;
-	margin-left: 5px;
+	display: inline-block;
+	font-size: 1rem;
+	padding: 1px;
 }
 .profile-actions li a {
-	display: block;
-	width: 80px;
-	height: 80px;
+	display: inline-block;
 	position: relative;
+	font-size: 1rem;
+	height: 38px;
+	line-height: 38px;
+	padding: 0 .5em;
+	border-radius: 4px;
+	text-align: center;
+	white-space: nowrap;
+	text-decoration: none !important;
+	color: #FFF !important;
+	background-color: #6EC8F8;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
 .profile-actions li.type1 {
 	background: #63bdfc;
@@ -414,8 +405,7 @@ body:not(.action-edit):not(.action-history) .article {
 }
 
 .user-board-message-time {
-	font-size: 11px;
-	color: #797979;
+	color: #68a7ce;
 	margin: 2px 0px 0px 5px;
 }
 
