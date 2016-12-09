@@ -903,7 +903,7 @@ class UserProfilePage extends Article {
 		# 친구 숫자(텍스트): $stats_data['friend_count']
 		$output .= '<div id="user-profile">'
 				. '<div id="user-profile-image">' . $avatar->getAvatarURL()
-					. '<a class="icon-upload" href="' . htmlspecialchars( $upload_avatar->getFullURL() ) . '>'
+					. '<a class="icon-upload" href="' . htmlspecialchars( $upload_avatar->getFullURL() ) . '">'
 						. '<span>' . wfMessage( 'user-upload-avatar' )->escaped() . '</span>'
 					. '</a>'
 				. '</div>'
@@ -918,26 +918,26 @@ class UserProfilePage extends Article {
 								. $user_level->getLevelName() 
 							. '</a>'
 						. '</div>'
-						. '<div class="track group"><span class="bar" style="width: ' . 45 . '%;"></span></div>'
-						. '<div class="exp">' . formatNum( $stats_data['points'] ) . '</div>'
-					. '</div>';		
+						. '<div class="track group"><span class="bar" style="width: 45%;"></span></div>'
+						. '<div class="exp">' . $wgLang->formatNum( $stats_data['points'] ) . '</div>'
+					. '</div>';
 		}
 
 		$output .= '<div id="user-relationship">';
 
 		// 자기 자신의 프로필
 		if ( $this->isOwner() ) {
-			$output .= '<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow">새로운 친구신청</a>이 있습니다.'
+			$output .= '<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow">새로운 친구신청</a>이 있습니다.';
 		}
 		// 남의 프로필 (로그인 상태)
 		elseif ( $wgUser->isLoggedIn() ) {
 			// 아직 친구가 아님
 			if ( $relationship == false ) {
-				$output .= '<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow">친구로 추가</a>하시겠습니까?'
+				$output .= '<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow">친구로 추가</a>하시겠습니까?';
 			}
 			// 이미 친구에 추가됨
 			elseif ( $relationship == 1 ) {
-				$output .= '<a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '" rel="nofollow">친구 관계입니다.</a>'
+				$output .= '<a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '" rel="nofollow">친구 관계입니다.</a>';
 			}
 		}
 

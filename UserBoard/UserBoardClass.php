@@ -456,7 +456,7 @@ class UserBoard {
 				if ( $message['type'] == 1 ) {
 					$output .= '<li class="private">';
 				} else {
-					$output .= '<li>'
+					$output .= '<li>';
 				}
 				$output .= "<div class=\"user-board-message-id\" style=\"display:none;\">{$message_id}</div>
 					<div class=\"group\">
