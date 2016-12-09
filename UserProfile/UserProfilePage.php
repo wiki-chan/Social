@@ -137,18 +137,6 @@ class UserProfilePage extends Article {
 			wfDebug( __METHOD__ . ": UserProfileBeginRight messed up profile!\n" );
 		}
 
-		/*
-		일단 당장은 아무것도 안씀 (by 페네트)
-		$wgOut->addHTML( $this->getPersonalInfo( $this->user_id, $this->user_name ) );
-		$wgOut->addHTML( $this->getActivity( $this->user_name ) );
-		// Hook for BlogPage
-		if ( !Hooks::run( 'UserProfileRightSideAfterActivity', array( $this ) ) ) {
-			wfDebug( __METHOD__ . ": UserProfileRightSideAfterActivity hook messed up profile!\n" );
-		}
-		$wgOut->addHTML( $this->getCasualGames( $this->user_id, $this->user_name ) );
-		$wgOut->addHTML( $this->getUserBoard( $this->user_id, $this->user_name ) );
-		*/
-
 		$wgOut->addHTML( $this->getUserInfo( $this->user_id, $this->user_name ) );
 		$wgOut->addHTML( '<hr>' );
 		$wgOut->addHTML( $this->getUserBoard( $this->user_id, $this->user_name ) );
@@ -187,13 +175,6 @@ class UserProfilePage extends Article {
 		$stats_data = $stats->getUserStats();
 
 		$total_value = $stats_data['edits'];
-		/* 편집 이외의 스탯 정보를 비활성화 (by 카페인러브)
-			. $stats_data['votes'] .
-			. $stats_data['comments'] . $stats_data['recruits']
-			. $stats_data['poll_votes']
-			. $stats_data['picture_game_votes']
-			. $stats_data['quiz_points'];
-		*/
 
 		if ( $total_value != 0 ) {
 			$output .= '<div class="user-section-heading clear">
@@ -214,37 +195,6 @@ class UserProfilePage extends Article {
 					wfMessage( 'user-stats-edits', $stats_data['edits'] )->escaped(),
 					$stats_data['edits']
 				);
-			/* 편집 이외의 스탯 정보를 비활성화 (by 카페인러브)
-				$this->getUserStatsRow(
-					wfMsgExt( 'user-stats-votes', 'parsemag', $stats_data['votes'] ),
-					$stats_data['votes']
-				) .
-				$this->getUserStatsRow(
-					wfMessage( 'user-stats-comments', $stats_data['comments'] )->escaped(),
-					$stats_data['comments'] ) .
-				$this->getUserStatsRow(
-					wfMessage( 'user-stats-recruits', $stats_data['recruits'] )->escaped(),
-					$stats_data['recruits']
-				) .
-				$this->getUserStatsRow(
-					wfMessage( 'user-stats-poll-votes', $stats_data['poll_votes'] )->escaped(),
-					$stats_data['poll_votes']
-				) .
-				$this->getUserStatsRow(
-					wfMessage( 'user-stats-picture-game-votes', $stats_data['picture_game_votes'] )->escaped(),
-					$stats_data['picture_game_votes']
-				) .
-				$this->getUserStatsRow(
-					wfMessage( 'user-stats-quiz-points', $stats_data['quiz_points'] )->escaped(),
-					$stats_data['quiz_points']
-				);
-			if ( $stats_data['currency'] != '10000' ) {
-				$output .= $this->getUserStatsRow(
-					wfMessage( 'user-stats-pick-points', $stats_data['currency'] )->escaped(),
-					$stats_data['currency']
-				);
-			}
-			*/
 			$output .= '</div>';
 		}
 
@@ -873,26 +823,6 @@ class UserProfilePage extends Article {
 
 		$output = '';
 
-		/* disabled by fenet
-		if ( $this->isOwner() ) {
-			$toggle_title = SpecialPage::getTitleFor( 'ToggleUserPage' );
-			// Cast it to an int because PHP is stupid.
-			if (
-				(int) $profile_data['user_page_type'] == 1 ||
-				$profile_data['user_page_type'] === ''
-			)
-			{
-				$toggleMessage = wfMessage( 'user-type-toggle-old' )->escaped();
-			} else {
-				$toggleMessage = wfMessage( 'user-type-toggle-new' )->escaped();
-			}
-			$output .= '<div id="profile-toggle-button">
-				<a href="' . htmlspecialchars( $toggle_title->getFullURL() ) . '" rel="nofollow">' .
-					$toggleMessage . '</a>
-			</div>';
-		}
-		*/
-
 		# 프로필 부분의 HTML 구성
 		# 랭킹 페이지(URL): htmlspecialchars( $top_users->getFullURL() )
 		# 누적 포인트(텍스트): wfMessage('user-profile-points', $wgLang->formatNum( $stats_data['points'] )	)->escaped()
@@ -949,98 +879,6 @@ class UserProfilePage extends Article {
 		if ( $wgUserBoard ) {
 			$output .= '<li><a href="' . htmlspecialchars( $send_message->getFullURL( 'user=' . $wgUser->getName() . '&conv=' . $user_safe ) ) . '" rel="nofollow">대화 로그</a>';
 		}
-
-
-		/* OLD SYNTAX
-		$output .= '<div id="profile-right">';
-
-		$output .= '<div id="profile-title-container">
-				<div id="profile-title">' .
-					$user_name .
-				'</div>';
-		// Show the user's level and the amount of points they have if
-		// UserLevels has been configured
-		if ( $wgUserLevels ) {
-			$output .= '<div id="honorific-level">
-						<a href="' . htmlspecialchars( $level_link->getFullURL() ) . '" rel="nofollow">' . $user_level->getLevelName() . '</a>
-					</div>
-					<div id="points-level">
-					<a href="' . htmlspecialchars( $top_users->getFullURL() ) . '">' .
-						wfMessage(
-							'user-profile-points',
-							$wgLang->formatNum( $stats_data['points'] )
-						)->escaped() .
-					'</a>
-					</div>';
-		}
-		$output .= '</div>
-				<div class="user-statcount"><span>편집</span><a href="' . htmlspecialchars( $contributions->getFullURL() ) . '" class="user-statnumber">' . $stats_data['edits'] . '</a></div>
-				<div class="user-statcount"><span>친구</span><a href="' . htmlspecialchars( $view_relationships->getFullURL() ) . '" class="user-statnumber">' . $stats_data['friend_count'] . '</a></div>'; // 편집 횟수 출력 by 페네트-
-
-		$output .= '<div class="cleared visualClear"></div>
-				<ul class="profile-actions nolist">';
-
-		if ( $this->isOwner() ) {
-			$output .= 
-				'<li><a href="' . $upload_avatar->escapeFullURL() . '"><span class="caption">' . wfMsg( 'user-upload-avatar' ) . '</span><span class="icon avatar"></span></a></li>' .
-				'<li><a href="' . $view_relationship_requests->escapeFullURL() . '">' . wfMsg( 'ur-requests-title' ) . '</a></li>';
-				'<li><a class="view-watchlist" href="' . $editwatchlist->escapeFullURL() . '">' . wfMsg( 'user-watchlist' ) . '</a></li>';
-			$output .= $wgLang->pipeList( array(
-				'<a href="' . htmlspecialchars( $update_profile->getFullURL() ) . '">' . wfMessage( 'user-edit-profile' )->escaped() . '</a>' .
-				'<li class="type1"><a href="' . htmlspecialchars( $upload_avatar->getFullURL() ) . '"><span class="icon avatar"></span><span class="caption">' . wfMessage( 'user-upload-avatar' )->escaped() . '</span></a></li>' .
-				'<li class="type2"><a href="' . htmlspecialchars( $view_relationship_requests->getFullURL() ) . '"><span class="icon relationship"></span><span class="caption">' . wfMsg( 'user-requests-title' ) . '</span></a></li>' .
-				'<li class="type3"><a href="' . htmlspecialchars( $watchlist->getFullURL() ) . '"><span class="icon watchlist"></span><span class="caption">' . wfMessage( 'user-watchlist' )->escaped() . '</span></a></li>' .
-				'';
-			) );
-		} elseif ( $wgUser->isLoggedIn() ) {
-			if ( $relationship == false ) {
-				$output .= $wgLang->pipeList( array(
-					'<li class="type1"><a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=1' ) ) . '" rel="nofollow"><span class="icon addfriend"></span><span class="caption">' . wfMessage( 'user-add-friend' )->escaped() . '</span></a></li>'.
-					'<a href="' . htmlspecialchars( $add_relationship->getFullURL( 'user=' . $user_safe . '&rel_type=2' ) ) . '" rel="nofollow">' . wfMessage( 'user-add-foe' )->escaped() . '</a>'.
-					'';
-				) );
-			} elseif ( $relationship == 1 ) {
-				$output .= $wgLang->pipeList( array(
-					'<li class="type2"><a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '"><span class="icon removefriend"></span><span class="caption">' . wfMessage( 'user-remove-friend' )->escaped() . '</span></a></li>'.
-					'';
-					) );
-			} elseif ( $relationship == 2 ) {
-				$output .= $wgLang->pipeList( array(
-					'<a href="' . htmlspecialchars( $remove_relationship->getFullURL( 'user=' . $user_safe ) ) . '">' . wfMessage( 'user-remove-foe' )->escaped() . '</a>',
-					''
-				) );
-			}
-
-			global $wgUserBoard;
-			if ( $wgUserBoard ) {
-				$output .= '<li class="type3"><a href="' . htmlspecialchars( $send_message->getFullURL( 'user=' . $wgUser->getName() . '&conv=' . $user_safe ) ) . '" rel="nofollow"><span class="icon message"></span><span class="caption">' . wfMessage( 'user-send-message' )->escaped() . '</span></a>';
-				$output .= wfMessage( 'pipe-separator' )->escaped();
-			}
-			$output .= '<a href="' . htmlspecialchars( $give_gift->getFullURL( 'user=' . $user_safe ) ) . '" rel="nofollow">' .
-				wfMessage( 'user-send-gift' )->escaped() . '</a>';
-			$output .= wfMessage( 'pipe-separator' )->escaped();
-		}
-
-		$output .= '<li class="type1"><a href="' . htmlspecialchars( $sandbox->getFullURL() ) . '" rel="nofollow"><span class="icon sandbox"></span><span class="caption">' . wfMessage( 'user-sandbox' )->escaped() . '</span></a></li>';
-		$output .= '<li><a href="' . htmlspecialchars( $contributions->getFullURL() ) . '" rel="nofollow">' . wfMessage( 'user-contributions' )->escaped() . '</a></li>';
-
-		// Links to User:user_name from User_profile:
-		if ( $this->getTitle()->getNamespace() == NS_USER_PROFILE && $this->profile_data['user_id'] && $this->profile_data['user_page_type'] == 0 ) {
-			$output .= '| <a href="' . htmlspecialchars( $user_page->getFullURL() ) . '" rel="nofollow">' .
-				wfMessage( 'user-page-link' )->escaped() . '</a> ';
-		}
-
-		// Links to User:user_name from User_profile:
-		if ( $this->getTitle()->getNamespace() == NS_USER && $this->profile_data['user_id'] && $this->profile_data['user_page_type'] == 0 ) {
-			$output .= '| <a href="' . htmlspecialchars( $user_social_profile->getFullURL() ) . '" rel="nofollow">' .
-				wfMessage( 'user-social-profile-link' )->escaped() . '</a> ';
-		}
-
-		if ( $this->getTitle()->getNamespace() == NS_USER && ( !$this->profile_data['user_id'] || $this->profile_data['user_page_type'] == 1 ) ) {
-			$output .= '| <a href="' . htmlspecialchars( $user_wiki->getFullURL() ) . '" rel="nofollow">' .
-				wfMessage( 'user-wiki-link' )->escaped() . '</a>';
-		}
-		*/
 
 		$output .= '</ul></div>';
 
@@ -1586,39 +1424,6 @@ class UserProfilePage extends Article {
 		if ( $wgUser->getName() == $user_name || $wgUser->isAllowed( 'userboard-delete' ) ) {
 			$total = $total + $stats_data['user_board_priv'];
 		}
-		/* OLD SYNTAX
-		$output .= '<div class="user-section-heading">
-			<div class="user-section-title">' .
-				wfMessage( 'user-board-title' )->escaped() .
-			'</div>
-			<div class="user-section-actions">
-				<div class="action-right">';
-		if ( $wgUser->getName() == $user_name ) {
-			if ( $friends ) {
-				$output .= '<a href="' . UserBoard::getBoardBlastURL() . '">' .
-					wfMessage( 'user-send-board-blast' )->escaped() . '</a>';
-			}
-			if ( $total > 10 ) {
-				$output .= wfMessage( 'pipe-separator' )->escaped();
-			}
-		}
-		if ( $total > 10 ) {
-			$output .= '<a href="' . UserBoard::getUserBoardURL( $user_name ) . '">' .
-				wfMessage( 'user-view-all' )->escaped() . '</a>';
-		}
-		$output .= '</div>
-				<div class="action-left">';
-		if ( $total > 10 ) {
-			$output .= wfMessage( 'user-count-separator', '10', $total )->escaped();
-		} elseif ( $total > 0 ) {
-			$output .= wfMessage( 'user-count-separator', $total, $total )->escaped();
-		}
-		$output .= '</div>
-				<div class="cleared visualClear"></div>
-			</div>
-		</div>
-		<div class="cleared visualClear"></div>';
-		*/
 
 		$output .= '<div id="user-guestbook"><h4>방명록</h4>';
 
