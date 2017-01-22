@@ -396,7 +396,7 @@ class UploadAvatar extends UploadFromFile {
 				$ext = 'png';
 				break;
 			default:
-				return Status::newFatal( 'filetype-banned-type' );
+				return Status::newFatal( 'filetype-banned' );
 		}
 
 		$dest = $this->avatarUploadDirectory;
