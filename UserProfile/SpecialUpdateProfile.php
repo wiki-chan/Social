@@ -502,7 +502,7 @@ class SpecialUpdateProfile extends UnlistedSpecialPage {
 			__METHOD__
 		);
 
-		//$showYOB = true;
+		$whoami = '';
 		if ( $s !== false ) {
 			/*
 			$location_city = $s->up_location_city;

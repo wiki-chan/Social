@@ -178,7 +178,7 @@ class SpecialUploadAvatar extends SpecialUpload {
 				";
 		}
 
-		// $output = '<h1>' . $this->msg( 'uploadavatar' )->plain() . '</h1>';
+		$output = '';
 		$output .= UserProfile::getEditProfileNav( $this->msg( 'user-profile-section-picture' )->plain() );
 		$output .= '<div class="profile-info">';
 
